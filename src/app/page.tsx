@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoSvg } from "@/components/Logo";
 import { LockedTeaserCard } from "@/components/LockedTeaserCard";
-import { getTeasers, getCatalogStats } from "@/lib/listings";
+import { getTeasers } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
 
@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function LandingPage() {
   const locale = await getLocale();
   const t = getDictionary(locale);
-  const [teasers, stats] = await Promise.all([getTeasers(6), getCatalogStats()]);
+  const teasers = await getTeasers(6);
 
   return (
     <div className="grain relative">
@@ -49,16 +49,10 @@ export default async function LandingPage() {
               </a>
             </div>
 
-            <div className="mt-8 grid w-full grid-cols-3 gap-3 border-t border-ink-border pt-6 sm:flex sm:w-auto sm:gap-x-10 sm:border-0 sm:pt-0">
+            <div className="mt-8 grid w-full gap-4 border-t border-ink-border pt-6 sm:flex sm:w-auto sm:gap-x-10 sm:border-0 sm:pt-0">
               <div>
-                <p className="num text-2xl text-cream sm:text-3xl">{stats.total}</p>
-                <p className="mt-0.5 text-xs text-dim sm:text-sm">
-                  {t.landing.statResidences}
-                </p>
-              </div>
-              <div>
-                <p className="num text-2xl text-cream sm:text-3xl">
-                  {stats.provinceCount}
+                <p className="font-display text-xl text-cream sm:text-2xl">
+                  Phuket · Samui · Bangkok
                 </p>
                 <p className="mt-0.5 text-xs text-dim sm:text-sm">
                   {t.landing.statRegions}
@@ -68,6 +62,14 @@ export default async function LandingPage() {
                 <p className="num text-2xl text-cream sm:text-3xl">฿15M+</p>
                 <p className="mt-0.5 text-xs text-dim sm:text-sm">
                   {t.landing.statEntry}
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-xl text-gold-gradient sm:text-2xl">
+                  {t.landing.statResidencesBig}
+                </p>
+                <p className="mt-0.5 text-xs text-dim sm:text-sm">
+                  {t.landing.statResidences}
                 </p>
               </div>
             </div>

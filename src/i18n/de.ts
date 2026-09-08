@@ -30,8 +30,9 @@ export const de: Dict = {
       "Palais Horizon bündelt Luxusangebote der führenden Maklerhäuser des Landes. Mitglieder sehen jeden Preis, jedes Detail und werden direkt an das Maklerbüro vermittelt.",
     heroCta: "Mitgliedschaft ansehen",
     heroCtaSecondary: "So funktioniert es",
-    statResidences: "kuratierte Residenzen",
-    statRegions: "abgedeckte Regionen",
+    statResidencesBig: "Kuratiert",
+    statResidences: "nicht gecrawlt — jedes Inserat geprüft",
+    statRegions: "und wächst landesweit",
     statEntry: "Einstieg in die Kollektion",
     teaserTitle: "Ein Blick in die Kollektion",
     teaserBody:

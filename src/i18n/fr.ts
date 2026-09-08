@@ -30,8 +30,9 @@ export const fr: Dict = {
       "Palais Horizon rassemble les annonces de luxe des meilleures agences du pays. Les membres voient chaque prix, chaque détail, et sont mis en relation directe avec l'agence.",
     heroCta: "Voir l'abonnement",
     heroCtaSecondary: "Comment ça marche",
-    statResidences: "résidences sélectionnées",
-    statRegions: "régions couvertes",
+    statResidencesBig: "Sélection",
+    statResidences: "pas d'aspiration — chaque annonce vérifiée",
+    statRegions: "et bientôt tout le pays",
     statEntry: "entrée dans la collection",
     teaserTitle: "Un aperçu de la collection",
     teaserBody:

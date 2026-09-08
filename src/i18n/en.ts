@@ -28,8 +28,9 @@ export const en = {
       "Palais Horizon gathers luxury listings from the country's leading agencies. Members see every price, every detail, and are introduced directly to the listing agency.",
     heroCta: "View membership",
     heroCtaSecondary: "How it works",
-    statResidences: "curated residences",
-    statRegions: "regions covered",
+    statResidencesBig: "Curated",
+    statResidences: "not crawled — every listing checked",
+    statRegions: "and growing across Thailand",
     statEntry: "entry to the collection",
     teaserTitle: "A glimpse inside the collection",
     teaserBody:
