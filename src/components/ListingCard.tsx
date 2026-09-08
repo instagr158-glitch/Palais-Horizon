@@ -14,7 +14,7 @@ function Spec({
   if (value == null) return null;
   return (
     <span className="text-dim">
-      <span className="text-silver">{value}</span> {label}
+      <span className="num text-silver">{value}</span> {label}
     </span>
   );
 }
@@ -68,16 +68,20 @@ export function ListingCard({ listing, t }: { listing: FullListing; t: Dict }) {
           ) : null}
         </div>
 
-        <div className="mt-3 flex items-end justify-between">
+        <div className="mt-3 flex items-end justify-between gap-2">
           <div>
-            <p className="font-display text-xl text-gold-gradient">
+            <p className="num text-lg text-gold-gradient">
               {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
             </p>
             {listing.priceUsd ? (
-              <p className="text-xs text-dim">≈ {formatUsd(listing.priceUsd)}</p>
+              <p className="num text-xs text-dim">
+                ≈ {formatUsd(listing.priceUsd)}
+              </p>
             ) : null}
           </div>
-          <span className="text-xs text-dim">{listing.agencyName}</span>
+          <span className="shrink-0 text-right text-[11px] text-dim">
+            {listing.agencyName}
+          </span>
         </div>
       </div>
     </Link>

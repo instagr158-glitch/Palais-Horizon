@@ -79,13 +79,13 @@ export function PricingTable({ configured, prices }: Props) {
     <div>
       <div
         className={`grid gap-5 ${
-          plans.length > 1 ? "sm:grid-cols-2" : "max-w-sm"
+          plans.length > 1 ? "sm:grid-cols-2" : "sm:max-w-sm"
         }`}
       >
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative rounded-sm border p-6 ${
+            className={`relative rounded-sm border p-5 sm:p-6 ${
               plan.highlight
                 ? "border-gold/60 bg-gold/[0.04] shadow-gold"
                 : "border-ink-border bg-ink-panel"
@@ -99,17 +99,19 @@ export function PricingTable({ configured, prices }: Props) {
             <p className="text-xs uppercase tracking-widetitle text-dim">
               {plan.name}
             </p>
-            <p className="mt-2 font-display text-4xl text-cream">
-              {plan.price}
-              <span className="ml-1 text-base text-dim">{plan.unit}</span>
+            <p className="mt-3 flex items-baseline gap-1.5">
+              <span className="num text-[2.75rem] leading-none text-cream sm:text-5xl">
+                {plan.price}
+              </span>
+              <span className="text-base text-silver">{plan.unit}</span>
             </p>
-            <p className="mt-0.5 text-xs text-dim">{plan.approx}</p>
-            <p className="mt-1 text-sm text-gold">{plan.note}</p>
+            <p className="num mt-2 text-sm text-silver">{plan.approx}</p>
+            <p className="mt-2 text-sm text-gold">{plan.note}</p>
 
             <button
               onClick={() => choose(plan.id)}
               disabled={loading !== null}
-              className="btn-gold mt-5 w-full rounded-sm px-4 py-2.5 text-sm disabled:opacity-60"
+              className="btn-gold mt-5 w-full rounded-sm px-4 py-3 text-sm disabled:opacity-60"
             >
               {loading === plan.id ? t.pricing.redirecting : t.pricing.cta}
             </button>

@@ -28,29 +28,31 @@ export default async function AccountPage() {
   const localeTag = locale === "fr" ? "fr-FR" : locale === "de" ? "de-DE" : "en-GB";
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
-      <h1 className="font-display text-3xl text-cream">{t.account.title}</h1>
+    <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
+      <h1 className="font-display text-2xl text-cream sm:text-3xl">
+        {t.account.title}
+      </h1>
 
-      <div className="panel mt-6 rounded-sm p-6">
-        <dl className="space-y-3 text-sm">
-          <div className="flex justify-between">
+      <div className="panel mt-6 rounded-sm p-5 sm:p-6">
+        <dl className="divide-y divide-ink-border text-sm">
+          <div className="flex items-center justify-between gap-3 py-2.5">
             <dt className="text-dim">{t.account.name}</dt>
-            <dd className="text-cream">{user.name ?? "—"}</dd>
+            <dd className="text-right text-cream">{user.name ?? "—"}</dd>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between gap-3 py-2.5">
             <dt className="text-dim">{t.account.email}</dt>
-            <dd className="text-cream">{user.email}</dd>
+            <dd className="break-all text-right text-cream">{user.email}</dd>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between gap-3 py-2.5">
             <dt className="text-dim">{t.account.membership}</dt>
-            <dd className={isMember ? "text-gold" : "text-cream"}>
+            <dd className={isMember ? "text-right text-gold" : "text-right text-cream"}>
               {t.account.statuses[statusKey] ?? user.subscriptionStatus}
             </dd>
           </div>
           {user.plan && (
-            <div className="flex justify-between">
+            <div className="flex items-center justify-between gap-3 py-2.5">
               <dt className="text-dim">{t.account.plan}</dt>
-              <dd className="text-cream">
+              <dd className="text-right text-cream">
                 {user.plan === "annual"
                   ? t.pricing.annualLabel
                   : t.pricing.monthlyLabel}
@@ -58,11 +60,11 @@ export default async function AccountPage() {
             </div>
           )}
           {user.currentPeriodEnd && (
-            <div className="flex justify-between">
+            <div className="flex items-center justify-between gap-3 py-2.5">
               <dt className="text-dim">
                 {isMember ? t.account.renewsEnds : t.account.ended}
               </dt>
-              <dd className="text-cream">
+              <dd className="num text-right text-cream">
                 {user.currentPeriodEnd.toLocaleDateString(localeTag, {
                   day: "numeric",
                   month: "long",

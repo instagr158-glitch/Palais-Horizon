@@ -76,12 +76,12 @@ export function LockedTeaserCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className="flex items-center justify-between gap-2 px-4 py-3">
         <div className="flex items-center gap-2 text-gold">
           <LockIcon />
-          <span className="text-sm">{t.landing.lockedPrice}</span>
+          <span className="text-xs sm:text-sm">{t.landing.lockedPrice}</span>
         </div>
-        <span className="select-none rounded-sm bg-ink-panel2 px-2 py-1 text-sm text-dim locked-blur">
+        <span className="num select-none rounded-sm bg-ink-panel2 px-2 py-1 text-sm text-dim locked-blur">
           ฿00,000,000
         </span>
       </div>

@@ -17,7 +17,7 @@ export default async function PricingPage({
   const t = await getServerDict();
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
       {sp.locked && (
         <p className="mb-6 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
           {t.pricing.lockedBanner}
@@ -29,10 +29,14 @@ export default async function PricingPage({
         </p>
       )}
 
-      <h1 className="font-display text-4xl text-cream">{t.pricing.title}</h1>
-      <p className="mt-3 max-w-xl text-dim">{t.pricing.body}</p>
+      <h1 className="font-display text-3xl text-cream sm:text-4xl">
+        {t.pricing.title}
+      </h1>
+      <p className="mt-3 max-w-xl text-sm text-dim sm:text-base">
+        {t.pricing.body}
+      </p>
 
-      <div className="mt-10">
+      <div className="mt-8 sm:mt-10">
         <PricingTable
           configured={stripeConfigured}
           prices={{ monthly: PRICE_IDS.monthly, annual: PRICE_IDS.annual }}

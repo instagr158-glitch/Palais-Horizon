@@ -37,7 +37,7 @@ function Fact({
   return (
     <div className="border-b border-ink-border py-3">
       <dt className="text-xs uppercase tracking-widetitle text-dim">{label}</dt>
-      <dd className="mt-1 text-cream">{value}</dd>
+      <dd className="num mt-1 text-cream">{value}</dd>
     </div>
   );
 }
@@ -66,24 +66,24 @@ export default async function ListingDetailPage({
         ← {t.detail.back}
       </Link>
 
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-4">
         <div>
           <p className="text-xs uppercase tracking-widetitle text-gold">
             {typeLabel} · {listing.propertyType}
           </p>
-          <h1 className="mt-1 font-display text-3xl text-cream sm:text-4xl">
+          <h1 className="mt-1 font-display text-2xl text-cream sm:text-4xl">
             {listing.title}
           </h1>
-          <p className="mt-1 text-dim">
+          <p className="mt-1 text-sm text-dim sm:text-base">
             {listing.addressText ?? `${listing.city}, ${listing.province}`}
           </p>
         </div>
-        <div className="text-right">
-          <p className="font-display text-3xl text-gold-gradient">
+        <div className="sm:text-right">
+          <p className="num text-2xl text-gold-gradient sm:text-3xl">
             {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
           </p>
           {listing.priceUsd ? (
-            <p className="text-sm text-dim">≈ {formatUsd(listing.priceUsd)}</p>
+            <p className="num text-sm text-dim">≈ {formatUsd(listing.priceUsd)}</p>
           ) : null}
         </div>
       </div>

@@ -28,36 +28,48 @@ export default async function LandingPage() {
             <p className="text-xs uppercase tracking-widetitle text-gold">
               {t.landing.heroKicker}
             </p>
-            <h1 className="max-w-3xl font-display text-4xl leading-tight text-cream sm:text-6xl">
+            <h1 className="max-w-3xl font-display text-[2rem] leading-[1.15] text-cream sm:text-5xl lg:text-6xl">
               {t.landing.heroTitle}
             </h1>
-            <p className="max-w-2xl text-lg leading-relaxed text-dim">
+            <p className="max-w-2xl text-base leading-relaxed text-dim sm:text-lg">
               {t.landing.heroBody}
             </p>
-            <div className="mt-2 flex flex-wrap gap-3">
-              <Link href="/pricing" className="btn-gold rounded-sm px-6 py-3 text-sm">
+            <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              <Link
+                href="/pricing"
+                className="btn-gold rounded-sm px-6 py-3 text-center text-sm"
+              >
                 {t.landing.heroCta}
               </Link>
-              <a href="#how" className="btn-ghost rounded-sm px-6 py-3 text-sm">
+              <a
+                href="#how"
+                className="btn-ghost rounded-sm px-6 py-3 text-center text-sm"
+              >
                 {t.landing.heroCtaSecondary}
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-10 gap-y-3 text-sm text-dim">
-              <span>
-                <span className="font-display text-2xl text-cream">{stats.total}</span>{" "}
-                {t.landing.statResidences}
-              </span>
-              <span>
-                <span className="font-display text-2xl text-cream">
+            <div className="mt-8 grid w-full grid-cols-3 gap-3 border-t border-ink-border pt-6 sm:flex sm:w-auto sm:gap-x-10 sm:border-0 sm:pt-0">
+              <div>
+                <p className="num text-2xl text-cream sm:text-3xl">{stats.total}</p>
+                <p className="mt-0.5 text-xs text-dim sm:text-sm">
+                  {t.landing.statResidences}
+                </p>
+              </div>
+              <div>
+                <p className="num text-2xl text-cream sm:text-3xl">
                   {stats.provinceCount}
-                </span>{" "}
-                {t.landing.statRegions}
-              </span>
-              <span>
-                <span className="font-display text-2xl text-cream">฿15M+</span>{" "}
-                {t.landing.statEntry}
-              </span>
+                </p>
+                <p className="mt-0.5 text-xs text-dim sm:text-sm">
+                  {t.landing.statRegions}
+                </p>
+              </div>
+              <div>
+                <p className="num text-2xl text-cream sm:text-3xl">฿15M+</p>
+                <p className="mt-0.5 text-xs text-dim sm:text-sm">
+                  {t.landing.statEntry}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +138,7 @@ export default async function LandingPage() {
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {t.landing.how.map((h) => (
             <div key={h.step} className="border-l border-gold/40 pl-5">
-              <p className="font-display text-3xl text-gold-gradient">{h.step}</p>
+              <p className="num text-2xl text-gold-gradient">{h.step}</p>
               <h3 className="mt-2 font-display text-xl text-cream">{h.title}</h3>
               <p className="mt-2 text-sm text-dim">{h.body}</p>
             </div>

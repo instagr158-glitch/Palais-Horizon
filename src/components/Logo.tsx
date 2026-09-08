@@ -137,7 +137,7 @@ export function LogoSvg({ size = 40 }: { size?: number }) {
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`font-display text-[1.35rem] font-semibold leading-none tracking-[0.14em] text-cream ${className}`}
+      className={`font-display text-lg font-semibold leading-none tracking-[0.12em] text-cream sm:text-[1.35rem] sm:tracking-[0.14em] ${className}`}
     >
       PALAIS<span className="text-gold-gradient"> HORIZON</span>
     </span>

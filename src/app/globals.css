@@ -25,6 +25,21 @@ body {
   color: var(--cream);
   font-family: var(--font-sans), Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Numbers — prices, stats, specs. Sans-serif with lining/tabular figures so
+   "1" never reads as "I" the way the display serif renders it. */
+.num {
+  font-family: var(--font-sans), Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+}
+.text-gold-gradient.num,
+.num.text-gold-gradient {
+  font-weight: 700;
 }
 
 /* thin gold rule used across the UI */

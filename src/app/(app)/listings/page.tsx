@@ -60,9 +60,12 @@ export default async function ListingsPage({
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="mb-6 flex items-end justify-between">
         <div>
-          <h1 className="font-display text-3xl text-cream">{t.listings.title}</h1>
+          <h1 className="font-display text-2xl text-cream sm:text-3xl">
+            {t.listings.title}
+          </h1>
           <p className="mt-1 text-sm text-dim">
-            {total} {total === 1 ? t.listings.countOne : t.listings.countOther}
+            <span className="num">{total}</span>{" "}
+            {total === 1 ? t.listings.countOne : t.listings.countOther}
           </p>
         </div>
       </div>
