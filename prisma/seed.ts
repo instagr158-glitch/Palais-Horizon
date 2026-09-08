@@ -2,7 +2,16 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { LISTINGS } from "./seed-data";
 
-const prisma = new PrismaClient();
+function resolveDbUrl(): string | undefined {
+  const url = process.env.DATABASE_URL;
+  if (!url) return url;
+  if (url.includes("-pooler.") && !/[?&]pgbouncer=/.test(url)) {
+    return url + (url.includes("?") ? "&" : "?") + "pgbouncer=true";
+  }
+  return url;
+}
+
+const prisma = new PrismaClient({ datasourceUrl: resolveDbUrl() });
 
 const EXTERIOR = [
   "1600596542815-ffad4c1539a9",
