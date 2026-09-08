@@ -1,42 +1,30 @@
 /**
  * Build orchestrator — cross-platform, resilient to database config.
  *
- *   1. prisma generate       (needs *a* DATABASE_URL to validate the schema —
- *                             a placeholder is injected if the real one is absent)
- *   2. prisma migrate deploy (best effort — never fails the build)
- *   3. next build
+ *   1. prisma generate   (needs *a* DATABASE_URL to validate the schema —
+ *                         a placeholder is injected if the real one is absent)
+ *   2. next build
  *
- * The real DATABASE_URL still has to be set in the hosting env for the app to
- * work at runtime; this just guarantees the build itself always completes.
+ * Database migrations are applied separately (`npm run db:migrate`, or once from
+ * a machine with the DB URL) — not during the Vercel build.
  */
 import { execSync } from "node:child_process";
 
 const env = { ...process.env };
-const hasRealDbUrl = !!env.DATABASE_URL;
 
-if (!hasRealDbUrl) {
+if (!env.DATABASE_URL) {
   env.DATABASE_URL =
     "postgresql://placeholder:placeholder@localhost:5432/placeholder?schema=public";
   console.warn(
-    "\n⚠  DATABASE_URL is not set in this environment.\n" +
-      "   Using a placeholder so the build can finish, but the deployed app\n" +
-      "   will not work until you add a real DATABASE_URL and redeploy.\n",
+    "\n⚠  DATABASE_URL is not set — using a placeholder so the build finishes.\n" +
+      "   Add a real DATABASE_URL in the hosting env and redeploy for the app to work.\n",
   );
 }
 
-const run = (cmd, { allowFail = false } = {}) => {
+function run(cmd) {
   console.log(`\n▶ ${cmd}`);
-  try {
-    execSync(cmd, { stdio: "inherit", env });
-  } catch (err) {
-    if (allowFail) {
-      console.warn(`⚠  "${cmd}" failed — continuing.`);
-      return;
-    }
-    throw err;
-  }
-};
+  execSync(cmd, { stdio: "inherit", env });
+}
 
 run("prisma generate");
-run("prisma migrate deploy", { allowFail: true });
 run("next build");
