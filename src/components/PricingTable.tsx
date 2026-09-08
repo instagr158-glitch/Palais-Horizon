@@ -1,0 +1,140 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useI18n } from "@/components/I18nProvider";
+
+type Props = {
+  configured: boolean;
+  prices: { monthly?: string; annual?: string };
+};
+
+export function PricingTable({ configured, prices }: Props) {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { t } = useI18n();
+  const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // The annual plan only appears when an annual Stripe price is configured.
+  const hasAnnual = !!prices.annual;
+
+  const plans = [
+    {
+      id: "monthly" as const,
+      name: t.pricing.monthlyLabel,
+      price: "€19",
+      approx: "≈ $21 · ฿700",
+      unit: t.pricing.perMonth,
+      note: t.pricing.billedMonthly,
+      highlight: !hasAnnual,
+    },
+    ...(hasAnnual
+      ? [
+          {
+            id: "annual" as const,
+            name: t.pricing.annualLabel,
+            price: "€190",
+            approx: "≈ $210 · ฿7,000",
+            unit: t.pricing.perYear,
+            note: t.pricing.annualNote,
+            highlight: true,
+          },
+        ]
+      : []),
+  ];
+
+  async function choose(plan: "monthly" | "annual") {
+    setError(null);
+    if (!session) {
+      router.push(`/register?next=/pricing`);
+      return;
+    }
+    if (!configured || !prices[plan]) {
+      setError(t.pricing.notConfigured);
+      return;
+    }
+    setLoading(plan);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError(data.error ?? t.pricing.networkError);
+        setLoading(null);
+      }
+    } catch {
+      setError(t.pricing.networkError);
+      setLoading(null);
+    }
+  }
+
+  return (
+    <div>
+      <div
+        className={`grid gap-5 ${
+          plans.length > 1 ? "sm:grid-cols-2" : "max-w-sm"
+        }`}
+      >
+        {plans.map((plan) => (
+          <div
+            key={plan.id}
+            className={`relative rounded-sm border p-6 ${
+              plan.highlight
+                ? "border-gold/60 bg-gold/[0.04] shadow-gold"
+                : "border-ink-border bg-ink-panel"
+            }`}
+          >
+            {plan.highlight && plans.length > 1 && (
+              <span className="absolute -top-3 right-5 rounded-sm bg-gold px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-black">
+                {t.pricing.bestValue}
+              </span>
+            )}
+            <p className="text-xs uppercase tracking-widetitle text-dim">
+              {plan.name}
+            </p>
+            <p className="mt-2 font-display text-4xl text-cream">
+              {plan.price}
+              <span className="ml-1 text-base text-dim">{plan.unit}</span>
+            </p>
+            <p className="mt-0.5 text-xs text-dim">{plan.approx}</p>
+            <p className="mt-1 text-sm text-gold">{plan.note}</p>
+
+            <button
+              onClick={() => choose(plan.id)}
+              disabled={loading !== null}
+              className="btn-gold mt-5 w-full rounded-sm px-4 py-2.5 text-sm disabled:opacity-60"
+            >
+              {loading === plan.id ? t.pricing.redirecting : t.pricing.cta}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {error && (
+        <p className="mt-4 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
+          {error}
+        </p>
+      )}
+
+      <ul className="mt-8 grid gap-2 sm:grid-cols-2">
+        {t.pricing.features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-sm text-silver">
+            <span className="mt-0.5 text-gold">✦</span>
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      {!configured && (
+        <p className="mt-6 text-xs text-dim">{t.pricing.ownerNote}</p>
+      )}
+    </div>
+  );
+}

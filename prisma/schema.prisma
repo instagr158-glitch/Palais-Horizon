@@ -1,0 +1,80 @@
+// Palais Horizon — data model
+// PostgreSQL (Prisma Postgres, Neon, Supabase… any Postgres works).
+// Local dev and production both use a Postgres DATABASE_URL — see DEPLOY.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  name               String?
+  passwordHash       String
+  role               String   @default("member") // member | admin
+
+  stripeCustomerId     String?  @unique
+  stripeSubscriptionId String?  @unique
+  subscriptionStatus   String   @default("none") // none | trialing | active | past_due | canceled
+  plan                 String?  // monthly | annual
+  currentPeriodEnd     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Listing {
+  id           String   @id @default(cuid())
+
+  source       String   // adapter name, e.g. "seed", "generic-jsonld:villa-agency"
+  externalId   String   // stable id within that source
+  sourceUrl    String   // the page we ingested from
+
+  agencyName   String
+  agencyUrl    String   // outbound link members are redirected to
+
+  title        String
+  description  String
+
+  propertyType String   // villa | house | penthouse | condo | land
+  listingType  String   @default("sale") // sale | rent
+
+  priceAmount  Int?     // in THB (per month if listingType = rent)
+  priceCurrency String  @default("THB")
+  priceUsd     Int?     // indicative
+
+  bedrooms     Int?
+  bathrooms    Int?
+  areaSqm      Int?
+  landSqm      Int?
+
+  province     String
+  city         String
+  district     String?
+  addressText  String?
+  lat          Float?
+  lng          Float?
+
+  images       String   @default("[]") // JSON array of URLs
+  amenities    String   @default("[]") // JSON array of strings
+  furnished    Boolean  @default(false)
+
+  luxuryScore  Int      @default(0)
+  featured     Boolean  @default(false)
+  status       String   @default("active") // active | inactive
+
+  firstSeenAt  DateTime @default(now())
+  lastSeenAt   DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([source, externalId])
+  @@index([status, propertyType])
+  @@index([province, city])
+  @@index([priceAmount])
+}

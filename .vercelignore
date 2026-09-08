@@ -1,0 +1,9 @@
+.env
+.env.*
+dev.db
+dev.db-journal
+/prisma/dev.db
+/prisma/dev.db-journal
+scratch-*.ts
+.next
+node_modules

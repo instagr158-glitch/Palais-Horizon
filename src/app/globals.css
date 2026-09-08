@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: #0b0b0c;
+  --panel: #141416;
+  --panel-2: #1b1b1e;
+  --border: #2a2a2e;
+  --gold: #d4af37;
+  --gold-deep: #b8860b;
+  --gold-soft: #f6d98a;
+  --silver: #c7c9cc;
+  --silver-light: #edeef0;
+  --cream: #f3f2ee;
+  --dim: #a6a6a2;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--cream);
+  font-family: var(--font-sans), Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* thin gold rule used across the UI */
+.hr-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.5),
+    transparent
+  );
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f6d98a, #d4af37 55%, #a9801e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-gold {
+  background-image: linear-gradient(135deg, #f6d98a, #d4af37 55%, #a9801e);
+  color: #101010;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.btn-gold:hover {
+  filter: brightness(1.08);
+}
+.btn-gold:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--cream);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+  background-color: rgba(212, 175, 55, 0.06);
+}
+
+.panel {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+}
+
+/* locked / blurred content */
+.locked-blur {
+  filter: blur(7px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px
+  );
+  background-size: 3px 3px;
+  pointer-events: none;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+}
+
+input,
+select,
+textarea {
+  background-color: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--cream);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.6);
+}
