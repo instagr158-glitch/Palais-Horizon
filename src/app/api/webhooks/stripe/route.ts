@@ -68,9 +68,17 @@ async function syncSubscription(
 ) {
   const priceId = sub.items.data[0]?.price?.id ?? null;
   const plan = planForPriceId(priceId);
-  const periodEnd = sub.current_period_end
-    ? new Date(sub.current_period_end * 1000)
-    : null;
+  // `current_period_end` is top-level on older API versions and on the first
+  // subscription item on newer ones — read whichever is present.
+  const item = sub.items?.data?.[0] as
+    | (Stripe.SubscriptionItem & { current_period_end?: number })
+    | undefined;
+  const periodEndUnix =
+    (sub as Stripe.Subscription & { current_period_end?: number })
+      .current_period_end ??
+    item?.current_period_end ??
+    null;
+  const periodEnd = periodEndUnix ? new Date(periodEndUnix * 1000) : null;
 
   const data = {
     stripeCustomerId: customerId,
