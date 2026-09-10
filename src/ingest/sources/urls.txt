@@ -1,7 +1,7 @@
 # One luxury-listing detail URL per line. Lines starting with # are ignored.
 # `npm run ingest` fetches each, extracts schema.org / Open Graph data,
 # applies the luxury filter and upserts it into the catalogue.
-#
-# Examples (uncomment / replace with current listings):
-# https://www.conradproperties.asia/properties/ultra-luxury-sea-view-villa-on-millionaires-mile-phuket
-# https://three-seasons-properties.com/villa-for-sale/luxury-5-bedroom-designer-villa-with-panoramic-sea-view-for-sale-in-bang-por-koh-samui-b402c5s/
+
+https://www.thailand-property.com/ads/6-bedroom-villa-for-sale-in-anchan-hills-si-sunthon-phuket_276f616680e8-d9de-03b2-b8b3-d3a8c089
+https://www.thailand-property.com/ads/4-bedroom-villa-for-sale-in-canopy-hills-villas-ko-kaeo-phuket_3b5bce9f9c4e-0a91-a512-766c-e2e5d089
+https://www.thailand-property.com/ads/4-bedroom-villa-for-sale-in-banyan-tree-beach-residences-aegir-choeng-thale-phuket_2ee1773286f9-4430-6fc2-fb01-84a8c089
