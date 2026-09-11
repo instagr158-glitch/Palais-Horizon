@@ -222,6 +222,18 @@ export const en = {
     body: "Your membership is being activated. This can take a few seconds while the payment confirms.",
     cta: "Enter the collection",
     hint: "If the catalogue still asks for a plan, refresh in a moment — the webhook is finishing up.",
+    claimTitle: "Your membership is active",
+    claimBody: "Set a password so you can sign back in anytime — no account was needed to pay.",
+    claimPasswordHint: "(8+ characters)",
+    claimCta: "Set password & enter",
+    claimSubmitting: "Setting up your account…",
+    claimError: "Could not set your password. Please try again.",
+    claimNetworkError: "Network error. Please try again.",
+    existingTitle: "Your membership is active",
+    existingBody: "This email already has a Palais Horizon account — sign in to access the collection.",
+    existingCta: "Sign in",
+    genericTitle: "Payment received",
+    genericBody: "Sign in (or create an account with the same email) to access your membership.",
   },
 
   about: {

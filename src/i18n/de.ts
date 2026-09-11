@@ -229,6 +229,18 @@ export const de: Dict = {
     body: "Ihre Mitgliedschaft wird aktiviert. Das kann einige Sekunden dauern, während die Zahlung bestätigt wird.",
     cta: "Zur Kollektion",
     hint: "Falls der Katalog weiterhin nach einem Tarif fragt, laden Sie in Kürze neu — die Bestätigung wird abgeschlossen.",
+    claimTitle: "Ihre Mitgliedschaft ist aktiv",
+    claimBody: "Legen Sie ein Passwort fest, um sich jederzeit wieder anmelden zu können — für die Zahlung war kein Konto nötig.",
+    claimPasswordHint: "(mind. 8 Zeichen)",
+    claimCta: "Passwort festlegen & eintreten",
+    claimSubmitting: "Konto wird eingerichtet…",
+    claimError: "Passwort konnte nicht festgelegt werden. Bitte versuchen Sie es erneut.",
+    claimNetworkError: "Netzwerkfehler. Bitte versuchen Sie es erneut.",
+    existingTitle: "Ihre Mitgliedschaft ist aktiv",
+    existingBody: "Für diese E-Mail existiert bereits ein Palais-Horizon-Konto — melden Sie sich an, um auf die Kollektion zuzugreifen.",
+    existingCta: "Anmelden",
+    genericTitle: "Zahlung erhalten",
+    genericBody: "Melden Sie sich an (oder erstellen Sie ein Konto mit derselben E-Mail), um auf Ihre Mitgliedschaft zuzugreifen.",
   },
 
   about: {

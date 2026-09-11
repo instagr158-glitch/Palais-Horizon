@@ -49,7 +49,7 @@ export function LockedTeaserCard({
 
   return (
     <Link
-      href="/register"
+      href="/pricing"
       className="group relative block overflow-hidden rounded-sm border border-ink-border bg-ink-panel transition-colors hover:border-gold/50"
     >
       <div className="relative aspect-[4/3] overflow-hidden">

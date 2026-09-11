@@ -65,7 +65,7 @@ export function Navbar() {
                 {t.nav.login}
               </Link>
               <Link
-                href="/register"
+                href="/pricing"
                 className="btn-gold rounded-sm px-4 py-1.5 text-sm"
               >
                 {t.nav.join}
@@ -121,7 +121,7 @@ export function Navbar() {
                   {t.nav.login}
                 </Link>
                 <Link
-                  href="/register"
+                  href="/pricing"
                   onClick={() => setOpen(false)}
                   className="btn-gold rounded-sm px-4 py-2 text-center text-sm"
                 >

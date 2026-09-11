@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useI18n } from "@/components/I18nProvider";
 
 type Props = {
@@ -11,8 +9,6 @@ type Props = {
 };
 
 export function PricingTable({ configured, prices }: Props) {
-  const { data: session } = useSession();
-  const router = useRouter();
   const { t } = useI18n();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -47,10 +43,6 @@ export function PricingTable({ configured, prices }: Props) {
 
   async function choose(plan: "monthly" | "annual") {
     setError(null);
-    if (!session) {
-      router.push(`/register?next=/pricing`);
-      return;
-    }
     if (!configured || !prices[plan]) {
       setError(t.pricing.notConfigured);
       return;

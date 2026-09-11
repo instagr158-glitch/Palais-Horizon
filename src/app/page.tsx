@@ -87,7 +87,7 @@ export default async function LandingPage() {
             <p className="mt-2 max-w-xl text-dim">{t.landing.teaserBody}</p>
           </div>
           <Link
-            href="/register"
+            href="/pricing"
             className="hidden shrink-0 text-sm text-gold hover:underline sm:block"
           >
             {t.landing.teaserCreate} →
@@ -164,7 +164,7 @@ export default async function LandingPage() {
           <div className="text-center">
             <p className="font-display text-2xl text-cream">{t.tagline}</p>
             <Link
-              href="/register"
+              href="/pricing"
               className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
             >
               {t.nav.join}

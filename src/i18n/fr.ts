@@ -229,6 +229,18 @@ export const fr: Dict = {
     body: "Votre abonnement est en cours d'activation. Cela peut prendre quelques secondes, le temps que le paiement se confirme.",
     cta: "Entrer dans la collection",
     hint: "Si le catalogue vous redemande une formule, actualisez dans un instant — la confirmation se termine.",
+    claimTitle: "Votre abonnement est actif",
+    claimBody: "Définissez un mot de passe pour pouvoir vous reconnecter à tout moment — aucun compte n'était nécessaire pour payer.",
+    claimPasswordHint: "(8 caractères ou plus)",
+    claimCta: "Définir le mot de passe et entrer",
+    claimSubmitting: "Configuration de votre compte…",
+    claimError: "Impossible de définir votre mot de passe. Veuillez réessayer.",
+    claimNetworkError: "Erreur réseau. Veuillez réessayer.",
+    existingTitle: "Votre abonnement est actif",
+    existingBody: "Cet e-mail possède déjà un compte Palais Horizon — connectez-vous pour accéder à la collection.",
+    existingCta: "Se connecter",
+    genericTitle: "Paiement reçu",
+    genericBody: "Connectez-vous (ou créez un compte avec le même e-mail) pour accéder à votre abonnement.",
   },
 
   about: {

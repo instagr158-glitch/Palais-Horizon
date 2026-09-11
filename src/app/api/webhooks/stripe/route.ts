@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { randomBytes } from "node:crypto";
+import bcrypt from "bcryptjs";
 import type Stripe from "stripe";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
@@ -29,10 +31,7 @@ export async function POST(req: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const s = event.data.object as Stripe.Checkout.Session;
-        const userId =
-          s.client_reference_id ??
-          (s.metadata?.userId as string | undefined) ??
-          null;
+        const userId = await resolveUserIdForCheckout(s);
         if (s.subscription && typeof s.subscription === "string") {
           const sub = await stripe.subscriptions.retrieve(s.subscription);
           await syncSubscription(sub, userId, s.customer as string);
@@ -43,11 +42,8 @@ export async function POST(req: Request) {
       case "customer.subscription.updated":
       case "customer.subscription.deleted": {
         const sub = event.data.object as Stripe.Subscription;
-        await syncSubscription(
-          sub,
-          (sub.metadata?.userId as string | undefined) ?? null,
-          sub.customer as string,
-        );
+        const metaUserId = (sub.metadata?.userId as string | undefined) || null;
+        await syncSubscription(sub, metaUserId, sub.customer as string);
         break;
       }
       default:
@@ -59,6 +55,35 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json({ received: true });
+}
+
+/**
+ * Who is this checkout for?
+ * - Signed-in checkout: `client_reference_id` is the user id — use it.
+ * - Guest checkout: no user yet. Look up by the email Stripe collected; create
+ *   a fresh account (random, unusable password — claimed on /subscribe/success)
+ *   if none exists yet. An existing account is left untouched.
+ */
+async function resolveUserIdForCheckout(s: Stripe.Checkout.Session): Promise<string | null> {
+  if (s.client_reference_id) return s.client_reference_id;
+
+  const email = s.customer_details?.email?.toLowerCase().trim();
+  if (!email) return null;
+
+  const existing = await prisma.user.findUnique({ where: { email } });
+  if (existing) return existing.id;
+
+  const randomPassword = randomBytes(24).toString("hex");
+  const passwordHash = await bcrypt.hash(randomPassword, 10);
+  const created = await prisma.user.create({
+    data: {
+      email,
+      name: s.customer_details?.name ?? null,
+      passwordHash,
+      needsPasswordSetup: true,
+    },
+  });
+  return created.id;
 }
 
 async function syncSubscription(
