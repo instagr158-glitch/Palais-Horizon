@@ -99,7 +99,7 @@ export function PricingTable({ configured, prices }: Props) {
             </p>
             <p className="mt-3 flex items-baseline gap-1.5">
               {plan.id === "monthly" && (
-                <span className="num text-lg text-dim line-through">
+                <span className="num text-2xl font-semibold text-red-500 line-through decoration-2">
                   {t.pricing.promoOriginal}
                 </span>
               )}
