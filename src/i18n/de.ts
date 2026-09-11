@@ -121,6 +121,10 @@ export const de: Dict = {
     canceledBanner: "Bezahlvorgang abgebrochen — es wurde nichts berechnet.",
     signInFirst: "Bitte melden Sie sich zuerst an.",
     networkError: "Netzwerkfehler. Bitte versuchen Sie es erneut.",
+    promoBadge: "-62%",
+    promoOriginal: "€50",
+    promoLabel: "Zeitlich begrenztes Angebot",
+    promoEndsIn: "Endet in",
   },
 
   auth: {

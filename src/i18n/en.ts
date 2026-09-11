@@ -119,6 +119,10 @@ export const en = {
     canceledBanner: "Checkout canceled — no charge was made.",
     signInFirst: "Please sign in first.",
     networkError: "Network error. Please try again.",
+    promoBadge: "-62%",
+    promoOriginal: "€50",
+    promoLabel: "Limited-time offer",
+    promoEndsIn: "Ends in",
   },
 
   auth: {

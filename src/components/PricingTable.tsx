@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
+import { PromoCountdown } from "@/components/PromoCountdown";
 
 type Props = {
   configured: boolean;
@@ -88,10 +89,20 @@ export function PricingTable({ configured, prices }: Props) {
                 {t.pricing.bestValue}
               </span>
             )}
+            {plan.id === "monthly" && (
+              <span className="absolute -top-3 left-5 rounded-sm bg-gold px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-black">
+                {t.pricing.promoBadge} · {t.pricing.promoLabel}
+              </span>
+            )}
             <p className="text-xs uppercase tracking-widetitle text-dim">
               {plan.name}
             </p>
             <p className="mt-3 flex items-baseline gap-1.5">
+              {plan.id === "monthly" && (
+                <span className="num text-lg text-dim line-through">
+                  {t.pricing.promoOriginal}
+                </span>
+              )}
               <span className="num text-[2.75rem] leading-none text-cream sm:text-5xl">
                 {plan.price}
               </span>
@@ -99,6 +110,11 @@ export function PricingTable({ configured, prices }: Props) {
             </p>
             <p className="num mt-2 text-sm text-silver">{plan.approx}</p>
             <p className="mt-2 text-sm text-gold">{plan.note}</p>
+            {plan.id === "monthly" && (
+              <p className="mt-2 text-xs text-gold">
+                {t.pricing.promoEndsIn} <PromoCountdown />
+              </p>
+            )}
 
             <button
               onClick={() => choose(plan.id)}
