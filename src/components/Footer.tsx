@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { LogoSvg } from "@/components/Logo";
 import { BRAND } from "@/lib/copy";
 import { getServerDict } from "@/i18n/server";
@@ -27,7 +28,7 @@ export async function Footer() {
               </p>
               <ul className="space-y-2 text-silver">
                 <li><Link href="/listings" className="hover:text-gold">{t.footer.residences}</Link></li>
-                <li><Link href="/pricing" className="hover:text-gold">{t.footer.membership}</Link></li>
+                <li><TrackedLink href="/pricing" event="view_membership_click" location="footer" className="hover:text-gold">{t.footer.membership}</TrackedLink></li>
                 <li><Link href="/about" className="hover:text-gold">{t.footer.about}</Link></li>
               </ul>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
@@ -64,12 +65,14 @@ export function Navbar() {
               <Link href="/login" className="text-sm text-dim hover:text-cream">
                 {t.nav.login}
               </Link>
-              <Link
+              <TrackedLink
                 href="/pricing"
+                event="view_membership_click"
+                location="navbar"
                 className="btn-gold rounded-sm px-4 py-1.5 text-sm"
               >
                 {t.nav.join}
-              </Link>
+              </TrackedLink>
             </>
           )}
         </div>
@@ -120,13 +123,15 @@ export function Navbar() {
                 <Link href="/login" onClick={() => setOpen(false)} className="text-sm text-dim">
                   {t.nav.login}
                 </Link>
-                <Link
+                <TrackedLink
                   href="/pricing"
+                  event="view_membership_click"
+                  location="navbar_mobile"
                   onClick={() => setOpen(false)}
                   className="btn-gold rounded-sm px-4 py-2 text-center text-sm"
                 >
                   {t.nav.join}
-                </Link>
+                </TrackedLink>
               </>
             )}
             <div className="pt-1">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { getServerDict } from "@/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -25,12 +25,14 @@ export default async function AboutPage() {
         <h2 className="font-display text-2xl text-cream">{t.about.sourcesTitle}</h2>
         <p>{t.about.sourcesBody}</p>
       </div>
-      <Link
+      <TrackedLink
         href="/pricing"
+        event="view_membership_click"
+        location="about"
         className="btn-gold mt-8 inline-block rounded-sm px-6 py-2.5 text-sm"
       >
         {t.about.cta}
-      </Link>
+      </TrackedLink>
     </div>
   );
 }

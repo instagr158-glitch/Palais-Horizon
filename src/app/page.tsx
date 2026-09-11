@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import { LogoSvg } from "@/components/Logo";
 import { LockedTeaserCard } from "@/components/LockedTeaserCard";
 import { getTeasers } from "@/lib/listings";
@@ -35,12 +35,14 @@ export default async function LandingPage() {
               {t.landing.heroBody}
             </p>
             <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              <Link
+              <TrackedLink
                 href="/pricing"
+                event="view_membership_click"
+                location="hero"
                 className="btn-gold rounded-sm px-6 py-3 text-center text-sm"
               >
                 {t.landing.heroCta}
-              </Link>
+              </TrackedLink>
               <a
                 href="#how"
                 className="btn-ghost rounded-sm px-6 py-3 text-center text-sm"
@@ -86,12 +88,14 @@ export default async function LandingPage() {
             </h2>
             <p className="mt-2 max-w-xl text-dim">{t.landing.teaserBody}</p>
           </div>
-          <Link
+          <TrackedLink
             href="/pricing"
+            event="view_membership_click"
+            location="teaser_link"
             className="hidden shrink-0 text-sm text-gold hover:underline sm:block"
           >
             {t.landing.teaserCreate} →
-          </Link>
+          </TrackedLink>
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -109,12 +113,14 @@ export default async function LandingPage() {
           <p className="font-display text-xl text-cream">
             {t.landing.unlockBanner}
           </p>
-          <Link
+          <TrackedLink
             href="/pricing"
+            event="view_membership_click"
+            location="unlock_banner"
             className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
           >
             {t.pricing.title}
-          </Link>
+          </TrackedLink>
         </div>
       </section>
 
@@ -163,12 +169,14 @@ export default async function LandingPage() {
           <div className="hr-gold my-10" />
           <div className="text-center">
             <p className="font-display text-2xl text-cream">{t.tagline}</p>
-            <Link
+            <TrackedLink
               href="/pricing"
+              event="view_membership_click"
+              location="faq"
               className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
             >
               {t.nav.join}
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </section>

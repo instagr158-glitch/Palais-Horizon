@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TrackedLink } from "@/components/TrackedLink";
 import Image from "next/image";
 import type { TeaserListing } from "@/lib/listings";
 import type { Dict } from "@/i18n";
@@ -48,8 +48,10 @@ export function LockedTeaserCard({
     : `${typeWord} · ${teaser.city}`;
 
   return (
-    <Link
+    <TrackedLink
       href="/pricing"
+      event="view_membership_click"
+      location="locked_card"
       className="group relative block overflow-hidden rounded-sm border border-ink-border bg-ink-panel transition-colors hover:border-gold/50"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -85,6 +87,6 @@ export function LockedTeaserCard({
           ฿00,000,000
         </span>
       </div>
-    </Link>
+    </TrackedLink>
   );
 }

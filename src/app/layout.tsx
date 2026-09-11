@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Providers } from "./providers";
 import { I18nProvider } from "@/components/I18nProvider";
@@ -59,6 +60,7 @@ export default async function RootLayout({
             </div>
           </Providers>
         </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );
