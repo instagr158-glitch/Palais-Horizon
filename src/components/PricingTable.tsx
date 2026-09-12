@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
-import { PromoCountdown } from "@/components/PromoCountdown";
 
 type Props = {
   configured: boolean;
@@ -110,28 +109,6 @@ export function PricingTable({ configured, prices }: Props) {
             </p>
             <p className="num mt-2 text-sm text-silver">{plan.approx}</p>
             <p className="mt-2 text-sm text-gold">{plan.note}</p>
-            {plan.id === "monthly" && (
-              <div className="mt-3 flex items-center gap-2 rounded-sm border border-red-500/50 bg-red-500/10 px-3 py-2">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="shrink-0 text-red-500"
-                >
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <p className="text-sm font-semibold text-red-500">
-                  {t.pricing.promoEndsIn}{" "}
-                  <span className="num text-base font-bold">
-                    <PromoCountdown />
-                  </span>
-                </p>
-              </div>
-            )}
 
             <button
               onClick={() => choose(plan.id)}

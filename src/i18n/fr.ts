@@ -30,14 +30,13 @@ export const fr: Dict = {
       "Palais Horizon rassemble les annonces de luxe des meilleures agences du pays. Les membres voient chaque prix, chaque détail, et sont mis en relation directe avec l'agence.",
     heroCta: "Voir l'abonnement",
     heroCtaSecondary: "Comment ça marche",
-    statResidencesBig: "Sélection",
-    statResidences: "pas d'aspiration — chaque annonce vérifiée",
-    statRegions: "et bientôt tout le pays",
-    statEntry: "entrée dans la collection",
+    statListingsSuffix: "annonces de luxe vérifiées",
+    statRegionsSuffix: "régions de Thaïlande",
+    statAgenciesSuffix: "agences partenaires",
     teaserTitle: "Un aperçu de la collection",
     teaserBody:
-      "Les prix, les localisations et les galeries complètes sont réservés aux membres. Créez un compte pour débloquer le catalogue.",
-    teaserCreate: "Créer un compte",
+      "Les prix complets, les localisations exactes et les galeries complètes s'ouvrent dès que vous devenez membre — aucun compte n'est nécessaire pour commencer.",
+    teaserCreate: "Voir l'abonnement",
     lockedPrice: "Prix réservé aux membres",
     unlockBanner:
       "La collection complète — prix, localisations, galeries et mise en relation avec les agences — s'ouvre avec l'abonnement.",
@@ -62,8 +61,8 @@ export const fr: Dict = {
     ],
     howTitle: "Comment ça marche",
     how: [
-      { step: "01", title: "Créez votre compte", body: "Une minute suffit. Aucune carte requise pour s'inscrire." },
-      { step: "02", title: "Choisissez un abonnement", body: "Mensuel ou annuel. Résiliable à tout moment depuis votre compte." },
+      { step: "01", title: "Choisissez votre abonnement", body: "Mensuel ou annuel, payé en toute sécurité par carte — aucun compte n'est nécessaire pour commencer." },
+      { step: "02", title: "Confirmez votre accès", body: "Définissez un mot de passe juste après le paiement pour pouvoir vous reconnecter à tout moment." },
       { step: "03", title: "Débloquez tout", body: "Prix complets, galeries, localisations et mise en relation avec les agences." },
     ],
     faqTitle: "Questions",
@@ -124,7 +123,6 @@ export const fr: Dict = {
     promoBadge: "-62%",
     promoOriginal: "€50",
     promoLabel: "Offre limitée",
-    promoEndsIn: "Se termine dans",
   },
 
   auth: {

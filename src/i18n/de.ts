@@ -30,14 +30,13 @@ export const de: Dict = {
       "Palais Horizon bündelt Luxusangebote der führenden Maklerhäuser des Landes. Mitglieder sehen jeden Preis, jedes Detail und werden direkt an das Maklerbüro vermittelt.",
     heroCta: "Mitgliedschaft ansehen",
     heroCtaSecondary: "So funktioniert es",
-    statResidencesBig: "Kuratiert",
-    statResidences: "nicht gecrawlt — jedes Inserat geprüft",
-    statRegions: "und wächst landesweit",
-    statEntry: "Einstieg in die Kollektion",
+    statListingsSuffix: "geprüfte Luxusangebote",
+    statRegionsSuffix: "Regionen in Thailand",
+    statAgenciesSuffix: "Partner-Maklerbüros",
     teaserTitle: "Ein Blick in die Kollektion",
     teaserBody:
-      "Preise, Lagen und vollständige Galerien sind Mitgliedern vorbehalten. Erstellen Sie ein Konto, um den Katalog freizuschalten.",
-    teaserCreate: "Konto erstellen",
+      "Vollständige Preise, exakte Lagen und komplette Fotogalerien öffnen sich, sobald Sie Mitglied werden — für den Start ist kein Konto nötig.",
+    teaserCreate: "Mitgliedschaft ansehen",
     lockedPrice: "Preis nur für Mitglieder",
     unlockBanner:
       "Die vollständige Kollektion — Preise, Lagen, Galerien und Maklervermittlung — öffnet sich mit der Mitgliedschaft.",
@@ -62,8 +61,8 @@ export const de: Dict = {
     ],
     howTitle: "So funktioniert es",
     how: [
-      { step: "01", title: "Konto erstellen", body: "Dauert eine Minute. Keine Karte für die Registrierung nötig." },
-      { step: "02", title: "Mitgliedschaft wählen", body: "Monatlich oder jährlich. Jederzeit im Konto kündbar." },
+      { step: "01", title: "Mitgliedschaft wählen", body: "Monatlich oder jährlich, sicher per Karte bezahlt — für den Start ist kein Konto nötig." },
+      { step: "02", title: "Zugang bestätigen", body: "Legen Sie direkt nach der Zahlung ein Passwort fest, um sich jederzeit wieder anzumelden." },
       { step: "03", title: "Alles freischalten", body: "Vollständige Preise, Galerien, Lagen und Maklervermittlung." },
     ],
     faqTitle: "Fragen",
@@ -124,7 +123,6 @@ export const de: Dict = {
     promoBadge: "-62%",
     promoOriginal: "€50",
     promoLabel: "Zeitlich begrenztes Angebot",
-    promoEndsIn: "Endet in",
   },
 
   auth: {

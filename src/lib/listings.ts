@@ -212,15 +212,20 @@ export async function getTeasers(take = 6): Promise<TeaserListing[]> {
 }
 
 export async function getCatalogStats() {
-  const [total, provinces] = await Promise.all([
+  const [total, provinces, agencies] = await Promise.all([
     prisma.listing.count({ where: { status: "active" } }),
     prisma.listing.findMany({
       where: { status: "active" },
       select: { province: true },
       distinct: ["province"],
     }),
+    prisma.listing.findMany({
+      where: { status: "active" },
+      select: { agencyName: true },
+      distinct: ["agencyName"],
+    }),
   ]);
-  return { total, provinceCount: provinces.length };
+  return { total, provinceCount: provinces.length, agencyCount: agencies.length };
 }
 
 // ---------- formatting ----------

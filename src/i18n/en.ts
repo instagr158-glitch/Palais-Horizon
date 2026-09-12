@@ -28,14 +28,13 @@ export const en = {
       "Palais Horizon gathers luxury listings from the country's leading agencies. Members see every price, every detail, and are introduced directly to the listing agency.",
     heroCta: "View membership",
     heroCtaSecondary: "How it works",
-    statResidencesBig: "Curated",
-    statResidences: "not crawled — every listing checked",
-    statRegions: "and growing across Thailand",
-    statEntry: "entry to the collection",
+    statListingsSuffix: "verified luxury listings",
+    statRegionsSuffix: "regions across Thailand",
+    statAgenciesSuffix: "partner agencies",
     teaserTitle: "A glimpse inside the collection",
     teaserBody:
-      "Prices, locations and full galleries are reserved for members. Create an account to unlock the catalogue.",
-    teaserCreate: "Create an account",
+      "Full prices, exact locations and complete photo galleries open the moment you become a member — no account needed to get started.",
+    teaserCreate: "View membership",
     lockedPrice: "Price reserved for members",
     unlockBanner:
       "The full collection — prices, locations, galleries and agency introductions — opens with membership.",
@@ -60,8 +59,8 @@ export const en = {
     ],
     howTitle: "How it works",
     how: [
-      { step: "01", title: "Create your account", body: "Takes a minute. No card required to register." },
-      { step: "02", title: "Choose a membership", body: "Monthly or annual. Cancel anytime from your account." },
+      { step: "01", title: "Choose your membership", body: "Monthly or annual, paid securely by card — no account needed to get started." },
+      { step: "02", title: "Confirm your access", body: "Set a password right after payment so you can sign back in anytime." },
       { step: "03", title: "Unlock everything", body: "Full prices, galleries, locations and agency introductions." },
     ],
     faqTitle: "Questions",
@@ -122,7 +121,6 @@ export const en = {
     promoBadge: "-62%",
     promoOriginal: "€50",
     promoLabel: "Limited-time offer",
-    promoEndsIn: "Ends in",
   },
 
   auth: {
