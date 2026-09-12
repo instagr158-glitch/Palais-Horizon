@@ -40,6 +40,7 @@ export const en = {
       "Full prices, exact locations and complete photo galleries open the moment you become a member — no account needed to get started.",
     teaserCreate: "View membership",
     lockedPrice: "Price reserved for members",
+    subscribeCta: "Subscribe",
     unlockBanner:
       "The full collection — prices, locations, galleries and agency introductions — opens with membership.",
     whyTitle: "Why members join",
@@ -101,6 +102,7 @@ export const en = {
     perYear: "/ year",
     billedMonthly: "Billed monthly. Cancel anytime.",
     billedAnnual: "Billed yearly. Cancel anytime.",
+    cancelAnytime: "Cancel anytime.",
     cta: "Continue",
     redirecting: "Redirecting…",
     features: [

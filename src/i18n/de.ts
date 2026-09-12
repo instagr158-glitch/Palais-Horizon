@@ -42,6 +42,7 @@ export const de: Dict = {
       "Vollständige Preise, exakte Lagen und komplette Fotogalerien öffnen sich, sobald Sie Mitglied werden — für den Start ist kein Konto nötig.",
     teaserCreate: "Mitgliedschaft ansehen",
     lockedPrice: "Preis nur für Mitglieder",
+    subscribeCta: "Abonnieren",
     unlockBanner:
       "Die vollständige Kollektion — Preise, Lagen, Galerien und Maklervermittlung — öffnet sich mit der Mitgliedschaft.",
     whyTitle: "Warum Mitglieder beitreten",
@@ -103,6 +104,7 @@ export const de: Dict = {
     perYear: "/ Jahr",
     billedMonthly: "Monatliche Abrechnung. Jederzeit kündbar.",
     billedAnnual: "Jährliche Abrechnung. Jederzeit kündbar.",
+    cancelAnytime: "Jederzeit kündbar.",
     cta: "Weiter",
     redirecting: "Weiterleitung…",
     features: [

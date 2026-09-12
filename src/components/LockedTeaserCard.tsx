@@ -83,8 +83,8 @@ export function LockedTeaserCard({
           <LockIcon />
           <span className="text-xs sm:text-sm">{t.landing.lockedPrice}</span>
         </div>
-        <span className="num select-none rounded-sm bg-ink-panel2 px-2 py-1 text-sm text-dim locked-blur">
-          ฿00,000,000
+        <span className="btn-gold shrink-0 rounded-sm px-3 py-1.5 text-xs sm:text-sm">
+          {t.landing.subscribeCta}
         </span>
       </div>
     </TrackedLink>

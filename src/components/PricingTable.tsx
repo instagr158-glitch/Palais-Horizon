@@ -23,7 +23,7 @@ export function PricingTable({ configured, prices }: Props) {
       price: "€19",
       approx: "≈ $21 · ฿700",
       unit: t.pricing.perMonth,
-      note: null as string | null,
+      note: t.pricing.cancelAnytime,
       highlight: !hasAnnual,
     },
     ...(hasAnnual

@@ -42,6 +42,7 @@ export const fr: Dict = {
       "Les prix complets, les localisations exactes et les galeries complètes s'ouvrent dès que vous devenez membre — aucun compte n'est nécessaire pour commencer.",
     teaserCreate: "Voir l'abonnement",
     lockedPrice: "Prix réservé aux membres",
+    subscribeCta: "S'abonner",
     unlockBanner:
       "La collection complète — prix, localisations, galeries et mise en relation avec les agences — s'ouvre avec l'abonnement.",
     whyTitle: "Pourquoi devenir membre",
@@ -103,6 +104,7 @@ export const fr: Dict = {
     perYear: "/ an",
     billedMonthly: "Facturé mensuellement. Résiliable à tout moment.",
     billedAnnual: "Facturé annuellement. Résiliable à tout moment.",
+    cancelAnytime: "Résiliable à tout moment.",
     cta: "Continuer",
     redirecting: "Redirection…",
     features: [
