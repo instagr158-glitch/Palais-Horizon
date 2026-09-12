@@ -23,7 +23,7 @@ export function PricingTable({ configured, prices }: Props) {
       price: "€19",
       approx: "≈ $21 · ฿700",
       unit: t.pricing.perMonth,
-      note: t.pricing.billedMonthly,
+      note: null as string | null,
       highlight: !hasAnnual,
     },
     ...(hasAnnual
@@ -108,7 +108,7 @@ export function PricingTable({ configured, prices }: Props) {
               <span className="text-base text-silver">{plan.unit}</span>
             </p>
             <p className="num mt-2 text-sm text-silver">{plan.approx}</p>
-            <p className="mt-2 text-sm text-gold">{plan.note}</p>
+            {plan.note && <p className="mt-2 text-sm text-gold">{plan.note}</p>}
 
             <button
               onClick={() => choose(plan.id)}
