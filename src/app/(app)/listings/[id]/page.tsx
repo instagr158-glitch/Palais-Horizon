@@ -81,9 +81,15 @@ export default async function ListingDetailPage({
         <div className="sm:text-right">
           <p className="num text-2xl text-gold-gradient sm:text-3xl">
             {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
+            {listing.listingType === "rent" && listing.priceAmount != null ? (
+              <span className="text-base text-dim"> {t.listings.perMonth}</span>
+            ) : null}
           </p>
           {listing.priceUsd ? (
-            <p className="num text-sm text-dim">≈ {formatUsd(listing.priceUsd)}</p>
+            <p className="num text-sm text-dim">
+              ≈ {formatUsd(listing.priceUsd)}
+              {listing.listingType === "rent" ? ` ${t.listings.perMonth}` : ""}
+            </p>
           ) : null}
         </div>
       </div>

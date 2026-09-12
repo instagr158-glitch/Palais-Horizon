@@ -157,6 +157,7 @@ export const de: Dict = {
     searchPlaceholder: "Gebiet, Projekt, Stichwort suchen…",
     allRegions: "Alle Regionen",
     allTypes: "Alle Typen",
+    allOfferTypes: "Kaufen oder mieten",
     samuiRegion: "Koh Samui (Surat Thani)",
     budgets: [
       "Beliebiges Budget",
@@ -181,6 +182,7 @@ export const de: Dict = {
     forRent: "Zu vermieten",
     signature: "Signature",
     priceOnApplication: "Preis auf Anfrage",
+    perMonth: "/ Monat",
   },
 
   detail: {

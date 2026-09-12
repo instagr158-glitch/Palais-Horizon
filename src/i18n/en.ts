@@ -155,6 +155,7 @@ export const en = {
     searchPlaceholder: "Search area, project, keyword…",
     allRegions: "All regions",
     allTypes: "All types",
+    allOfferTypes: "Buy or rent",
     samuiRegion: "Koh Samui (Surat Thani)",
     budgets: [
       "Any budget",
@@ -174,6 +175,7 @@ export const en = {
     forRent: "For rent",
     signature: "Signature",
     priceOnApplication: "Price on application",
+    perMonth: "/ month",
   },
 
   detail: {

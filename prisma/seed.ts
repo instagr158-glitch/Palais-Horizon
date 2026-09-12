@@ -151,8 +151,16 @@ function describe(b: BulkListing, amenities: string[]): string {
     : ` in ${b.district}, ${b.province}`;
   const size = b.areaSqm ? ` About ${b.areaSqm} sqm of living space.` : "";
   const feat = amenities.slice(0, 3).join(", ").toLowerCase();
-  const tierLine =
-    b.priceAmount >= 100_000_000
+  const isRent = b.listingType === "rent";
+  const tierLine = isRent
+    ? b.priceAmount >= 150_000
+      ? "A trophy rental at the very top of the market."
+      : b.priceAmount >= 80_000
+        ? "A substantial rental residence in the high-luxury tier."
+        : b.priceAmount >= 45_000
+          ? "A refined rental home in the core luxury segment."
+          : "An accessible entry into the luxury rental collection."
+    : b.priceAmount >= 100_000_000
       ? "A trophy property at the very top of the market."
       : b.priceAmount >= 40_000_000
         ? "A substantial residence in the high-luxury tier."
@@ -258,10 +266,17 @@ async function main() {
     const amenities = amenitiesFor(b);
     const [lat, lng] = COORDS[b.district] ?? CITY_COORDS[b.city] ?? [7.89, 98.37];
     const usd = Math.round(b.priceAmount / 34.5);
-    const featured =
-      b.priceAmount >= 70_000_000 ||
-      (b.priceAmount >= 28_000_000 &&
-        /sea view|ocean view|beachfront|sunset/i.test(b.title));
+    const isRent = b.listingType === "rent";
+    const featured = isRent
+      ? b.priceAmount >= 150_000 ||
+        (b.priceAmount >= 80_000 && /sea view|ocean view|beachfront|sunset/i.test(b.title))
+      : b.priceAmount >= 70_000_000 ||
+        (b.priceAmount >= 28_000_000 &&
+          /sea view|ocean view|beachfront|sunset/i.test(b.title));
+    // luxuryScore's price component is calibrated for sale prices in the
+    // tens of millions THB — scale a monthly rent up so it lands on a
+    // comparable curve instead of always scoring near zero.
+    const scoringPrice = isRent ? b.priceAmount * 300 : b.priceAmount;
     await upsertListing({
       source: "seed",
       externalId: `bulk-${b.externalId}`,
@@ -271,7 +286,7 @@ async function main() {
       title: b.title,
       description: describe(b, amenities),
       propertyType: b.propertyType,
-      listingType: "sale",
+      listingType: b.listingType,
       priceAmount: b.priceAmount,
       priceCurrency: "THB",
       priceUsd: usd,
@@ -288,7 +303,7 @@ async function main() {
       images: JSON.stringify(gallery(bi, 6)),
       amenities: JSON.stringify(amenities),
       furnished: true,
-      luxuryScore: luxuryScore(b.priceAmount, amenities),
+      luxuryScore: luxuryScore(scoringPrice, amenities),
       featured,
       status: "active",
     });

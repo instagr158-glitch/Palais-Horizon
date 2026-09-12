@@ -53,7 +53,7 @@ export function Filters() {
 
   return (
     <div className="panel rounded-sm p-4">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-7">
         <input
           defaultValue={params.get("q") ?? ""}
           onKeyDown={(e) => {
@@ -88,6 +88,16 @@ export function Filters() {
               {TYPE_LABELS[ty]?.[locale] ?? ty}
             </option>
           ))}
+        </select>
+
+        <select
+          value={params.get("listingType") ?? ""}
+          onChange={(e) => update({ listingType: e.target.value })}
+          className="rounded-sm px-3 py-2 text-sm"
+        >
+          <option value="">{t.listings.allOfferTypes}</option>
+          <option value="sale">{t.listings.forSale}</option>
+          <option value="rent">{t.listings.forRent}</option>
         </select>
 
         <select

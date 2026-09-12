@@ -72,10 +72,14 @@ export function ListingCard({ listing, t }: { listing: FullListing; t: Dict }) {
           <div>
             <p className="num text-lg text-gold-gradient">
               {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
+              {listing.listingType === "rent" && listing.priceAmount != null ? (
+                <span className="text-sm text-dim"> {t.listings.perMonth}</span>
+              ) : null}
             </p>
             {listing.priceUsd ? (
               <p className="num text-xs text-dim">
                 ≈ {formatUsd(listing.priceUsd)}
+                {listing.listingType === "rent" ? ` ${t.listings.perMonth}` : ""}
               </p>
             ) : null}
           </div>

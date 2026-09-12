@@ -2,7 +2,11 @@
  * Bulk luxury listings gathered from public agency category pages (Sept 2026).
  * Real facts — title, price, beds/baths/size, location, agency link.
  * One pipe-delimited line each:
- *   type | priceTHB | bd | ba | sqm | city | district | title | agency | url
+ *   type | priceTHB | bd | ba | sqm | city | district | title | agency | url | listingType?
+ *
+ * listingType is optional and defaults to "sale" when omitted (all the
+ * original lines below). Rental lines add "rent" as the 11th field and
+ * priceTHB is the monthly rent in THB.
  *
  * Descriptions are generated from templates; photos are representative stock
  * (real og:images attach when the ingestion pipeline refreshes a listing).
@@ -323,6 +327,7 @@ villa|40000000|5|6|600|Phuket|Rawai|5-Bedroom Pool Villa in Rawai|Thailand-Prope
 export type BulkListing = {
   externalId: string;
   propertyType: string;
+  listingType: "sale" | "rent";
   priceAmount: number;
   bedrooms: number | null;
   bathrooms: number | null;
@@ -350,7 +355,7 @@ export function parseBulk(): BulkListing[] {
   for (const line of RAW.split("\n")) {
     const t = line.trim();
     if (!t || t.startsWith("#")) continue;
-    const [type, price, bd, ba, sqm, city, district, title, agencyName, url] =
+    const [type, price, bd, ba, sqm, city, district, title, agencyName, url, rentFlag] =
       t.split("|");
     if (!url) continue;
     // externalId = the trailing id segment of the URL
@@ -363,6 +368,7 @@ export function parseBulk(): BulkListing[] {
     out.push({
       externalId,
       propertyType: type.trim(),
+      listingType: rentFlag?.trim() === "rent" ? "rent" : "sale",
       priceAmount: Number(price),
       bedrooms: bd && Number(bd) ? Number(bd) : null,
       bathrooms: ba && Number(ba) ? Number(ba) : null,
