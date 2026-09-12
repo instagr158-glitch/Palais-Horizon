@@ -25,9 +25,10 @@ export const en = {
     heroTitle:
       "The finest villas, penthouses and estates in Thailand — in one place.",
     heroBullets: [
-      "Every luxury listing from Thailand's leading agencies, in one place",
-      "Full prices and exact locations — never hidden",
-      "Direct introduction to the listing agency, no middlemen",
+      "Every property listing in Thailand, gathered in one place",
+      "Ideal for rental investment or long-term acquisition",
+      "Compare multiple properties in seconds",
+      "Access new-build projects at the best prices",
     ],
     heroCta: "View membership",
     heroCtaSecondary: "How it works",

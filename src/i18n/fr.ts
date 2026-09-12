@@ -27,9 +27,10 @@ export const fr: Dict = {
     heroTitle:
       "Les plus belles villas, penthouses et propriétés de Thaïlande — au même endroit.",
     heroBullets: [
-      "Toutes les annonces de luxe des meilleures agences du pays, au même endroit",
-      "Prix complets et localisations exactes — jamais masqués",
-      "Mise en relation directe avec l'agence, sans intermédiaire",
+      "L'ensemble des annonces immobilières de Thaïlande, réunies en un seul endroit",
+      "Idéal pour l'investissement locatif comme pour l'achat patrimonial",
+      "Comparez plusieurs biens en quelques secondes",
+      "Accédez aux nouveaux projets aux meilleurs prix",
     ],
     heroCta: "Voir l'abonnement",
     heroCtaSecondary: "Comment ça marche",

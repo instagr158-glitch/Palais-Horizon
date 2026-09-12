@@ -15,7 +15,7 @@ export default async function LandingPage() {
     <div className="grain relative">
       {/* intro — short, no hard sell yet */}
       <section className="relative overflow-hidden border-b border-ink-border">
-        <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-gold/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 -top-24 hidden h-[420px] w-[420px] rounded-full bg-gold/5 blur-3xl sm:block" />
         <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 sm:pt-14 sm:pb-10">
           <p className="text-xs uppercase tracking-widetitle text-gold">
             {t.landing.heroKicker}

@@ -27,9 +27,10 @@ export const de: Dict = {
     heroTitle:
       "Die schönsten Villen, Penthäuser und Anwesen Thailands — an einem Ort.",
     heroBullets: [
-      "Alle Luxusangebote der führenden Maklerhäuser Thailands an einem Ort",
-      "Vollständige Preise und exakte Lagen — nie versteckt",
-      "Direkte Vermittlung an das Maklerbüro, ohne Zwischenhändler",
+      "Alle Immobilienangebote Thailands an einem Ort",
+      "Ideal für Mietrenditen oder den langfristigen Vermögensaufbau",
+      "Vergleichen Sie mehrere Objekte in Sekunden",
+      "Neubauprojekte zu den besten Preisen",
     ],
     heroCta: "Mitgliedschaft ansehen",
     heroCtaSecondary: "So funktioniert es",
