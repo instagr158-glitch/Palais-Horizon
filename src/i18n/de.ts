@@ -26,8 +26,11 @@ export const de: Dict = {
     heroKicker: "Privater Immobilienclub · Thailand",
     heroTitle:
       "Die schönsten Villen, Penthäuser und Anwesen Thailands — an einem Ort.",
-    heroBody:
-      "Palais Horizon bündelt Luxusangebote der führenden Maklerhäuser des Landes. Mitglieder sehen jeden Preis, jedes Detail und werden direkt an das Maklerbüro vermittelt.",
+    heroBullets: [
+      "Alle Luxusangebote der führenden Maklerhäuser Thailands an einem Ort",
+      "Vollständige Preise und exakte Lagen — nie versteckt",
+      "Direkte Vermittlung an das Maklerbüro, ohne Zwischenhändler",
+    ],
     heroCta: "Mitgliedschaft ansehen",
     heroCtaSecondary: "So funktioniert es",
     statListingsSuffix: "geprüfte Luxusangebote",

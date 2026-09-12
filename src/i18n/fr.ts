@@ -26,8 +26,11 @@ export const fr: Dict = {
     heroKicker: "Club immobilier privé · Thaïlande",
     heroTitle:
       "Les plus belles villas, penthouses et propriétés de Thaïlande — au même endroit.",
-    heroBody:
-      "Palais Horizon rassemble les annonces de luxe des meilleures agences du pays. Les membres voient chaque prix, chaque détail, et sont mis en relation directe avec l'agence.",
+    heroBullets: [
+      "Toutes les annonces de luxe des meilleures agences du pays, au même endroit",
+      "Prix complets et localisations exactes — jamais masqués",
+      "Mise en relation directe avec l'agence, sans intermédiaire",
+    ],
     heroCta: "Voir l'abonnement",
     heroCtaSecondary: "Comment ça marche",
     statListingsSuffix: "annonces de luxe vérifiées",

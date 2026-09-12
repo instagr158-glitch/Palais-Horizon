@@ -1,5 +1,4 @@
 import { TrackedLink } from "@/components/TrackedLink";
-import { LogoSvg } from "@/components/Logo";
 import { LockedTeaserCard } from "@/components/LockedTeaserCard";
 import { getTeasers, getCatalogStats } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
@@ -17,33 +16,32 @@ export default async function LandingPage() {
       {/* intro — short, no hard sell yet */}
       <section className="relative overflow-hidden border-b border-ink-border">
         <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-gold/10 blur-3xl" />
-        <div className="mx-auto max-w-7xl px-4 pt-14 pb-10 sm:px-6 sm:pt-20 sm:pb-14">
-          <div className="flex items-center gap-4">
-            <LogoSvg size={56} />
-            <span className="font-display text-xl font-semibold tracking-[0.16em]">
-              PALAIS <span className="text-gold-gradient">HORIZON</span>
-            </span>
-          </div>
-          <p className="mt-6 text-xs uppercase tracking-widetitle text-gold">
+        <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 sm:pt-14 sm:pb-10">
+          <p className="text-xs uppercase tracking-widetitle text-gold">
             {t.landing.heroKicker}
           </p>
-          <h1 className="mt-2 max-w-3xl font-display text-[1.75rem] leading-[1.15] text-cream sm:text-4xl lg:text-5xl">
+          <h1 className="mt-2 max-w-3xl font-display text-2xl leading-[1.15] text-cream sm:text-4xl lg:text-5xl">
             {t.landing.heroTitle}
           </h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-dim sm:text-lg">
-            {t.landing.heroBody}
-          </p>
+          <ul className="mt-4 flex flex-col gap-1.5 sm:gap-2">
+            {t.landing.heroBullets.map((b) => (
+              <li key={b} className="flex items-start gap-2 text-sm text-dim sm:text-base">
+                <span className="mt-0.5 text-gold">✦</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* photo showcase — the collection, front and centre */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <section className="mx-auto max-w-7xl px-4 pt-6 pb-14 sm:px-6 sm:pt-10">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-display text-3xl text-cream">
+            <h2 className="font-display text-2xl text-cream sm:text-3xl">
               {t.landing.teaserTitle}
             </h2>
-            <p className="mt-2 max-w-xl text-dim">{t.landing.teaserBody}</p>
+            <p className="mt-2 hidden max-w-xl text-dim sm:block">{t.landing.teaserBody}</p>
           </div>
           <TrackedLink
             href="/pricing"
@@ -55,7 +53,7 @@ export default async function LandingPage() {
           </TrackedLink>
         </div>
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-5 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
           {teasers.map((teaser) => (
             <LockedTeaserCard
               key={teaser.id}

@@ -24,8 +24,11 @@ export const en = {
     heroKicker: "Private real-estate club · Thailand",
     heroTitle:
       "The finest villas, penthouses and estates in Thailand — in one place.",
-    heroBody:
-      "Palais Horizon gathers luxury listings from the country's leading agencies. Members see every price, every detail, and are introduced directly to the listing agency.",
+    heroBullets: [
+      "Every luxury listing from Thailand's leading agencies, in one place",
+      "Full prices and exact locations — never hidden",
+      "Direct introduction to the listing agency, no middlemen",
+    ],
     heroCta: "View membership",
     heroCtaSecondary: "How it works",
     statListingsSuffix: "verified luxury listings",
