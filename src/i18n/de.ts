@@ -33,6 +33,7 @@ export const de: Dict = {
       "Neubauprojekte zu den besten Preisen",
     ],
     heroCta: "Mitgliedschaft ansehen",
+    seeAllListings: "Alle Angebote ansehen",
     heroCtaSecondary: "So funktioniert es",
     statListingsSuffix: "geprüfte Luxusangebote",
     statRegionsSuffix: "Regionen in Thailand",

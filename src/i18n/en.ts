@@ -31,6 +31,7 @@ export const en = {
       "Access new-build projects at the best prices",
     ],
     heroCta: "View membership",
+    seeAllListings: "See all listings",
     heroCtaSecondary: "How it works",
     statListingsSuffix: "verified luxury listings",
     statRegionsSuffix: "regions across Thailand",

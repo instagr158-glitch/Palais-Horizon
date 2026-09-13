@@ -31,6 +31,16 @@ export default async function LandingPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-6 text-center">
+            <TrackedLink
+              href="/pricing"
+              event="view_membership_click"
+              location="hero_bullets"
+              className="btn-gold inline-block rounded-sm px-6 py-3 text-sm"
+            >
+              {t.landing.seeAllListings}
+            </TrackedLink>
+          </div>
         </div>
       </section>
 

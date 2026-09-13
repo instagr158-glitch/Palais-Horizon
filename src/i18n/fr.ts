@@ -33,6 +33,7 @@ export const fr: Dict = {
       "Accédez aux nouveaux projets aux meilleurs prix",
     ],
     heroCta: "Voir l'abonnement",
+    seeAllListings: "Voir toutes les annonces",
     heroCtaSecondary: "Comment ça marche",
     statListingsSuffix: "annonces de luxe vérifiées",
     statRegionsSuffix: "régions de Thaïlande",
