@@ -1,6 +1,5 @@
 import { TrackedLink } from "@/components/TrackedLink";
 import { LockedTeaserCard } from "@/components/LockedTeaserCard";
-import { InAppBrowserNotice } from "@/components/InAppBrowserNotice";
 import { getTeasers, getCatalogStats } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
@@ -18,7 +17,6 @@ export default async function LandingPage() {
       <section className="relative overflow-hidden border-b border-ink-border">
         <div className="pointer-events-none absolute -right-24 -top-24 hidden h-[420px] w-[420px] rounded-full bg-gold/5 blur-3xl sm:block" />
         <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 sm:pt-14 sm:pb-10">
-          <InAppBrowserNotice />
           <p className="text-xs uppercase tracking-widetitle text-gold">
             {t.landing.heroKicker}
           </p>

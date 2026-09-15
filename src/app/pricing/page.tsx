@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PricingTable } from "@/components/PricingTable";
-import { InAppBrowserNotice } from "@/components/InAppBrowserNotice";
 import { stripeConfigured, PRICE_IDS } from "@/lib/stripe";
 import { getServerDict } from "@/i18n/server";
 
@@ -19,7 +18,6 @@ export default async function PricingPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
-      <InAppBrowserNotice />
       {sp.locked && (
         <p className="mb-6 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
           {t.pricing.lockedBanner}

@@ -124,8 +124,6 @@ export const fr: Dict = {
       "Palais Horizon est un index d'annonces de tiers. L'abonnement donne accès à la collection et à une mise en relation avec chaque agence — ce n'est pas une commission d'agence et aucune transaction immobilière n'est traitée ici.",
     lockedBanner:
       "Le catalogue des résidences est réservé aux membres. Choisissez une formule ci-dessous pour le débloquer.",
-    inAppBrowserWarning:
-      "Vous venez de TikTok, Instagram ou Facebook ? Appuyez sur ⋯ en haut de l'écran et choisissez « Ouvrir dans le navigateur » avant de continuer — le paiement ne peut pas se terminer dans l'application.",
     canceledBanner: "Paiement annulé — aucun débit n'a été effectué.",
     signInFirst: "Veuillez d'abord vous connecter.",
     networkError: "Erreur réseau. Veuillez réessayer.",
