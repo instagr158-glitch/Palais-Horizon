@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useI18n } from "@/components/I18nProvider";
-import { escapeUrlForInAppBrowser } from "@/lib/inAppBrowserEscape";
+import { assistInAppBrowserCheckout } from "@/lib/inAppBrowserEscape";
 
 export function AccountActions({
   isMember,
@@ -24,7 +24,8 @@ export function AccountActions({
       const res = await fetch("/api/portal", { method: "POST" });
       const data = await res.json();
       if (data.url) {
-        window.location.href = escapeUrlForInAppBrowser(data.url);
+        await assistInAppBrowserCheckout(data.url);
+        window.location.href = data.url;
       } else {
         setError(data.error ?? t.account.portalError);
         setLoading(false);

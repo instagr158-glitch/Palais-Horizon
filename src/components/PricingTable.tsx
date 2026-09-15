@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
-import { escapeUrlForInAppBrowser } from "@/lib/inAppBrowserEscape";
+import { assistInAppBrowserCheckout } from "@/lib/inAppBrowserEscape";
 
 type Props = {
   configured: boolean;
@@ -57,7 +57,8 @@ export function PricingTable({ configured, prices }: Props) {
       });
       const data = await res.json();
       if (data.url) {
-        window.location.href = escapeUrlForInAppBrowser(data.url);
+        await assistInAppBrowserCheckout(data.url);
+        window.location.href = data.url;
       } else {
         setError(data.error ?? t.pricing.networkError);
         setLoading(null);

@@ -1,31 +1,24 @@
 /**
  * TikTok, Instagram and Facebook's built-in browsers block navigation to
  * payment domains like checkout.stripe.com and show their own "copy this
- * link into a real browser" dead-end instead. Rather than warn the visitor
- * about it, silently route the redirect through the OS-level escape hatch
- * so it opens straight in Safari / Chrome — no banner, no extra tap.
+ * link into a real browser" page instead. That page is TikTok's own
+ * graceful fallback and works fine as long as we hand it a plain https://
+ * URL — rewriting the scheme (x-safari-https://, intent://) to try to force
+ * an escape breaks it outright ("can't redirect") instead of reaching that
+ * fallback, so don't do that. The only safe assist available from here is
+ * pre-copying the link to the clipboard so there's one less manual step.
  */
 function isKnownInAppBrowser(ua: string): boolean {
   return /musical_ly|tiktok|instagram|fban|fbav|fb_iab/i.test(ua);
 }
 
-export function escapeUrlForInAppBrowser(url: string): string {
-  if (typeof navigator === "undefined") return url;
-  const ua = navigator.userAgent;
-  if (!isKnownInAppBrowser(ua)) return url;
-
-  if (/iPhone|iPad|iPod/i.test(ua)) {
-    // Apple's private scheme that forces Safari to open even from inside
-    // another app's WKWebView.
-    return url.replace(/^https:\/\//, "x-safari-https://");
+export async function assistInAppBrowserCheckout(url: string): Promise<void> {
+  if (typeof navigator === "undefined") return;
+  if (!isKnownInAppBrowser(navigator.userAgent)) return;
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch {
+    // Clipboard access can be denied inside a restrictive in-app webview —
+    // that's fine, the normal redirect still proceeds either way.
   }
-
-  if (/Android/i.test(ua)) {
-    // Routes the navigation through Android's intent system straight to
-    // Chrome, with the plain URL as a fallback if Chrome isn't installed.
-    const stripped = url.replace(/^https?:\/\//, "");
-    return `intent://${stripped}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(url)};end`;
-  }
-
-  return url;
 }
