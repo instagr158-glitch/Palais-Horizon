@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { PricingTable } from "@/components/PricingTable";
 import { stripeConfigured, PRICE_IDS } from "@/lib/stripe";
-import { getTeasers } from "@/lib/listings";
 import { getServerDict } from "@/i18n/server";
+
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDict();
@@ -17,7 +19,6 @@ export default async function PricingPage({
 }) {
   const sp = await searchParams;
   const t = await getServerDict();
-  const [teaser] = await getTeasers(1);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -33,47 +34,27 @@ export default async function PricingPage({
       )}
 
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
-        {/* visual + value — what membership actually unlocks */}
+        {/* the payoff — a villa, and the one reason that matters */}
         <div>
           <h1 className="font-display text-3xl text-cream sm:text-4xl">
-            {t.pricing.title}
+            {t.pricing.unlockTitle}
           </h1>
-          <p className="mt-3 max-w-xl text-sm text-dim sm:text-base">
-            {t.pricing.body}
-          </p>
 
-          {teaser?.image && (
-            <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-sm border border-ink-border">
-              <Image
-                src={teaser.image}
-                alt={teaser.headline}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-xs uppercase tracking-widetitle text-silver">
-                  {teaser.province}
-                </p>
-                <p className="mt-1 font-display text-lg capitalize text-cream">
-                  {teaser.headline}
-                </p>
-              </div>
+          <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-sm border border-ink-border">
+            <Image
+              src={HERO_IMAGE}
+              alt={t.pricing.unlockTagline}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="font-display text-xl text-cream sm:text-2xl">
+                {t.pricing.unlockTagline}
+              </p>
             </div>
-          )}
-
-          <ul className="mt-8 space-y-5">
-            {t.landing.why.map((w) => (
-              <li key={w.title} className="flex items-start gap-3">
-                <span className="mt-0.5 text-gold">✦</span>
-                <div>
-                  <p className="font-medium text-cream">{w.title}</p>
-                  <p className="mt-0.5 text-sm text-dim">{w.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          </div>
         </div>
 
         {/* the plan itself */}

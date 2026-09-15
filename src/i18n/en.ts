@@ -100,6 +100,8 @@ export const en = {
   pricing: {
     title: "Membership",
     body: "One membership. The entire luxury collection, and a direct line to every agency.",
+    unlockTitle: "One last step before you unlock every listing",
+    unlockTagline: "The best-priced properties",
     monthlyLabel: "Monthly",
     annualLabel: "Annual",
     annualNote: "2 months free",

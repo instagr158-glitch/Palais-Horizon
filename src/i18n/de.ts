@@ -102,6 +102,8 @@ export const de: Dict = {
   pricing: {
     title: "Mitgliedschaft",
     body: "Eine Mitgliedschaft. Die gesamte Luxuskollektion und ein direkter Draht zu jedem Makler.",
+    unlockTitle: "Ein letzter Schritt, bevor Sie alle Angebote freischalten",
+    unlockTagline: "Immobilien zu Bestpreisen",
     monthlyLabel: "Monatlich",
     annualLabel: "Jährlich",
     annualNote: "2 Monate gratis",

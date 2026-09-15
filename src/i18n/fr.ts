@@ -102,6 +102,8 @@ export const fr: Dict = {
   pricing: {
     title: "Abonnement",
     body: "Un seul abonnement. Toute la collection de luxe, et une ligne directe vers chaque agence.",
+    unlockTitle: "Dernière étape avant de débloquer toutes les annonces",
+    unlockTagline: "Les biens immobiliers au meilleur prix",
     monthlyLabel: "Mensuel",
     annualLabel: "Annuel",
     annualNote: "2 mois offerts",
