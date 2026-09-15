@@ -40,7 +40,7 @@ export default async function PricingPage({
             {t.pricing.unlockTitle}
           </h1>
 
-          <div className="relative mt-6 aspect-[4/3] overflow-hidden rounded-sm border border-ink-border">
+          <div className="relative mt-6 aspect-[16/9] max-h-72 overflow-hidden rounded-sm border border-ink-border">
             <Image
               src={HERO_IMAGE}
               alt={t.pricing.unlockTagline}
