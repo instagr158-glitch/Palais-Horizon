@@ -5,7 +5,7 @@ import { stripeConfigured, PRICE_IDS } from "@/lib/stripe";
 import { getServerDict } from "@/i18n/server";
 
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80";
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDict();
