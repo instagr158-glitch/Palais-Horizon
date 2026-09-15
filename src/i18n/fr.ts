@@ -94,6 +94,11 @@ export const fr: Dict = {
     expiredCta: "Réactiver l'abonnement",
   },
 
+  join: {
+    title: "Créez votre compte",
+    body: "Entrez votre email ci-dessous, nous vous enverrons un lien pour continuer sur Palais Horizon dans votre navigateur.",
+  },
+
   pricing: {
     title: "Abonnement",
     body: "Un seul abonnement. Toute la collection de luxe, et une ligne directe vers chaque agence.",

@@ -92,6 +92,11 @@ export const en = {
     expiredCta: "Reactivate membership",
   },
 
+  join: {
+    title: "Create your account",
+    body: "Enter your email below and we'll send you a link to continue on Palais Horizon in your browser.",
+  },
+
   pricing: {
     title: "Membership",
     body: "One membership. The entire luxury collection, and a direct line to every agency.",

@@ -94,6 +94,11 @@ export const de: Dict = {
     expiredCta: "Mitgliedschaft reaktivieren",
   },
 
+  join: {
+    title: "Konto erstellen",
+    body: "Geben Sie unten Ihre E-Mail-Adresse ein — wir senden Ihnen einen Link, um mit Palais Horizon in Ihrem Browser fortzufahren.",
+  },
+
   pricing: {
     title: "Mitgliedschaft",
     body: "Eine Mitgliedschaft. Die gesamte Luxuskollektion und ein direkter Draht zu jedem Makler.",
