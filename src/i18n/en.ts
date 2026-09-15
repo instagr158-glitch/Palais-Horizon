@@ -122,6 +122,8 @@ export const en = {
       "Palais Horizon is an index of third-party listings. Membership buys access to the collection and a direct introduction to each listing agency — it is not a brokerage fee and no property transaction is handled here.",
     lockedBanner:
       "The residences catalogue is for members. Choose a plan below to unlock it.",
+    inAppBrowserWarning:
+      "Browsing from TikTok, Instagram or Facebook? Tap ⋯ at the top of the screen and choose \"Open in browser\" before continuing — payment can't be completed inside the app.",
     canceledBanner: "Checkout canceled — no charge was made.",
     signInFirst: "Please sign in first.",
     networkError: "Network error. Please try again.",

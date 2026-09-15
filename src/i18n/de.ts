@@ -124,6 +124,8 @@ export const de: Dict = {
       "Palais Horizon ist ein Verzeichnis von Drittanbieter-Inseraten. Die Mitgliedschaft verschafft Zugang zur Kollektion und eine direkte Vermittlung an jedes Maklerbüro — es ist keine Maklerprovision und hier wird kein Immobiliengeschäft abgewickelt.",
     lockedBanner:
       "Der Residenzen-Katalog ist Mitgliedern vorbehalten. Wählen Sie unten einen Tarif, um ihn freizuschalten.",
+    inAppBrowserWarning:
+      "Kommen Sie von TikTok, Instagram oder Facebook? Tippen Sie oben auf ⋯ und wählen Sie „Im Browser öffnen“, bevor Sie fortfahren — die Zahlung kann innerhalb der App nicht abgeschlossen werden.",
     canceledBanner: "Bezahlvorgang abgebrochen — es wurde nichts berechnet.",
     signInFirst: "Bitte melden Sie sich zuerst an.",
     networkError: "Netzwerkfehler. Bitte versuchen Sie es erneut.",
