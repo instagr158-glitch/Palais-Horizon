@@ -97,10 +97,17 @@ export async function sendCheckoutEmail(opts: {
   locale: Locale;
 }): Promise<void> {
   if (!resend) throw new Error("Email is not configured.");
-  await resend.emails.send({
+  // The SDK never throws on an API-level failure — it resolves to
+  // { data, error } either way — so a rejected send (e.g. the shared
+  // onboarding@resend.dev domain refusing an unverified recipient) would
+  // otherwise look identical to success unless we check `error` ourselves.
+  const { error } = await resend.emails.send({
     from: FROM,
     to: opts.to,
     subject: COPY[opts.locale].subject,
     html: checkoutEmailHtml(opts.siteUrl, opts.locale),
   });
+  if (error) {
+    throw new Error(error.message ?? "Resend failed to send the email.");
+  }
 }
