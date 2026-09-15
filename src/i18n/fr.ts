@@ -108,6 +108,12 @@ export const fr: Dict = {
     cancelAnytime: "Résiliable à tout moment.",
     cta: "Continuer",
     redirecting: "Redirection…",
+    emailHint: "Vous venez de TikTok ou Instagram — nous vous envoyons un lien par email pour finaliser le paiement dans votre navigateur.",
+    emailPlaceholder: "vous@email.com",
+    emailCta: "Recevoir mon lien de paiement",
+    emailSending: "Envoi…",
+    emailSent: "Vérifiez vos emails — nous vous avons envoyé un lien pour continuer.",
+    emailInvalid: "Veuillez entrer une adresse email valide.",
     features: [
       "Prix affichés complets (THB + USD)",
       "Localisations exactes et carte",

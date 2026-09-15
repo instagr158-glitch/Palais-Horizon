@@ -106,6 +106,12 @@ export const en = {
     cancelAnytime: "Cancel anytime.",
     cta: "Continue",
     redirecting: "Redirecting…",
+    emailHint: "Continuing from TikTok or Instagram — we'll email you a link to finish payment in your browser.",
+    emailPlaceholder: "you@email.com",
+    emailCta: "Send my payment link",
+    emailSending: "Sending…",
+    emailSent: "Check your inbox — we've sent you a link to continue.",
+    emailInvalid: "Please enter a valid email address.",
     features: [
       "Full asking prices (THB + USD)",
       "Exact locations and map",

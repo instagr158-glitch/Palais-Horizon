@@ -8,7 +8,7 @@
  * fallback, so don't do that. The only safe assist available from here is
  * pre-copying the link to the clipboard so there's one less manual step.
  */
-function isKnownInAppBrowser(ua: string): boolean {
+export function isKnownInAppBrowser(ua: string): boolean {
   return /musical_ly|tiktok|instagram|fban|fbav|fb_iab/i.test(ua);
 }
 

@@ -1,18 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/components/I18nProvider";
-import { assistInAppBrowserCheckout } from "@/lib/inAppBrowserEscape";
+import { isKnownInAppBrowser } from "@/lib/inAppBrowserEscape";
 
 type Props = {
   configured: boolean;
   prices: { monthly?: string; annual?: string };
 };
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function PricingTable({ configured, prices }: Props) {
   const { t } = useI18n();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [inAppBrowser, setInAppBrowser] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailSentFor, setEmailSentFor] = useState<string | null>(null);
+
+  useEffect(() => {
+    setInAppBrowser(isKnownInAppBrowser(navigator.userAgent));
+  }, []);
 
   // The annual plan only appears when an annual Stripe price is configured.
   const hasAnnual = !!prices.annual;
@@ -48,6 +57,35 @@ export function PricingTable({ configured, prices }: Props) {
       setError(t.pricing.notConfigured);
       return;
     }
+
+    // TikTok/Instagram/Facebook's in-app browsers block navigation straight
+    // to Stripe — email the payment link instead, so opening it in a real
+    // mail app breaks the visitor out of the in-app browser entirely.
+    if (inAppBrowser) {
+      if (!EMAIL_RE.test(email)) {
+        setError(t.pricing.emailInvalid);
+        return;
+      }
+      setLoading(plan);
+      try {
+        const res = await fetch("/api/checkout/email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan, email }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setEmailSentFor(plan);
+        } else {
+          setError(data.error ?? t.pricing.networkError);
+        }
+      } catch {
+        setError(t.pricing.networkError);
+      }
+      setLoading(null);
+      return;
+    }
+
     setLoading(plan);
     try {
       const res = await fetch("/api/checkout", {
@@ -57,7 +95,6 @@ export function PricingTable({ configured, prices }: Props) {
       });
       const data = await res.json();
       if (data.url) {
-        await assistInAppBrowserCheckout(data.url);
         window.location.href = data.url;
       } else {
         setError(data.error ?? t.pricing.networkError);
@@ -112,13 +149,42 @@ export function PricingTable({ configured, prices }: Props) {
             <p className="num mt-2 text-sm text-silver">{plan.approx}</p>
             {plan.note && <p className="mt-2 text-sm text-gold">{plan.note}</p>}
 
-            <button
-              onClick={() => choose(plan.id)}
-              disabled={loading !== null}
-              className="btn-gold mt-5 w-full rounded-sm px-4 py-3 text-sm disabled:opacity-60"
-            >
-              {loading === plan.id ? t.pricing.redirecting : t.pricing.cta}
-            </button>
+            {emailSentFor === plan.id ? (
+              <p className="mt-5 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
+                {t.pricing.emailSent}
+              </p>
+            ) : (
+              <>
+                {inAppBrowser && (
+                  <div className="mt-4">
+                    <label className="mb-1 block text-xs text-dim">
+                      {t.pricing.emailHint}
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={t.pricing.emailPlaceholder}
+                      className="w-full rounded-sm px-3 py-2 text-sm"
+                      autoComplete="email"
+                    />
+                  </div>
+                )}
+                <button
+                  onClick={() => choose(plan.id)}
+                  disabled={loading !== null}
+                  className="btn-gold mt-4 w-full rounded-sm px-4 py-3 text-sm disabled:opacity-60"
+                >
+                  {loading === plan.id
+                    ? inAppBrowser
+                      ? t.pricing.emailSending
+                      : t.pricing.redirecting
+                    : inAppBrowser
+                      ? t.pricing.emailCta
+                      : t.pricing.cta}
+                </button>
+              </>
+            )}
           </div>
         ))}
       </div>

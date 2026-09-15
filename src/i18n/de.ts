@@ -108,6 +108,12 @@ export const de: Dict = {
     cancelAnytime: "Jederzeit kündbar.",
     cta: "Weiter",
     redirecting: "Weiterleitung…",
+    emailHint: "Sie kommen von TikTok oder Instagram — wir senden Ihnen einen Link per E-Mail, um die Zahlung in Ihrem Browser abzuschließen.",
+    emailPlaceholder: "sie@email.com",
+    emailCta: "Zahlungslink senden",
+    emailSending: "Wird gesendet…",
+    emailSent: "Prüfen Sie Ihr Postfach — wir haben Ihnen einen Link zum Fortfahren gesendet.",
+    emailInvalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     features: [
       "Vollständige Angebotspreise (THB + USD)",
       "Exakte Lagen und Karte",
