@@ -1,20 +1,21 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { buildCheckoutSession } from "@/lib/checkoutSession";
 import { sendCheckoutEmail, emailConfigured } from "@/lib/email";
 import { getLocale } from "@/i18n/server";
 
+const APP_URL = process.env.APP_URL ?? "http://localhost:3000";
+
 const schema = z.object({
-  plan: z.string().min(1),
   email: z.string().email(),
 });
 
 /**
  * For visitors stuck in an in-app browser (TikTok, Instagram, Facebook)
- * that blocks navigation straight to Stripe: creates the same Checkout
- * Session as /api/checkout, but emails the link instead of returning it for
- * an immediate redirect. Opening that email in a real mail app breaks the
- * visitor out of the in-app browser entirely, so the link works normally.
+ * that blocks navigation straight to Stripe: emails a link back to our own
+ * /pricing page instead of a direct Stripe URL, so the visitor lands on
+ * familiar Palais Horizon branding first and clicks "Continue" themselves —
+ * reassuring, and by then they're in a real mail-app browser, not the
+ * restricted in-app one, so the normal Stripe redirect works fine.
  */
 export async function POST(req: Request) {
   if (!emailConfigured) {
@@ -33,16 +34,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const result = await buildCheckoutSession(parsed.data.plan, {
-    customerEmail: parsed.data.email,
-  });
-  if ("error" in result) {
-    return NextResponse.json({ error: result.error }, { status: result.status });
-  }
-
   try {
     const locale = await getLocale();
-    await sendCheckoutEmail({ to: parsed.data.email, checkoutUrl: result.url, locale });
+    await sendCheckoutEmail({
+      to: parsed.data.email,
+      siteUrl: `${APP_URL}/pricing`,
+      locale,
+    });
   } catch (err) {
     console.error("Failed to send checkout email:", err);
     return NextResponse.json(

@@ -10,14 +10,10 @@ export type CheckoutSessionResult =
 
 /**
  * Builds a Stripe Checkout Session for a plan. Signed-in visitors reuse
- * their account; everyone else checks out as a guest. When `customerEmail`
- * is given (the email-link flow, for visitors we can't send straight to
- * Stripe from inside an in-app browser), it pre-fills Stripe's own email
- * field so the webhook can still match the resulting account by email.
+ * their account; everyone else checks out as a guest.
  */
 export async function buildCheckoutSession(
   plan: string | undefined,
-  opts?: { customerEmail?: string },
 ): Promise<CheckoutSessionResult> {
   if (!stripe || !stripeConfigured) {
     return { error: "Payment is not configured on this site yet.", status: 503 };
@@ -68,9 +64,6 @@ export async function buildCheckoutSession(
     const checkout = await stripe.checkout.sessions.create({
       mode: "subscription",
       ...(customerId ? { customer: customerId } : {}),
-      ...(!customerId && opts?.customerEmail
-        ? { customer_email: opts.customerEmail }
-        : {}),
       ...(clientReferenceId ? { client_reference_id: clientReferenceId } : {}),
       line_items: [{ price: priceId, quantity: 1 }],
       allow_promotion_codes: true,

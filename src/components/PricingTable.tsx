@@ -59,8 +59,10 @@ export function PricingTable({ configured, prices }: Props) {
     }
 
     // TikTok/Instagram/Facebook's in-app browsers block navigation straight
-    // to Stripe — email the payment link instead, so opening it in a real
-    // mail app breaks the visitor out of the in-app browser entirely.
+    // to Stripe — email a link back to this site instead, so opening it in
+    // a real mail app breaks the visitor out of the in-app browser, lands
+    // them on familiar Palais Horizon branding, and they click Continue
+    // themselves from there.
     if (inAppBrowser) {
       if (!EMAIL_RE.test(email)) {
         setError(t.pricing.emailInvalid);
@@ -71,7 +73,7 @@ export function PricingTable({ configured, prices }: Props) {
         const res = await fetch("/api/checkout/email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan, email }),
+          body: JSON.stringify({ email }),
         });
         const data = await res.json();
         if (res.ok) {

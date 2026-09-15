@@ -24,34 +24,34 @@ const COPY: Record<
 > = {
   en: {
     subject: "Continue your Palais Horizon membership",
-    preheader: "One step left to unlock the collection.",
-    title: "Continue your membership",
-    body: "One step left — tap the button below to finish setting up your Palais Horizon membership.",
-    cta: "Continue my subscription",
+    preheader: "Open Palais Horizon to finish subscribing.",
+    title: "Continue on Palais Horizon",
+    body: "Tap the button below to open Palais Horizon in your browser and finish your €19/month membership.",
+    cta: "Open Palais Horizon",
     fallback: "If the button doesn't work, copy this link into your browser:",
     footer: "Didn't request this? You can safely ignore this email.",
   },
   fr: {
     subject: "Continuez votre abonnement Palais Horizon",
-    preheader: "Il ne reste qu'une étape pour débloquer la collection.",
-    title: "Continuez votre abonnement",
-    body: "Il ne reste qu'une étape : appuyez sur le bouton ci-dessous pour finaliser votre abonnement Palais Horizon.",
-    cta: "Continuer mon abonnement",
+    preheader: "Ouvrez Palais Horizon pour finaliser votre abonnement.",
+    title: "Continuez sur Palais Horizon",
+    body: "Appuyez sur le bouton ci-dessous pour ouvrir Palais Horizon dans votre navigateur et finaliser votre abonnement à 19 €/mois.",
+    cta: "Ouvrir Palais Horizon",
     fallback: "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
     footer: "Vous n'êtes pas à l'origine de cette demande ? Ignorez simplement cet e-mail.",
   },
   de: {
     subject: "Setzen Sie Ihre Palais-Horizon-Mitgliedschaft fort",
-    preheader: "Nur noch ein Schritt, um die Kollektion freizuschalten.",
-    title: "Mitgliedschaft fortsetzen",
-    body: "Nur noch ein Schritt — tippen Sie unten, um Ihre Palais-Horizon-Mitgliedschaft abzuschließen.",
-    cta: "Abonnement fortsetzen",
+    preheader: "Öffnen Sie Palais Horizon, um Ihre Mitgliedschaft abzuschließen.",
+    title: "Weiter auf Palais Horizon",
+    body: "Tippen Sie unten, um Palais Horizon in Ihrem Browser zu öffnen und Ihre Mitgliedschaft für 19 €/Monat abzuschließen.",
+    cta: "Palais Horizon öffnen",
     fallback: "Falls der Button nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
     footer: "Diese Anfrage stammt nicht von Ihnen? Ignorieren Sie diese E-Mail einfach.",
   },
 };
 
-function checkoutEmailHtml(checkoutUrl: string, locale: Locale): string {
+function checkoutEmailHtml(siteUrl: string, locale: Locale): string {
   const c = COPY[locale];
   return `<!doctype html>
 <html>
@@ -73,12 +73,12 @@ function checkoutEmailHtml(checkoutUrl: string, locale: Locale): string {
                 <table role="presentation" width="100%">
                   <tr>
                     <td align="center" style="padding-bottom:28px;">
-                      <a href="${checkoutUrl}" style="display:inline-block;background-image:linear-gradient(135deg,#f6d98a,#d4af37 55%,#a9801e);color:#101010;font-weight:600;padding:14px 36px;border-radius:4px;text-decoration:none;font-size:14px;">${c.cta}</a>
+                      <a href="${siteUrl}" style="display:inline-block;background-image:linear-gradient(135deg,#f6d98a,#d4af37 55%,#a9801e);color:#101010;font-weight:600;padding:14px 36px;border-radius:4px;text-decoration:none;font-size:14px;">${c.cta}</a>
                     </td>
                   </tr>
                 </table>
                 <p style="color:#7a7a7d;font-size:12px;line-height:1.5;margin:0 0 4px;">${c.fallback}</p>
-                <p style="color:#a6a6a2;font-size:12px;line-height:1.5;word-break:break-all;margin:0 0 24px;">${checkoutUrl}</p>
+                <p style="color:#a6a6a2;font-size:12px;line-height:1.5;word-break:break-all;margin:0 0 24px;">${siteUrl}</p>
                 <hr style="border:none;border-top:1px solid #2a2a2e;margin:0 0 20px;" />
                 <p style="color:#7a7a7d;font-size:11px;line-height:1.5;text-align:center;margin:0;">${c.footer}</p>
               </td>
@@ -93,7 +93,7 @@ function checkoutEmailHtml(checkoutUrl: string, locale: Locale): string {
 
 export async function sendCheckoutEmail(opts: {
   to: string;
-  checkoutUrl: string;
+  siteUrl: string;
   locale: Locale;
 }): Promise<void> {
   if (!resend) throw new Error("Email is not configured.");
@@ -101,6 +101,6 @@ export async function sendCheckoutEmail(opts: {
     from: FROM,
     to: opts.to,
     subject: COPY[opts.locale].subject,
-    html: checkoutEmailHtml(opts.checkoutUrl, opts.locale),
+    html: checkoutEmailHtml(opts.siteUrl, opts.locale),
   });
 }
