@@ -23,11 +23,11 @@ export const en = {
   landing: {
     heroKicker: "Private real-estate club · Thailand",
     heroTitle:
-      "The finest villas, penthouses and estates in Thailand — in one place.",
+      "Every listing from every agency in Thailand, gathered inside one private club.",
     heroBullets: [
-      "Every property listing in Thailand, gathered in one place",
+      "Not another listings site — a private club that gathers every agency's properties in the country",
+      "Compare offers from dozens of agencies in an instant",
       "Ideal for rental investment or long-term acquisition",
-      "Compare multiple properties in seconds",
       "Access new-build projects at the best prices",
     ],
     heroCta: "View membership",

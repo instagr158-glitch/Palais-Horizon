@@ -25,11 +25,11 @@ export const de: Dict = {
   landing: {
     heroKicker: "Privater Immobilienclub · Thailand",
     heroTitle:
-      "Die schönsten Villen, Penthäuser und Anwesen Thailands — an einem Ort.",
+      "Alle Angebote, aller Immobilienagenturen Thailands, vereint in einem privaten Club.",
     heroBullets: [
-      "Alle Immobilienangebote Thailands an einem Ort",
+      "Keine gewöhnliche Anzeigenseite: ein privater Club, der die Objekte aller Immobilienagenturen des Landes vereint",
+      "Vergleichen Sie in Sekunden die Angebote Dutzender Agenturen",
       "Ideal für Mietrenditen oder den langfristigen Vermögensaufbau",
-      "Vergleichen Sie mehrere Objekte in Sekunden",
       "Neubauprojekte zu den besten Preisen",
     ],
     heroCta: "Mitgliedschaft ansehen",

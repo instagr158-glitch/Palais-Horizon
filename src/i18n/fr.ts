@@ -25,11 +25,11 @@ export const fr: Dict = {
   landing: {
     heroKicker: "Club immobilier privé · Thaïlande",
     heroTitle:
-      "Les plus belles villas, penthouses et propriétés de Thaïlande — au même endroit.",
+      "Toutes les annonces, de toutes les agences de Thaïlande, réunies dans un seul club privé.",
     heroBullets: [
-      "L'ensemble des annonces immobilières de Thaïlande, réunies en un seul endroit",
+      "Pas un site d'annonces de plus : un club privé qui réunit les biens de toutes les agences immobilières du pays",
+      "Comparez en un instant les offres de dizaines d'agences différentes",
       "Idéal pour l'investissement locatif comme pour l'achat patrimonial",
-      "Comparez plusieurs biens en quelques secondes",
       "Accédez aux nouveaux projets aux meilleurs prix",
     ],
     heroCta: "Voir l'abonnement",
