@@ -140,8 +140,8 @@ export const fr: Dict = {
     canceledBanner: "Paiement annulé — aucun débit n'a été effectué.",
     signInFirst: "Veuillez d'abord vous connecter.",
     networkError: "Erreur réseau. Veuillez réessayer.",
-    promoBadge: "-67%",
-    promoOriginal: "€30",
+    promoBadge: "-62%",
+    promoOriginal: "€50",
     promoLabel: "Offre limitée",
   },
 
