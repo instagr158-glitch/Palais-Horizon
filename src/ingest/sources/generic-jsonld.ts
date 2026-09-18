@@ -46,27 +46,71 @@ function firstOf<T>(...vals: (T | undefined | null)[]): T | undefined {
   return undefined;
 }
 
+/** Units per 1 USD — indicative only, for converting a source price into
+ * our internal THB-equivalent unit. THB itself needs no conversion. */
+const UNITS_PER_USD: Record<string, number> = {
+  USD: 1,
+  THB: 34.5,
+  IDR: 15800,
+  AED: 3.67,
+};
+
+/** Converts a price in `currency` into THB-equivalent (our storage unit). */
+function toThbEquivalent(price: number, currency: string | undefined): number {
+  const cur = (currency || "THB").toUpperCase();
+  if (cur === "THB") return Math.round(price);
+  const rate = UNITS_PER_USD[cur];
+  if (!rate) return Math.round(price); // unrecognised currency: pass through
+  return Math.round((price / rate) * UNITS_PER_USD.THB);
+}
+
 type LdNode = Record<string, unknown>;
 
+// Ordered by preference, not document order: a listing-specific node (with
+// its own address/offer) beats a generic "Product" wrapper some sites emit
+// alongside it for shopping-feed SEO.
+const REAL_ESTATE_TYPE_PRIORITY = [
+  "RealEstateListing",
+  "Residence",
+  "SingleFamilyResidence",
+  "House",
+  "Apartment",
+  "Accommodation",
+  "Place",
+  "Product",
+];
+
+function nodeTypes(node: LdNode): string[] {
+  const t = node["@type"];
+  return Array.isArray(t) ? t.map(String) : [String(t)];
+}
+
 function pickRealEstateNode(nodes: unknown[]): LdNode | null {
-  const wanted = [
-    "RealEstateListing",
-    "Residence",
-    "SingleFamilyResidence",
-    "House",
-    "Apartment",
-    "Product",
-    "Accommodation",
-    "Place",
-  ];
-  for (const n of nodes) {
-    if (!n || typeof n !== "object") continue;
-    const node = n as LdNode;
-    const t = node["@type"];
-    const types = Array.isArray(t) ? t.map(String) : [String(t)];
-    if (types.some((x) => wanted.includes(x))) return node;
+  const candidates = nodes.filter(
+    (n): n is LdNode => !!n && typeof n === "object",
+  );
+  for (const wanted of REAL_ESTATE_TYPE_PRIORITY) {
+    const match = candidates.find((n) => nodeTypes(n).includes(wanted));
+    if (match) return match;
   }
   return null;
+}
+
+/** Some sites nest the real address under `mainEntity` (e.g. a
+ * RealEstateListing wrapping a Residence). Check both spots. */
+function pickAddress(node: LdNode, allNodes: unknown[]): LdNode {
+  const direct = node["address"] as LdNode | undefined;
+  if (direct && typeof direct === "object") return direct;
+  const mainEntity = node["mainEntity"] as LdNode | undefined;
+  const nested = mainEntity?.["address"] as LdNode | undefined;
+  if (nested && typeof nested === "object") return nested;
+  // Last resort: any other node in the document that has an address.
+  for (const n of allNodes) {
+    if (!n || typeof n !== "object") continue;
+    const addr = (n as LdNode)["address"];
+    if (addr && typeof addr === "object") return addr as LdNode;
+  }
+  return {};
 }
 
 function slugFromUrl(url: string): string {
@@ -92,7 +136,7 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
   if (!node && !ogTitle) return null;
 
   const offers = (node?.["offers"] ?? {}) as LdNode;
-  const address = (node?.["address"] ?? {}) as LdNode;
+  const address = node ? pickAddress(node, nodes) : {};
   const geo = (node?.["geo"] ?? {}) as LdNode;
 
   const price = firstOf(
@@ -133,11 +177,17 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
         : (node?.["@type"] as string),
       title,
     ),
-    listingType: /rent|rental|per month|\/month/i.test(html) ? "rent" : "sale",
-    priceAmount:
-      currency && currency.toUpperCase() !== "THB" && price
-        ? Math.round(price * (currency.toUpperCase() === "USD" ? 34.5 : 1))
-        : price,
+    // The URL path is the reliable signal (e.g. "/for-sale/" vs "/for-rent/");
+    // a page can mention "rental" in passing (e.g. "also available for
+    // monthly rental") without the fetched price being a rent.
+    listingType: /\/for-rent\/|\/rent\//i.test(url)
+      ? "rent"
+      : /\/for-sale\/|\/sale\//i.test(url)
+        ? "sale"
+        : /rent|rental|per month|\/month/i.test(html)
+          ? "rent"
+          : "sale",
+    priceAmount: price != null ? toThbEquivalent(price, currency) : undefined,
     priceCurrency: "THB",
     bedrooms: num(
       firstOf(node?.["numberOfBedrooms"], node?.["numberOfRooms"]),

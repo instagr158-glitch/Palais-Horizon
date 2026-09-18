@@ -34,8 +34,10 @@ export default async function ListingsPage({
 
   const t = await getServerDict();
   const sp = await searchParams;
+  const country = sp.country === "bali" ? "bali" : "thailand";
   const filters: ListingFilters = {
     q: sp.q,
+    country,
     propertyType: sp.propertyType,
     listingType: sp.listingType,
     province: sp.province,
@@ -71,7 +73,7 @@ export default async function ListingsPage({
         </div>
       </div>
 
-      <CountryTabs />
+      <CountryTabs active={country} />
 
       <Suspense fallback={<div className="panel h-20 rounded-sm" />}>
         <Filters />

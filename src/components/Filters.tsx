@@ -46,6 +46,8 @@ export function Filters() {
     [params, pathname, router],
   );
 
+  const isThailand = params.get("country") !== "bali";
+
   const budgetValue =
     params.get("minPrice") || params.get("maxPrice")
       ? `${params.get("minPrice") ?? "0"}-${params.get("maxPrice") ?? "0"}`
@@ -64,18 +66,20 @@ export function Filters() {
           className="rounded-sm px-3 py-2 text-sm lg:col-span-2"
         />
 
-        <select
-          value={params.get("province") ?? ""}
-          onChange={(e) => update({ province: e.target.value })}
-          className="rounded-sm px-3 py-2 text-sm"
-        >
-          <option value="">{t.listings.allRegions}</option>
-          {PROVINCES.map((p) => (
-            <option key={p} value={p}>
-              {p === "Surat Thani" ? t.listings.samuiRegion : p}
-            </option>
-          ))}
-        </select>
+        {isThailand && (
+          <select
+            value={params.get("province") ?? ""}
+            onChange={(e) => update({ province: e.target.value })}
+            className="rounded-sm px-3 py-2 text-sm"
+          >
+            <option value="">{t.listings.allRegions}</option>
+            {PROVINCES.map((p) => (
+              <option key={p} value={p}>
+                {p === "Surat Thani" ? t.listings.samuiRegion : p}
+              </option>
+            ))}
+          </select>
+        )}
 
         <select
           value={params.get("propertyType") ?? ""}

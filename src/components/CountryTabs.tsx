@@ -1,32 +1,51 @@
 "use client";
 
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
-const FLAGS = ["🇹🇭", "🇦🇪", "🇺🇸", "🇮🇩"];
+const FLAGS = ["🇹🇭", "🇮🇩", "🇦🇪", "🇺🇸"];
 
-export function CountryTabs() {
+export function CountryTabs({ active }: { active: "thailand" | "bali" }) {
   const { t } = useI18n();
+  const params = useSearchParams();
+
+  const hrefFor = (country: string) => {
+    const next = new URLSearchParams(params.toString());
+    if (country === "thailand") next.delete("country");
+    else next.set("country", country);
+    next.delete("page");
+    next.delete("province");
+    const qs = next.toString();
+    return `/listings${qs ? `?${qs}` : ""}`;
+  };
+
   const countries = [
-    { label: t.listings.countryThailand, active: true },
-    { label: t.listings.countryDubai, active: false },
-    { label: t.listings.countryMiami, active: false },
-    { label: t.listings.countryBali, active: false },
+    { key: "thailand", label: t.listings.countryThailand, live: true },
+    { key: "bali", label: t.listings.countryBali, live: true },
+    { key: "dubai", label: t.listings.countryDubai, live: false },
+    { key: "miami", label: t.listings.countryMiami, live: false },
   ];
 
   return (
     <div className="mb-4 flex flex-wrap gap-2">
       {countries.map((c, i) =>
-        c.active ? (
-          <span
-            key={c.label}
-            className="inline-flex items-center gap-2 rounded-full border border-gold bg-gold/10 px-4 py-2 text-sm text-gold"
+        c.live ? (
+          <Link
+            key={c.key}
+            href={hrefFor(c.key)}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition ${
+              active === c.key
+                ? "border-gold bg-gold/10 text-gold"
+                : "border-ink-border text-dim hover:border-gold/40 hover:text-cream"
+            }`}
           >
             <span aria-hidden>{FLAGS[i]}</span>
             {c.label}
-          </span>
+          </Link>
         ) : (
           <span
-            key={c.label}
+            key={c.key}
             title={t.listings.comingSoon}
             className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-ink-border px-4 py-2 text-sm text-dim opacity-60"
           >

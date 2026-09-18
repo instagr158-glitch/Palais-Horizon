@@ -1,8 +1,11 @@
 import type { RawListing } from "./sources/base";
 
-/** Price floors (THB) below which we don't consider it "luxury". */
-const SALE_FLOOR = 15_000_000;
-const RENT_FLOOR = 120_000; // per month
+/** Price floors (THB-equivalent) below which we don't consider it "luxury".
+ * ~$100k sale / ~$1.2k monthly rent — high-end but not ultra-luxury-only,
+ * so genuine listings from more affordable markets (e.g. Bali) aren't
+ * dropped just for costing less than a Phuket beachfront estate. */
+const SALE_FLOOR = 3_450_000;
+const RENT_FLOOR = 41_000; // per month
 
 const LUXURY_KEYWORDS = [
   "villa",

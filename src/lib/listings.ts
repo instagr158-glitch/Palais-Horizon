@@ -90,8 +90,16 @@ export function toFullListing(l: Listing): FullListing {
   };
 }
 
+/** Countries with at least one active market. "province" is the country-level
+ * field on Listing (Thai region name for Thailand, "Bali" for Indonesia). */
+export const COUNTRY_PROVINCES: Record<string, readonly string[]> = {
+  thailand: PROVINCES,
+  bali: ["Bali"],
+};
+
 export type ListingFilters = {
   q?: string;
+  country?: string;
   propertyType?: string;
   listingType?: string;
   province?: string;
@@ -108,6 +116,10 @@ export async function queryListings(filters: ListingFilters) {
   const page = Math.max(filters.page ?? 1, 1);
 
   const where: Record<string, unknown> = { status: "active" };
+  const countryProvinces = filters.country
+    ? COUNTRY_PROVINCES[filters.country]
+    : undefined;
+  if (countryProvinces) where.province = { in: [...countryProvinces] };
   if (filters.propertyType) where.propertyType = filters.propertyType;
   if (filters.listingType) where.listingType = filters.listingType;
   if (filters.province) where.province = filters.province;
