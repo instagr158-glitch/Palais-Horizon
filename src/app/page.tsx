@@ -149,6 +149,16 @@ export default async function LandingPage() {
           </div>
         </div>
 
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-dim">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-gold" /> {t.landing.coverageActive}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full border border-gold/70" /> {t.landing.coverageSoon}
+          </span>
+        </div>
+        <p className="mt-2 text-xs text-dim">{t.landing.coverageSoonList}</p>
+
         <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
           <p className="font-display text-xl text-cream">
             {t.landing.unlockBanner}

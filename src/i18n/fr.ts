@@ -88,6 +88,10 @@ export const fr: Dict = {
     coverageMiami: "Miami",
     coverageDubai: "Dubaï",
     coverageBali: "Bali",
+    coverageActive: "Marché actif",
+    coverageSoon: "Bientôt disponible",
+    coverageSoonList:
+      "Bientôt disponible : Pays-Bas, Royaume-Uni, Allemagne, France, New York, Los Angeles",
     lockedPrice: "Prix réservé aux membres",
     subscribeCta: "S'abonner",
     unlockBanner:
