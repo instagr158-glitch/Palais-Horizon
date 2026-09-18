@@ -23,8 +23,8 @@ export const fr: Dict = {
   },
 
   landing: {
-    heroTitleLead: "Trouvez les biens ",
-    heroTitleHighlight: "immobiliers au meilleur prix",
+    heroTitleLead: "Trouvez les biens immobiliers ",
+    heroTitleHighlight: "au meilleur prix",
     heroTitleTrail: " de Thaïlande — avant tout le monde.",
     heroSubtext:
       "Palais Horizon analyse en continu les annonces de toutes les agences de Thaïlande pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
