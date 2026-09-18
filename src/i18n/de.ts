@@ -37,10 +37,16 @@ export const de: Dict = {
     statListingsSuffix: "geprüfte Luxusangebote",
     statRegionsSuffix: "Regionen in Thailand",
     statAgenciesSuffix: "Partner-Maklerbüros",
-    teaserTitle: "Ein Blick in die Kollektion",
-    teaserBody:
-      "Vollständige Preise, exakte Lagen und komplette Fotogalerien öffnen sich, sobald Sie Mitglied werden — für den Start ist kein Konto nötig.",
-    teaserCreate: "Mitgliedschaft ansehen",
+    coverageBadge: "Weltweite Abdeckung",
+    coverageTitle: "Immobilienangebote aus aller Welt, analysiert.",
+    coverageSubtext:
+      "Palais Horizon wertet fortlaufend die Angebote überall dort aus, wo die Plattform aktiv ist, um die rentabelsten Immobilien als Erstes zu zeigen.",
+    coverageActive: "Aktiver Markt",
+    coverageSoon: "Demnächst",
+    coverageThailand: "Thailand",
+    coverageMiami: "Miami",
+    coverageDubai: "Dubai",
+    coverageBali: "Bali",
     lockedPrice: "Preis nur für Mitglieder",
     subscribeCta: "Abonnieren",
     unlockBanner:

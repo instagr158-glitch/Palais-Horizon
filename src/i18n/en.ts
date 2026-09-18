@@ -35,10 +35,16 @@ export const en = {
     statListingsSuffix: "verified luxury listings",
     statRegionsSuffix: "regions across Thailand",
     statAgenciesSuffix: "partner agencies",
-    teaserTitle: "A glimpse inside the collection",
-    teaserBody:
-      "Full prices, exact locations and complete photo galleries open the moment you become a member — no account needed to get started.",
-    teaserCreate: "View membership",
+    coverageBadge: "Global coverage",
+    coverageTitle: "Real-estate listings from around the world, analysed.",
+    coverageSubtext:
+      "Palais Horizon continuously processes listings everywhere the platform operates, to surface the most profitable properties before anyone else.",
+    coverageActive: "Active market",
+    coverageSoon: "Coming soon",
+    coverageThailand: "Thailand",
+    coverageMiami: "Miami",
+    coverageDubai: "Dubai",
+    coverageBali: "Bali",
     lockedPrice: "Price reserved for members",
     subscribeCta: "Subscribe",
     unlockBanner:

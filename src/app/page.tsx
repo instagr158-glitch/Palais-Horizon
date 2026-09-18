@@ -1,16 +1,14 @@
 import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
-import { LockedTeaserCard } from "@/components/LockedTeaserCard";
-import { getTeasers, getCatalogStats } from "@/lib/listings";
+import { getCatalogStats } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
 
 export const dynamic = "force-dynamic";
 
 export default async function LandingPage() {
-  const locale = await getLocale();
-  const t = getDictionary(locale);
-  const [teasers, stats] = await Promise.all([getTeasers(9), getCatalogStats()]);
+  const t = getDictionary(await getLocale());
+  const stats = await getCatalogStats();
 
   return (
     <div className="grain relative">
@@ -88,34 +86,56 @@ export default async function LandingPage() {
         <p className="mt-4 text-center text-sm text-dim">{t.landing.demoCaption}</p>
       </section>
 
-      {/* photo showcase — the collection, front and centre */}
-      <section className="mx-auto max-w-7xl px-4 pt-6 pb-14 sm:px-6 sm:pt-10">
-        <div className="flex items-end justify-between">
-          <div>
-            <h2 className="font-display text-2xl text-cream sm:text-3xl">
-              {t.landing.teaserTitle}
-            </h2>
-            <p className="mt-2 hidden max-w-xl text-dim sm:block">{t.landing.teaserBody}</p>
-          </div>
-          <TrackedLink
-            href="/pricing"
-            event="view_membership_click"
-            location="teaser_link"
-            className="hidden shrink-0 text-sm text-gold hover:underline sm:block"
+      {/* global coverage — active market vs. upcoming expansion, never blurred together */}
+      <section className="mx-auto max-w-5xl px-4 pt-6 pb-14 text-center sm:px-6 sm:pt-10">
+        <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+          {t.landing.coverageBadge}
+        </span>
+        <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+          {t.landing.coverageTitle}
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-dim">
+          {t.landing.coverageSubtext}
+        </p>
+
+        <div className="relative mx-auto mt-8 aspect-[2/1] max-w-4xl overflow-hidden rounded-sm border border-ink-border bg-ink">
+          <Image src="/images/world-map.svg" alt="" fill className="object-cover" />
+
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "77.9%", top: "42.4%" }}
           >
-            {t.landing.teaserCreate} →
-          </TrackedLink>
+            <p className="text-[10px] font-semibold text-gold sm:text-xs">
+              {t.landing.coverageThailand}
+            </p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "27.7%", top: "35.7%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageMiami}</p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "65.4%", top: "36.0%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageDubai}</p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "82.0%", top: "54.8%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageBali}</p>
+          </div>
         </div>
 
-        <div className="mt-4 grid gap-5 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-          {teasers.map((teaser) => (
-            <LockedTeaserCard
-              key={teaser.id}
-              teaser={teaser}
-              t={t}
-              locale={locale}
-            />
-          ))}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-dim">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-gold" /> {t.landing.coverageActive}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full border border-gold/70" /> {t.landing.coverageSoon}
+          </span>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-5 rounded-sm border border-ink-border bg-ink-panel/60 px-6 py-6 text-center">

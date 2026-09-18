@@ -59,17 +59,6 @@ export type FullListing = {
   createdAt: string;
 };
 
-/** Safe shape for the public landing page. No price, no address, no agency link. */
-export type TeaserListing = {
-  id: string;
-  headline: string; // generic, e.g. "4-bedroom villa · Bang Tao"
-  propertyType: string;
-  city: string;
-  province: string;
-  bedrooms: number | null;
-  image: string;
-};
-
 export function toFullListing(l: Listing): FullListing {
   return {
     id: l.id,
@@ -98,19 +87,6 @@ export function toFullListing(l: Listing): FullListing {
     agencyUrl: l.agencyUrl,
     sourceUrl: l.sourceUrl,
     createdAt: l.createdAt.toISOString(),
-  };
-}
-
-export function toTeaser(l: Listing): TeaserListing {
-  const bed = l.bedrooms ? `${l.bedrooms}-bedroom ` : "";
-  return {
-    id: l.id,
-    headline: `${bed}${l.propertyType} · ${l.city}`,
-    propertyType: l.propertyType,
-    city: l.city,
-    province: l.province,
-    bedrooms: l.bedrooms,
-    image: parseJsonArray(l.images)[0] ?? "",
   };
 }
 
@@ -200,15 +176,6 @@ export async function getSimilarListings(
     take,
   });
   return rows.map(toFullListing);
-}
-
-export async function getTeasers(take = 6): Promise<TeaserListing[]> {
-  const rows = await prisma.listing.findMany({
-    where: { status: "active" },
-    orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
-    take,
-  });
-  return rows.map(toTeaser);
 }
 
 export async function getCatalogStats() {
