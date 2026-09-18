@@ -106,9 +106,9 @@ export const en = {
     compareStatValue: "up to 30%",
     howTitle: "How it works",
     how: [
-      { step: "01", title: "Choose your membership", body: "Monthly or annual, paid securely by card — no account needed to get started." },
-      { step: "02", title: "Confirm your access", body: "Set a password right after payment so you can sign back in anytime." },
-      { step: "03", title: "Unlock everything", body: "Full prices, galleries, locations and agency introductions." },
+      { step: "01", title: "Browse 4 markets", body: "Thailand, Bali, Dubai and Miami — hundreds of real listings from every agency, gathered in one place." },
+      { step: "02", title: "Compare the prices", body: "Palais Horizon lines up similar listings so the real price gap between agencies is obvious before you commit." },
+      { step: "03", title: "Become a member", body: "Pay securely by card — no account needed to get started. Unlock full prices, galleries and a direct introduction to the agency." },
     ],
     faqTitle: "Questions",
     faq: [

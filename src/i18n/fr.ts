@@ -108,9 +108,9 @@ export const fr: Dict = {
     compareStatValue: "jusqu'à 30 %",
     howTitle: "Comment ça marche",
     how: [
-      { step: "01", title: "Choisissez votre abonnement", body: "Mensuel ou annuel, payé en toute sécurité par carte — aucun compte n'est nécessaire pour commencer." },
-      { step: "02", title: "Confirmez votre accès", body: "Définissez un mot de passe juste après le paiement pour pouvoir vous reconnecter à tout moment." },
-      { step: "03", title: "Débloquez tout", body: "Prix complets, galeries, localisations et mise en relation avec les agences." },
+      { step: "01", title: "Parcourez 4 marchés", body: "Thaïlande, Bali, Dubaï et Miami : des centaines d'annonces réelles réunies au même endroit, toutes agences confondues." },
+      { step: "02", title: "Comparez les prix", body: "Palais Horizon rapproche les annonces similaires pour révéler l'écart de prix réel entre agences, avant que vous ne payiez." },
+      { step: "03", title: "Devenez membre", body: "Paiement sécurisé par carte, aucun compte nécessaire pour commencer. Débloquez prix complets, galeries et mise en relation directe avec l'agence." },
     ],
     faqTitle: "Questions",
     faq: [

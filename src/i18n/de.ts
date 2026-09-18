@@ -108,9 +108,9 @@ export const de: Dict = {
     compareStatValue: "bis zu 30 %",
     howTitle: "So funktioniert es",
     how: [
-      { step: "01", title: "Mitgliedschaft wählen", body: "Monatlich oder jährlich, sicher per Karte bezahlt — für den Start ist kein Konto nötig." },
-      { step: "02", title: "Zugang bestätigen", body: "Legen Sie direkt nach der Zahlung ein Passwort fest, um sich jederzeit wieder anzumelden." },
-      { step: "03", title: "Alles freischalten", body: "Vollständige Preise, Galerien, Lagen und Maklervermittlung." },
+      { step: "01", title: "Vier Märkte durchsuchen", body: "Thailand, Bali, Dubai und Miami — Hunderte echte Angebote aller Agenturen an einem Ort." },
+      { step: "02", title: "Preise vergleichen", body: "Palais Horizon stellt vergleichbare Angebote gegenüber, damit der reale Preisunterschied zwischen Agenturen vor dem Kauf sichtbar wird." },
+      { step: "03", title: "Mitglied werden", body: "Sichere Kartenzahlung, für den Start ist kein Konto nötig. Schalten Sie vollständige Preise, Galerien und eine direkte Vermittlung zur Agentur frei." },
     ],
     faqTitle: "Fragen",
     faq: [
