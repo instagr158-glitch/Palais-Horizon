@@ -24,25 +24,31 @@ export default async function LandingPage() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/75" />
-        <div className="relative mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 sm:pt-14 sm:pb-10">
-          <p className="text-xs uppercase tracking-widetitle text-gold">
-            {t.landing.heroKicker}
-          </p>
-          <p className="mt-2 text-xs text-dim">
-            {stats.total}+ {t.landing.statListingsSuffix} · {stats.agencyCount}+{" "}
-            {t.landing.statAgenciesSuffix}
-          </p>
-          <h1 className="mt-3 max-w-3xl font-display text-2xl leading-[1.15] text-cream sm:text-4xl lg:text-5xl">
+        <div className="relative mx-auto max-w-2xl px-4 pt-10 pb-10 text-center sm:px-6 sm:pt-16 sm:pb-14">
+          <div className="flex justify-center">
+            <div className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-ink-border bg-ink-panel/80 px-4 py-2 text-xs text-dim">
+              <span className="text-cream">
+                {stats.total}+ {t.landing.statListingsSuffix}
+              </span>
+              <span aria-hidden className="text-ink-border">
+                ·
+              </span>
+              <span className="text-cream">
+                {stats.agencyCount}+ {t.landing.statAgenciesSuffix}
+              </span>
+            </div>
+          </div>
+          <h1 className="mx-auto mt-5 max-w-xl font-sans text-3xl font-extrabold leading-[1.15] text-cream sm:text-5xl">
             {t.landing.heroTitleLead}
             <span className="rounded-sm bg-gold/15 px-1.5 text-gold">
               {t.landing.heroTitleHighlight}
             </span>
             {t.landing.heroTitleTrail}
           </h1>
-          <p className="mt-4 max-w-xl text-sm text-dim sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm text-dim sm:text-base">
             {t.landing.heroSubtext}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <TrackedLink
               href="/pricing"
               event="view_membership_click"
@@ -69,11 +75,13 @@ export default async function LandingPage() {
             <span className="h-2.5 w-2.5 rounded-full bg-gold/70" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/70" />
           </div>
-          <Image
-            src="/images/product-demo.jpg"
-            alt={t.landing.demoCaption}
-            width={1200}
-            height={800}
+          <video
+            src="/videos/product-demo.mp4"
+            poster="/images/product-demo-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
             className="w-full"
           />
         </div>

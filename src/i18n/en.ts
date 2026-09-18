@@ -21,7 +21,6 @@ export const en = {
   },
 
   landing: {
-    heroKicker: "Private real-estate club · Thailand",
     heroTitleLead: "Find the ",
     heroTitleHighlight: "best-priced villas",
     heroTitleTrail: " in Thailand — before anyone else.",

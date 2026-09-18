@@ -23,7 +23,6 @@ export const de: Dict = {
   },
 
   landing: {
-    heroKicker: "Privater Immobilienclub · Thailand",
     heroTitleLead: "Finden Sie die ",
     heroTitleHighlight: "günstigsten Villen",
     heroTitleTrail: " Thailands — vor allen anderen.",
