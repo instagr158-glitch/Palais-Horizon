@@ -36,6 +36,50 @@ export const fr: Dict = {
     heroCtaSecondary: "Comment ça marche",
     statListingsSuffix: "annonces de luxe vérifiées",
     statAgenciesSuffix: "agences partenaires",
+    toolsBadge: "Fonctionnalités",
+    toolsTitle: "Quatre leviers. Un seul réflexe avant d'investir.",
+    tools: [
+      {
+        label: "Recherche",
+        title: "Trouvez la bonne annonce en quelques secondes.",
+        body: "Filtrez instantanément des centaines d'annonces déjà réunies par région, type de bien, budget et type d'offre.",
+        points: [
+          "Filtres par région, budget, type de bien et type d'offre",
+          "Recherche par mot-clé, secteur ou nom de programme",
+          "Résultats triés par nouveauté ou par prix",
+        ],
+      },
+      {
+        label: "Comparaison",
+        title: "Comparez les prix entre agences, au même endroit.",
+        body: "Palais Horizon réunit les annonces de toutes les agences pour comparer les prix d'un coup d'œil, sans ouvrir dix sites différents.",
+        points: [
+          "Prix affichés en THB et en USD",
+          "Toutes les agences réunies dans un seul catalogue",
+          "Repérez en un instant le meilleur prix au m²",
+        ],
+      },
+      {
+        label: "Nouveautés",
+        title: "Les nouvelles annonces, avant tout le monde.",
+        body: "Le catalogue se met à jour en continu, pour que les membres découvrent les nouveaux biens dès leur mise en ligne.",
+        points: [
+          "Catalogue actualisé en continu",
+          "Annonces signature mises en avant",
+          "Le segment du luxe uniquement",
+        ],
+      },
+      {
+        label: "Mise en relation",
+        title: "Un contact direct avec l'agence, sans intermédiaire.",
+        body: "Chaque annonce renvoie directement vers l'agence qui détient le mandat — vous échangez avec elle, pas avec nous.",
+        points: [
+          "Lien direct vers l'annonce de l'agence",
+          "Aucun frais d'intermédiaire Palais Horizon",
+          "Coordonnées de l'agence mandataire visibles",
+        ],
+      },
+    ],
     coverageBadge: "Couverture mondiale",
     coverageTitle: "Les annonces immobilières du monde entier, analysées.",
     coverageSubtext:

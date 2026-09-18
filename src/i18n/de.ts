@@ -36,6 +36,50 @@ export const de: Dict = {
     heroCtaSecondary: "So funktioniert es",
     statListingsSuffix: "geprüfte Luxusangebote",
     statAgenciesSuffix: "Partner-Maklerbüros",
+    toolsBadge: "Funktionen",
+    toolsTitle: "Vier Werkzeuge. Ein Reflex vor der Investition.",
+    tools: [
+      {
+        label: "Suche",
+        title: "Finden Sie das passende Angebot in Sekunden.",
+        body: "Filtern Sie sofort Hunderte bereits gesammelte Angebote nach Region, Immobilientyp, Budget und Angebotsart.",
+        points: [
+          "Filter nach Region, Budget, Immobilientyp und Angebotsart",
+          "Suche nach Stichwort, Gebiet oder Projektname",
+          "Ergebnisse sortiert nach Neuheit oder Preis",
+        ],
+      },
+      {
+        label: "Vergleich",
+        title: "Vergleichen Sie Preise zwischen Agenturen, an einem Ort.",
+        body: "Palais Horizon bündelt die Angebote aller Agenturen, damit Sie Preise auf einen Blick vergleichen können, ohne zehn verschiedene Seiten zu öffnen.",
+        points: [
+          "Preise in THB und USD angezeigt",
+          "Alle Agenturen in einem Katalog gebündelt",
+          "Den besten Preis pro Quadratmeter sofort erkennen",
+        ],
+      },
+      {
+        label: "Neuheiten",
+        title: "Neue Angebote, vor allen anderen.",
+        body: "Der Katalog wird fortlaufend aktualisiert, damit Mitglieder neue Objekte sehen, sobald sie online gehen.",
+        points: [
+          "Fortlaufend aktualisierter Katalog",
+          "Signature-Angebote hervorgehoben",
+          "Nur das Luxussegment",
+        ],
+      },
+      {
+        label: "Vermittlung",
+        title: "Direkter Kontakt zur Agentur, ohne Zwischenhändler.",
+        body: "Jedes Angebot verlinkt direkt zur Agentur, die das Mandat hält — Sie verhandeln mit ihr, nicht mit uns.",
+        points: [
+          "Direkter Link zum Angebot der Agentur",
+          "Keine Vermittlungsgebühr von Palais Horizon",
+          "Kontaktdaten der mandatierten Agentur sichtbar",
+        ],
+      },
+    ],
     coverageBadge: "Weltweite Abdeckung",
     coverageTitle: "Immobilienangebote aus aller Welt, analysiert.",
     coverageSubtext:

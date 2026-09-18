@@ -34,6 +34,50 @@ export const en = {
     heroCtaSecondary: "How it works",
     statListingsSuffix: "verified luxury listings",
     statAgenciesSuffix: "partner agencies",
+    toolsBadge: "Features",
+    toolsTitle: "Four tools. One habit before you invest.",
+    tools: [
+      {
+        label: "Search",
+        title: "Find the right listing in seconds.",
+        body: "Instantly filter hundreds of listings already gathered in one place by region, property type, budget and offer type.",
+        points: [
+          "Filters by region, budget, property type and offer type",
+          "Search by keyword, area or project name",
+          "Results sorted by newest or by price",
+        ],
+      },
+      {
+        label: "Comparison",
+        title: "Compare prices across agencies, in one place.",
+        body: "Palais Horizon gathers every agency's listings so you can compare prices at a glance, without opening ten different sites.",
+        points: [
+          "Prices shown in THB and USD",
+          "Every agency gathered into one catalogue",
+          "Spot the best price per square metre instantly",
+        ],
+      },
+      {
+        label: "New listings",
+        title: "New listings, before anyone else.",
+        body: "The catalogue refreshes continuously, so members discover new properties the moment they're listed.",
+        points: [
+          "Catalogue refreshed continuously",
+          "Signature listings highlighted",
+          "The luxury segment only",
+        ],
+      },
+      {
+        label: "Introduction",
+        title: "A direct line to the agency, no middlemen.",
+        body: "Every listing links back to the agency that holds the mandate — you deal with them directly, not with us.",
+        points: [
+          "Direct link to the agency's own listing",
+          "No Palais Horizon middleman fee",
+          "The mandated agency's details are visible",
+        ],
+      },
+    ],
     coverageBadge: "Global coverage",
     coverageTitle: "Real-estate listings from around the world, analysed.",
     coverageSubtext:

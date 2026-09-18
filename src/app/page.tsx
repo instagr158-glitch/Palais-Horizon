@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
+import { FeatureTabs } from "@/components/FeatureTabs";
 import { getCatalogStats } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
@@ -84,6 +85,19 @@ export default async function LandingPage() {
           />
         </div>
         <p className="mt-4 text-center text-sm text-dim">{t.landing.demoCaption}</p>
+      </section>
+
+      {/* features — what the tool actually does, tab by tab */}
+      <section className="mx-auto max-w-5xl px-4 pt-6 pb-14 text-center sm:px-6 sm:pt-10">
+        <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+          {t.landing.toolsBadge}
+        </span>
+        <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+          {t.landing.toolsTitle}
+        </h2>
+        <div className="mt-8">
+          <FeatureTabs />
+        </div>
       </section>
 
       {/* global coverage — active market vs. upcoming expansion, never blurred together */}
