@@ -28,28 +28,56 @@ export default async function LandingPage() {
           <p className="text-xs uppercase tracking-widetitle text-gold">
             {t.landing.heroKicker}
           </p>
-          <h1 className="mt-2 max-w-3xl font-display text-2xl leading-[1.15] text-cream sm:text-4xl lg:text-5xl">
-            {t.landing.heroTitle}
+          <p className="mt-2 text-xs text-dim">
+            {stats.total}+ {t.landing.statListingsSuffix} · {stats.agencyCount}+{" "}
+            {t.landing.statAgenciesSuffix}
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-2xl leading-[1.15] text-cream sm:text-4xl lg:text-5xl">
+            {t.landing.heroTitleLead}
+            <span className="rounded-sm bg-gold/15 px-1.5 text-gold">
+              {t.landing.heroTitleHighlight}
+            </span>
+            {t.landing.heroTitleTrail}
           </h1>
-          <ul className="mt-4 flex flex-col gap-1.5 sm:gap-2">
-            {t.landing.heroBullets.map((b) => (
-              <li key={b} className="flex items-start gap-2 text-sm text-dim sm:text-base">
-                <span className="mt-0.5 text-gold">✦</span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 text-center">
+          <p className="mt-4 max-w-xl text-sm text-dim sm:text-base">
+            {t.landing.heroSubtext}
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             <TrackedLink
               href="/pricing"
               event="view_membership_click"
-              location="hero_bullets"
+              location="hero_primary"
               className="btn-gold inline-block rounded-sm px-6 py-3 text-sm"
             >
-              {t.landing.seeAllListings}
+              {t.landing.heroCtaPrimary}
             </TrackedLink>
+            <a
+              href="#demo"
+              className="inline-block rounded-sm border border-ink-border px-6 py-3 text-sm text-cream transition hover:border-gold/50"
+            >
+              {t.landing.heroCtaDemo}
+            </a>
           </div>
         </div>
+      </section>
+
+      {/* product demo — the tool itself, not a listing */}
+      <section id="demo" className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
+        <div className="overflow-hidden rounded-sm border border-ink-border shadow-gold">
+          <div className="flex items-center gap-1.5 border-b border-ink-border bg-ink-panel px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-gold/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/70" />
+          </div>
+          <Image
+            src="/images/product-demo.jpg"
+            alt={t.landing.demoCaption}
+            width={1200}
+            height={800}
+            className="w-full"
+          />
+        </div>
+        <p className="mt-4 text-center text-sm text-dim">{t.landing.demoCaption}</p>
       </section>
 
       {/* photo showcase — the collection, front and centre */}

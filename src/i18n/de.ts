@@ -24,14 +24,14 @@ export const de: Dict = {
 
   landing: {
     heroKicker: "Privater Immobilienclub · Thailand",
-    heroTitle:
-      "Alle Angebote, aller Immobilienagenturen Thailands, vereint in einem privaten Club.",
-    heroBullets: [
-      "Keine gewöhnliche Anzeigenseite: ein privater Club, der die Objekte aller Immobilienagenturen des Landes vereint",
-      "Vergleichen Sie in Sekunden die Angebote Dutzender Agenturen",
-      "Ideal für Mietrenditen oder den langfristigen Vermögensaufbau",
-      "Neubauprojekte zu den besten Preisen",
-    ],
+    heroTitleLead: "Finden Sie die ",
+    heroTitleHighlight: "günstigsten Villen",
+    heroTitleTrail: " Thailands — vor allen anderen.",
+    heroSubtext:
+      "Palais Horizon durchsucht laufend die Angebote aller Agenturen Thailands, um die besten Preise zu finden und Ihnen Neuheiten zuerst zu zeigen.",
+    heroCtaPrimary: "Jetzt starten",
+    heroCtaDemo: "Das Tool in Aktion sehen",
+    demoCaption: "Die Palais-Horizon-Oberfläche — durchsuchen, filtern und vergleichen Sie die Angebote aller Agenturen an einem Ort.",
     heroCta: "Mitgliedschaft ansehen",
     seeAllListings: "Alle Angebote ansehen",
     heroCtaSecondary: "So funktioniert es",

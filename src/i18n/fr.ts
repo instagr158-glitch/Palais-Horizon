@@ -24,14 +24,14 @@ export const fr: Dict = {
 
   landing: {
     heroKicker: "Club immobilier privé · Thaïlande",
-    heroTitle:
-      "Toutes les annonces, de toutes les agences de Thaïlande, réunies dans un seul club privé.",
-    heroBullets: [
-      "Pas un site d'annonces de plus : un club privé qui réunit les biens de toutes les agences immobilières du pays",
-      "Comparez en un instant les offres de dizaines d'agences différentes",
-      "Idéal pour l'investissement locatif comme pour l'achat patrimonial",
-      "Accédez aux nouveaux projets aux meilleurs prix",
-    ],
+    heroTitleLead: "Trouvez les ",
+    heroTitleHighlight: "villas au meilleur prix",
+    heroTitleTrail: " de Thaïlande — avant tout le monde.",
+    heroSubtext:
+      "Palais Horizon analyse en continu les annonces de toutes les agences de Thaïlande pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
+    heroCtaPrimary: "Commencer maintenant",
+    heroCtaDemo: "Voir l'outil en action",
+    demoCaption: "L'interface Palais Horizon — recherchez, filtrez et comparez les annonces de toutes les agences au même endroit.",
     heroCta: "Voir l'abonnement",
     seeAllListings: "Voir toutes les annonces",
     heroCtaSecondary: "Comment ça marche",

@@ -22,14 +22,14 @@ export const en = {
 
   landing: {
     heroKicker: "Private real-estate club · Thailand",
-    heroTitle:
-      "Every listing from every agency in Thailand, gathered inside one private club.",
-    heroBullets: [
-      "Not another listings site — a private club that gathers every agency's properties in the country",
-      "Compare offers from dozens of agencies in an instant",
-      "Ideal for rental investment or long-term acquisition",
-      "Access new-build projects at the best prices",
-    ],
+    heroTitleLead: "Find the ",
+    heroTitleHighlight: "best-priced villas",
+    heroTitleTrail: " in Thailand — before anyone else.",
+    heroSubtext:
+      "Palais Horizon continuously scans every agency's listings across Thailand to surface the best prices and the newest properties first.",
+    heroCtaPrimary: "Get started",
+    heroCtaDemo: "See the tool in action",
+    demoCaption: "The Palais Horizon interface — search, filter and compare every agency's listings in one place.",
     heroCta: "View membership",
     seeAllListings: "See all listings",
     heroCtaSecondary: "How it works",
