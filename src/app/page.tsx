@@ -181,20 +181,6 @@ export default async function LandingPage() {
             <span className="h-2 w-2 rounded-full border border-gold/70" /> {t.landing.coverageSoon}
           </span>
         </div>
-
-        <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
-          <p className="font-display text-xl text-cream">
-            {t.landing.unlockBanner}
-          </p>
-          <TrackedLink
-            href="/pricing"
-            event="view_membership_click"
-            location="unlock_banner"
-            className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
-          >
-            {t.landing.heroCta}
-          </TrackedLink>
-        </div>
       </section>
 
       {/* price comparison — the real reason a second opinion pays off */}
@@ -230,6 +216,18 @@ export default async function LandingPage() {
                 {t.landing.compareStatValue}
               </span>
             </div>
+          </div>
+
+          <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
+            <p className="font-display text-xl text-cream">{t.landing.unlockBanner}</p>
+            <TrackedLink
+              href="/pricing"
+              event="view_membership_click"
+              location="unlock_banner"
+              className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
+            >
+              {t.landing.heroCta}
+            </TrackedLink>
           </div>
         </div>
       </section>
