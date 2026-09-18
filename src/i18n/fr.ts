@@ -34,7 +34,7 @@ export const fr: Dict = {
     heroCta: "Voir l'abonnement",
     seeAllListings: "Voir toutes les annonces",
     heroCtaSecondary: "Comment ça marche",
-    statListingsSuffix: "annonces de luxe vérifiées",
+    statListingsSuffix: "annonces de biens vérifiées",
     statAgenciesSuffix: "agences partenaires",
     toolsBadge: "Fonctionnalités",
     toolsTitle: "Quatre leviers. Un seul réflexe avant d'investir.",
