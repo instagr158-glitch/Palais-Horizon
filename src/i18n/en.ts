@@ -247,6 +247,7 @@ export const en = {
     signature: "Signature",
     priceOnApplication: "Price on application",
     perMonth: "/ month",
+    annualRent: "Annual rent (paid yearly, as is standard in Dubai)",
   },
 
   detail: {

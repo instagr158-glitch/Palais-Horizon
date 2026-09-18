@@ -239,12 +239,12 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
         : (node?.["@type"] as string),
       title,
     ),
-    // The URL path is the reliable signal (e.g. "/for-sale/" vs "/for-rent/");
+    // The URL path is the reliable signal (e.g. "/for-sale/", "/to-rent/");
     // a page can mention "rental" in passing (e.g. "also available for
     // monthly rental") without the fetched price being a rent.
-    listingType: /\/for-rent\/|\/rent\//i.test(url)
+    listingType: /[-/]rent\//i.test(url)
       ? "rent"
-      : /\/for-sale\/|\/sale\//i.test(url)
+      : /[-/]sale\//i.test(url)
         ? "sale"
         : /rent|rental|per month|\/month/i.test(html)
           ? "rent"

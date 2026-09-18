@@ -70,18 +70,36 @@ export function ListingCard({ listing, t }: { listing: FullListing; t: Dict }) {
 
         <div className="mt-3 flex items-end justify-between gap-2">
           <div>
-            <p className="num text-lg text-gold-gradient">
-              {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
-              {listing.listingType === "rent" && listing.priceAmount != null ? (
-                <span className="text-sm text-dim"> {t.listings.perMonth}</span>
-              ) : null}
-            </p>
-            {listing.priceUsd ? (
-              <p className="num text-xs text-dim">
-                ≈ {formatUsd(listing.priceUsd)}
-                {listing.listingType === "rent" ? ` ${t.listings.perMonth}` : ""}
-              </p>
-            ) : null}
+            {(() => {
+              const isAnnualRent =
+                listing.listingType === "rent" && listing.province === "Dubai";
+              const rentSuffix = isAnnualRent ? null : t.listings.perMonth;
+              return (
+                <>
+                  <p className="num text-lg text-gold-gradient">
+                    {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
+                    {listing.listingType === "rent" &&
+                    listing.priceAmount != null &&
+                    rentSuffix ? (
+                      <span className="text-sm text-dim"> {rentSuffix}</span>
+                    ) : null}
+                  </p>
+                  {listing.priceUsd ? (
+                    <p className="num text-xs text-dim">
+                      ≈ {formatUsd(listing.priceUsd)}
+                      {listing.listingType === "rent" && rentSuffix
+                        ? ` ${rentSuffix}`
+                        : ""}
+                    </p>
+                  ) : null}
+                  {isAnnualRent && (
+                    <p className="mt-0.5 text-[11px] text-gold">
+                      {t.listings.annualRent}
+                    </p>
+                  )}
+                </>
+              );
+            })()}
           </div>
           <span className="shrink-0 text-right text-[11px] text-dim">
             {listing.agencyName}

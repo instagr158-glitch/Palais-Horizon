@@ -254,6 +254,7 @@ export const fr: Dict = {
     signature: "Signature",
     priceOnApplication: "Prix sur demande",
     perMonth: "/ mois",
+    annualRent: "Loyer annuel (paiement à l'année, comme à Dubaï)",
   },
 
   detail: {
