@@ -99,25 +99,13 @@ export const de: Dict = {
     subscribeCta: "Abonnieren",
     unlockBanner:
       "Die vollständige Kollektion — Preise, Lagen, Galerien und Maklervermittlung — öffnet sich mit der Mitgliedschaft.",
-    whyTitle: "Warum Mitglieder beitreten",
-    why: [
-      {
-        title: "Jeder Preis, vollständig",
-        body: "Angebotspreise in THB und USD, Preisverlauf und die echte Adresse — Mitgliedern nie vorenthalten.",
-      },
-      {
-        title: "Direkt zum Makler",
-        body: "Ein Klick führt Sie zum Originalinserat des Maklers. Keine Zwischenhändler, keine überhöhten Gebühren.",
-      },
-      {
-        title: "Nur das Luxussegment",
-        body: "Wir filtern alles unterhalb der Grenze für Spitzenimmobilien heraus — Sie sehen nur die Spitze des Marktes.",
-      },
-      {
-        title: "Neue Angebote zuerst",
-        body: "Die Kollektion aktualisiert sich laufend in Phuket, Samui, Bangkok, Hua Hin und Chiang Mai.",
-      },
-    ],
+    compareBadge: "Preisvergleich",
+    compareTitle: "Der richtige Preis, vor dem Kauf.",
+    compareBody:
+      "Palais Horizon bündelt dieselbe Art von Immobilie bei allen Agenturen, damit der Preisunterschied zwischen vergleichbaren Angeboten offensichtlich wird, statt in zehn verschiedenen Tabs verborgen zu bleiben.",
+    compareChartCaption: "Vergleichbare Angebote, nach Preis sortiert — das günstigste zuerst.",
+    compareStatLabel: "Beobachtete Preisspanne bei vergleichbaren Angeboten",
+    compareStatValue: "bis zu 30 %",
     howTitle: "So funktioniert es",
     how: [
       { step: "01", title: "Mitgliedschaft wählen", body: "Monatlich oder jährlich, sicher per Karte bezahlt — für den Start ist kein Konto nötig." },

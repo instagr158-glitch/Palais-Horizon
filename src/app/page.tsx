@@ -197,18 +197,39 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* why */}
+      {/* price comparison — the real reason a second opinion pays off */}
       <section className="border-y border-ink-border bg-ink-panel/40">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h2 className="font-display text-3xl text-cream">{t.landing.whyTitle}</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {t.landing.why.map((w) => (
-              <div key={w.title} className="panel rounded-sm p-5">
-                <div className="mb-3 h-8 w-8 rounded-sm bg-gold-gradient" />
-                <h3 className="font-display text-lg text-cream">{w.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-dim">{w.body}</p>
-              </div>
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+          <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+            {t.landing.compareBadge}
+          </span>
+          <h2 className="mx-auto mt-4 font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+            {t.landing.compareTitle}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-dim sm:text-base">
+            {t.landing.compareBody}
+          </p>
+
+          <div className="mx-auto mt-8 flex h-32 max-w-md items-end justify-center gap-2 sm:h-40">
+            {[35, 50, 62, 72, 80, 88, 94, 100, 90].map((h, i) => (
+              <div
+                key={i}
+                className={`w-full rounded-t-sm ${
+                  i === 0 ? "bg-gold-gradient" : "bg-ink-panel2"
+                }`}
+                style={{ height: `${h}%` }}
+              />
             ))}
+          </div>
+          <p className="mt-2 text-xs text-gold">{t.landing.compareChartCaption}</p>
+
+          <div className="mx-auto mt-8 max-w-sm rounded-sm border border-gold/30 bg-gold/[0.04] px-5 py-4">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-sm text-dim">{t.landing.compareStatLabel}</span>
+              <span className="num text-2xl text-gold-gradient">
+                {t.landing.compareStatValue}
+              </span>
+            </div>
           </div>
         </div>
       </section>

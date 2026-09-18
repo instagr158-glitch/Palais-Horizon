@@ -99,25 +99,13 @@ export const fr: Dict = {
     subscribeCta: "S'abonner",
     unlockBanner:
       "La collection complète — prix, localisations, galeries et mise en relation avec les agences — s'ouvre avec l'abonnement.",
-    whyTitle: "Pourquoi devenir membre",
-    why: [
-      {
-        title: "Chaque prix, en entier",
-        body: "Prix affichés en THB et en USD, historique des prix et adresse réelle — jamais masqués pour les membres.",
-      },
-      {
-        title: "En direct avec l'agence",
-        body: "Un clic vous mène à l'annonce d'origine de l'agence. Pas d'intermédiaire, pas de frais gonflés.",
-      },
-      {
-        title: "Uniquement le segment luxe",
-        body: "Nous écartons tout ce qui se situe sous la ligne des biens d'exception : vous ne voyez que le haut du marché.",
-      },
-      {
-        title: "Les nouveautés en premier",
-        body: "La collection se met à jour en continu à Phuket, Samui, Bangkok, Hua Hin et Chiang Mai.",
-      },
-    ],
+    compareBadge: "Comparaison de prix",
+    compareTitle: "Le bon prix, avant d'acheter.",
+    compareBody:
+      "Palais Horizon réunit le même type de bien chez toutes les agences, pour que l'écart de prix entre deux annonces comparables devienne évident au lieu d'être caché dans dix onglets différents.",
+    compareChartCaption: "Annonces comparables, triées par prix — la moins chère en premier.",
+    compareStatLabel: "Écart de prix constaté sur des annonces comparables",
+    compareStatValue: "jusqu'à 30 %",
     howTitle: "Comment ça marche",
     how: [
       { step: "01", title: "Choisissez votre abonnement", body: "Mensuel ou annuel, payé en toute sécurité par carte — aucun compte n'est nécessaire pour commencer." },

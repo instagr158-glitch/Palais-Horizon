@@ -97,25 +97,13 @@ export const en = {
     subscribeCta: "Subscribe",
     unlockBanner:
       "The full collection — prices, locations, galleries and agency introductions — opens with membership.",
-    whyTitle: "Why members join",
-    why: [
-      {
-        title: "Every price, in full",
-        body: "Asking prices in THB and USD, price history and the real address — never hidden from members.",
-      },
-      {
-        title: "Direct to the agency",
-        body: "One click takes you to the original agency listing. No middlemen, no inflated fees.",
-      },
-      {
-        title: "The luxury segment only",
-        body: "We filter out everything below the fine-property line so you only see the top of the market.",
-      },
-      {
-        title: "New listings first",
-        body: "The collection refreshes continuously across Phuket, Samui, Bangkok, Hua Hin and Chiang Mai.",
-      },
-    ],
+    compareBadge: "Price comparison",
+    compareTitle: "The right price, before you buy.",
+    compareBody:
+      "Palais Horizon gathers the same kind of property across every agency, so the price gap between listings becomes obvious instead of hidden in ten separate tabs.",
+    compareChartCaption: "Comparable listings, sorted by price — lowest first.",
+    compareStatLabel: "Price gap seen on comparable listings",
+    compareStatValue: "up to 30%",
     howTitle: "How it works",
     how: [
       { step: "01", title: "Choose your membership", body: "Monthly or annual, paid securely by card — no account needed to get started." },
