@@ -91,10 +91,12 @@ export function toFullListing(l: Listing): FullListing {
 }
 
 /** Countries with at least one active market. "province" is the country-level
- * field on Listing (Thai region name for Thailand, "Bali" for Indonesia). */
+ * field on Listing (Thai region name for Thailand, "Bali" for Indonesia,
+ * "Dubai" for the UAE). */
 export const COUNTRY_PROVINCES: Record<string, readonly string[]> = {
   thailand: PROVINCES,
   bali: ["Bali"],
+  dubai: ["Dubai"],
 };
 
 export type ListingFilters = {

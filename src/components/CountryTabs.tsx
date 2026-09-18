@@ -6,7 +6,11 @@ import { useI18n } from "@/components/I18nProvider";
 
 const FLAGS = ["🇹🇭", "🇮🇩", "🇦🇪", "🇺🇸"];
 
-export function CountryTabs({ active }: { active: "thailand" | "bali" }) {
+export function CountryTabs({
+  active,
+}: {
+  active: "thailand" | "bali" | "dubai";
+}) {
   const { t } = useI18n();
   const params = useSearchParams();
 
@@ -23,7 +27,7 @@ export function CountryTabs({ active }: { active: "thailand" | "bali" }) {
   const countries = [
     { key: "thailand", label: t.listings.countryThailand, live: true },
     { key: "bali", label: t.listings.countryBali, live: true },
-    { key: "dubai", label: t.listings.countryDubai, live: false },
+    { key: "dubai", label: t.listings.countryDubai, live: true },
     { key: "miami", label: t.listings.countryMiami, live: false },
   ];
 

@@ -133,13 +133,17 @@ export default async function LandingPage() {
             className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
             style={{ left: "65.4%", top: "36.0%" }}
           >
-            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageDubai}</p>
+            <p className="text-[10px] font-semibold text-gold sm:text-xs">
+              {t.landing.coverageDubai}
+            </p>
           </div>
           <div
             className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
             style={{ left: "82.0%", top: "54.8%" }}
           >
-            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageBali}</p>
+            <p className="text-[10px] font-semibold text-gold sm:text-xs">
+              {t.landing.coverageBali}
+            </p>
           </div>
         </div>
 
