@@ -68,7 +68,9 @@ export async function fetchHtml(url: string): Promise<string | null> {
   }
 }
 
-/** Pull every JSON-LD block from an HTML string. */
+/** Pull every JSON-LD block from an HTML string, flattening both the plain
+ * array form and the `{"@graph": [...]}` wrapper some sites use to bundle
+ * several nodes into a single <script> tag. */
 export function extractJsonLd(html: string): unknown[] {
   const out: unknown[] = [];
   const re =
@@ -77,7 +79,9 @@ export function extractJsonLd(html: string): unknown[] {
   while ((m = re.exec(html))) {
     try {
       const parsed = JSON.parse(m[1].trim());
+      const graph = (parsed as { "@graph"?: unknown })?.["@graph"];
       if (Array.isArray(parsed)) out.push(...parsed);
+      else if (Array.isArray(graph)) out.push(...graph);
       else out.push(parsed);
     } catch {
       /* ignore malformed block */

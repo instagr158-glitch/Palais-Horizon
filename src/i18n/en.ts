@@ -82,8 +82,6 @@ export const en = {
     coverageTitle: "Real-estate listings from around the world, analysed.",
     coverageSubtext:
       "Palais Horizon continuously processes listings everywhere the platform operates, to surface the most profitable properties before anyone else.",
-    coverageActive: "Active market",
-    coverageSoon: "Coming soon",
     coverageThailand: "Thailand",
     coverageMiami: "Miami",
     coverageDubai: "Dubai",

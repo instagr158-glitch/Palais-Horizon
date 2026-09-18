@@ -127,7 +127,9 @@ export default async function LandingPage() {
             className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
             style={{ left: "27.7%", top: "35.7%" }}
           >
-            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageMiami}</p>
+            <p className="text-[10px] font-semibold text-gold sm:text-xs">
+              {t.landing.coverageMiami}
+            </p>
           </div>
           <div
             className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
@@ -145,15 +147,6 @@ export default async function LandingPage() {
               {t.landing.coverageBali}
             </p>
           </div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-dim">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-gold" /> {t.landing.coverageActive}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full border border-gold/70" /> {t.landing.coverageSoon}
-          </span>
         </div>
 
         <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">

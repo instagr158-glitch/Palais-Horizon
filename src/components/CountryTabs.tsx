@@ -9,7 +9,7 @@ const FLAGS = ["🇹🇭", "🇮🇩", "🇦🇪", "🇺🇸"];
 export function CountryTabs({
   active,
 }: {
-  active: "thailand" | "bali" | "dubai";
+  active: "thailand" | "bali" | "dubai" | "miami";
 }) {
   const { t } = useI18n();
   const params = useSearchParams();
@@ -28,7 +28,7 @@ export function CountryTabs({
     { key: "thailand", label: t.listings.countryThailand, live: true },
     { key: "bali", label: t.listings.countryBali, live: true },
     { key: "dubai", label: t.listings.countryDubai, live: true },
-    { key: "miami", label: t.listings.countryMiami, live: false },
+    { key: "miami", label: t.listings.countryMiami, live: true },
   ];
 
   return (

@@ -152,6 +152,33 @@ function pickAddress(node: LdNode, allNodes: unknown[]): LdNode {
   return {};
 }
 
+const SQFT_UNIT_CODES = new Set(["FTK", "sqft", "ft2"]);
+
+/** floorSize can be a single QuantitativeValue or an array of them, and the
+ * unit varies by site (US sites report square feet, not square metres). */
+function areaSqm(floorSize: LdNode | LdNode[] | undefined): number | undefined {
+  const node = Array.isArray(floorSize) ? floorSize[0] : floorSize;
+  if (!node) return undefined;
+  const value = num(typeof node === "object" ? node["value"] : node);
+  if (value == null) return undefined;
+  const unit = String(
+    (typeof node === "object" && (node["unitCode"] ?? node["unitText"])) ?? "",
+  );
+  return SQFT_UNIT_CODES.has(unit) ? Math.round(value * 0.092903) : value;
+}
+
+function guessListingType(url: string, html: string): "sale" | "rent" {
+  if (/[-/]rent\//i.test(url)) return "rent";
+  if (/[-/]sale\//i.test(url)) return "sale";
+  // A single "rent" mention anywhere in a large page (nav links, unrelated
+  // services) is too noisy a signal — compare how often each phrasing
+  // appears and trust whichever dominates.
+  const rentHits = (html.match(/for-rent|to-rent|\bfor rent\b/gi) ?? []).length;
+  const saleHits = (html.match(/for-sale|to-sale|\bfor sale\b/gi) ?? []).length;
+  if (rentHits === 0 && saleHits === 0) return "sale";
+  return rentHits > saleHits ? "rent" : "sale";
+}
+
 function slugFromUrl(url: string): string {
   try {
     const u = new URL(url);
@@ -181,6 +208,9 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
   const offers = ((node?.["offers"] ?? mainEntity?.["offers"]) ?? {}) as LdNode;
   const address = node ? pickAddress(node, nodes) : {};
   const geo = (node?.["geo"] ?? {}) as LdNode;
+  // Some sites (e.g. Compass) report bed/bath/size on a nested
+  // accommodationFloorPlan rather than on the listing node itself.
+  const floorPlan = (node?.["accommodationFloorPlan"] ?? {}) as LdNode;
 
   let price = firstOf(
     num(offers["price"]),
@@ -239,26 +269,40 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
         : (node?.["@type"] as string),
       title,
     ),
-    // The URL path is the reliable signal (e.g. "/for-sale/", "/to-rent/");
-    // a page can mention "rental" in passing (e.g. "also available for
-    // monthly rental") without the fetched price being a rent.
-    listingType: /[-/]rent\//i.test(url)
-      ? "rent"
-      : /[-/]sale\//i.test(url)
-        ? "sale"
-        : /rent|rental|per month|\/month/i.test(html)
-          ? "rent"
-          : "sale",
+    // The URL path is the reliable signal when a site puts it there (e.g.
+    // "/for-sale/", "/to-rent/"). Otherwise a single "rent" mention anywhere
+    // in a large page (nav links, unrelated services) is too noisy — compare
+    // how often "for-sale" vs "for-rent" phrasing shows up instead.
+    listingType: guessListingType(url, html),
     priceAmount: price != null ? toThbEquivalent(price, currency) : undefined,
     priceCurrency: "THB",
     bedrooms: num(
-      firstOf(node?.["numberOfBedrooms"], node?.["numberOfRooms"]),
+      firstOf(
+        node?.["numberOfBedrooms"],
+        node?.["numberOfRooms"],
+        floorPlan["numberOfBedrooms"],
+      ),
     ),
-    bathrooms: num(node?.["numberOfBathroomsTotal"] ?? node?.["numberOfBathrooms"]),
-    areaSqm: num(
-      (node?.["floorSize"] as LdNode)?.["value"] ?? node?.["floorSize"],
+    bathrooms: num(
+      firstOf(
+        node?.["numberOfBathroomsTotal"],
+        node?.["numberOfBathrooms"],
+        floorPlan["numberOfBathroomsTotal"],
+      ),
     ),
-    province: address["addressRegion"] as string | undefined,
+    areaSqm: areaSqm(
+      firstOf(node?.["floorSize"], floorPlan["floorSize"]) as
+        | LdNode
+        | LdNode[]
+        | undefined,
+    ),
+    // Palais Horizon's US market is currently Miami only, so a US address
+    // maps to that regardless of the exact state/city field the site used —
+    // consistent with Bali and Dubai each being a single literal province.
+    province:
+      address["addressCountry"] === "US"
+        ? "Miami"
+        : (address["addressRegion"] as string | undefined),
     city: firstOf(
       address["addressLocality"] as string,
       address["addressRegion"] as string,

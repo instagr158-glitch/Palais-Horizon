@@ -46,7 +46,9 @@ export function Filters() {
     [params, pathname, router],
   );
 
-  const isThailand = !["bali", "dubai"].includes(params.get("country") ?? "");
+  const isThailand = !["bali", "dubai", "miami"].includes(
+    params.get("country") ?? "",
+  );
 
   const budgetValue =
     params.get("minPrice") || params.get("maxPrice")

@@ -35,7 +35,9 @@ export default async function ListingsPage({
   const t = await getServerDict();
   const sp = await searchParams;
   const country =
-    sp.country === "bali" || sp.country === "dubai" ? sp.country : "thailand";
+    sp.country === "bali" || sp.country === "dubai" || sp.country === "miami"
+      ? sp.country
+      : "thailand";
   const filters: ListingFilters = {
     q: sp.q,
     country,

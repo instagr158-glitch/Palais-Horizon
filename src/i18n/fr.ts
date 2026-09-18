@@ -84,8 +84,6 @@ export const fr: Dict = {
     coverageTitle: "Les annonces immobilières du monde entier, analysées.",
     coverageSubtext:
       "Palais Horizon traite en continu les annonces immobilières partout où la plateforme opère, pour faire remonter les biens les plus rentables avant tout le monde.",
-    coverageActive: "Marché actif",
-    coverageSoon: "Bientôt disponible",
     coverageThailand: "Thaïlande",
     coverageMiami: "Miami",
     coverageDubai: "Dubaï",

@@ -84,8 +84,6 @@ export const de: Dict = {
     coverageTitle: "Immobilienangebote aus aller Welt, analysiert.",
     coverageSubtext:
       "Palais Horizon wertet fortlaufend die Angebote überall dort aus, wo die Plattform aktiv ist, um die rentabelsten Immobilien als Erstes zu zeigen.",
-    coverageActive: "Aktiver Markt",
-    coverageSoon: "Demnächst",
     coverageThailand: "Thailand",
     coverageMiami: "Miami",
     coverageDubai: "Dubai",

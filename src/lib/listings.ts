@@ -97,6 +97,7 @@ export const COUNTRY_PROVINCES: Record<string, readonly string[]> = {
   thailand: PROVINCES,
   bali: ["Bali"],
   dubai: ["Dubai"],
+  miami: ["Miami"],
 };
 
 export type ListingFilters = {
