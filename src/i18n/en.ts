@@ -88,8 +88,12 @@ export const en = {
     coverageBali: "Bali",
     coverageActive: "Active market",
     coverageSoon: "Coming soon",
-    coverageSoonList:
-      "Coming soon: Netherlands, United Kingdom, Germany, France, New York, Los Angeles",
+    coverageNetherlands: "Netherlands",
+    coverageUK: "United Kingdom",
+    coverageFrance: "France",
+    coverageNewYork: "New York",
+    coverageLosAngeles: "Los Angeles",
+    coverageSoonList: "Coming soon: Germany",
     lockedPrice: "Price reserved for members",
     subscribeCta: "Subscribe",
     unlockBanner:

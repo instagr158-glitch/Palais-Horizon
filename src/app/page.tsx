@@ -147,6 +147,42 @@ export default async function LandingPage() {
               {t.landing.coverageBali}
             </p>
           </div>
+
+          {/* coming-soon markets — gray, fanned out where dots sit close together */}
+          <div
+            className="absolute flex -translate-x-1/2 flex-col items-center"
+            style={{ left: "46%", top: "16%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageUK}</p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 flex-col items-center"
+            style={{ left: "59%", top: "16%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">
+              {t.landing.coverageNetherlands}
+            </p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 flex-col items-center"
+            style={{ left: "52%", top: "27.5%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageFrance}</p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "29.4%", top: "27.4%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageNewYork}</p>
+          </div>
+          <div
+            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
+            style={{ left: "17.2%", top: "31.1%" }}
+          >
+            <p className="text-[10px] text-dim sm:text-xs">
+              {t.landing.coverageLosAngeles}
+            </p>
+          </div>
         </div>
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-dim">
