@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { queryListings, type ListingFilters } from "@/lib/listings";
 import { Filters } from "@/components/Filters";
+import { CountryTabs } from "@/components/CountryTabs";
 import { ListingCard } from "@/components/ListingCard";
 import { PaywallScreen } from "@/components/PaywallScreen";
 import { getServerDict } from "@/i18n/server";
@@ -69,6 +70,8 @@ export default async function ListingsPage({
           </p>
         </div>
       </div>
+
+      <CountryTabs />
 
       <Suspense fallback={<div className="panel h-20 rounded-sm" />}>
         <Filters />
