@@ -95,7 +95,6 @@ export const fr: Dict = {
     coverageFrance: "France",
     coverageNewYork: "New York",
     coverageLosAngeles: "Los Angeles",
-    coverageSoonList: "Bientôt disponible : Allemagne",
     lockedPrice: "Prix réservé aux membres",
     subscribeCta: "S'abonner",
     unlockBanner:

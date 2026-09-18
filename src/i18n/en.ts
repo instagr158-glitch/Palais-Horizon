@@ -93,7 +93,6 @@ export const en = {
     coverageFrance: "France",
     coverageNewYork: "New York",
     coverageLosAngeles: "Los Angeles",
-    coverageSoonList: "Coming soon: Germany",
     lockedPrice: "Price reserved for members",
     subscribeCta: "Subscribe",
     unlockBanner:

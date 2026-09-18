@@ -124,8 +124,7 @@ export default async function LandingPage() {
             </p>
           </div>
           <div
-            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
-            style={{ left: "27.7%", top: "35.7%" }}
+            className="absolute left-[19%] top-[46%] flex -translate-x-1/2 flex-col items-center sm:left-[27.7%] sm:top-[35.7%] sm:translate-y-3"
           >
             <p className="text-[10px] font-semibold text-gold sm:text-xs">
               {t.landing.coverageMiami}
@@ -148,37 +147,26 @@ export default async function LandingPage() {
             </p>
           </div>
 
-          {/* coming-soon markets — gray, fanned out where dots sit close together */}
-          <div
-            className="absolute flex -translate-x-1/2 flex-col items-center"
-            style={{ left: "46%", top: "16%" }}
-          >
+          {/* coming-soon markets — gray. Positions are spread out further on
+              mobile (base classes) than on desktop (sm:), since the same
+              percentage gap is much tighter in absolute pixels on a small
+              screen; the dots themselves stay at their true map position,
+              only the text labels move. */}
+          <div className="absolute left-[38%] top-[7%] flex -translate-x-1/2 flex-col items-center sm:left-[46%] sm:top-[16%]">
             <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageUK}</p>
           </div>
-          <div
-            className="absolute flex -translate-x-1/2 flex-col items-center"
-            style={{ left: "59%", top: "16%" }}
-          >
+          <div className="absolute left-[66%] top-[7%] flex -translate-x-1/2 flex-col items-center sm:left-[59%] sm:top-[16%]">
             <p className="text-[10px] text-dim sm:text-xs">
               {t.landing.coverageNetherlands}
             </p>
           </div>
-          <div
-            className="absolute flex -translate-x-1/2 flex-col items-center"
-            style={{ left: "52%", top: "27.5%" }}
-          >
+          <div className="absolute left-[52%] top-[16%] flex -translate-x-1/2 flex-col items-center sm:left-[52%] sm:top-[27.5%]">
             <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageFrance}</p>
           </div>
-          <div
-            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
-            style={{ left: "29.4%", top: "27.4%" }}
-          >
+          <div className="absolute left-[34%] top-[21%] flex -translate-x-1/2 flex-col items-center sm:left-[29.4%] sm:top-[27.4%] sm:translate-y-3">
             <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageNewYork}</p>
           </div>
-          <div
-            className="absolute flex -translate-x-1/2 translate-y-3 flex-col items-center"
-            style={{ left: "17.2%", top: "31.1%" }}
-          >
+          <div className="absolute left-[6%] top-[27%] flex -translate-x-1/2 flex-col items-center sm:left-[17.2%] sm:top-[31.1%] sm:translate-y-3">
             <p className="text-[10px] text-dim sm:text-xs">
               {t.landing.coverageLosAngeles}
             </p>
@@ -193,7 +181,6 @@ export default async function LandingPage() {
             <span className="h-2 w-2 rounded-full border border-gold/70" /> {t.landing.coverageSoon}
           </span>
         </div>
-        <p className="mt-2 text-xs text-dim">{t.landing.coverageSoonList}</p>
 
         <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
           <p className="font-display text-xl text-cream">
