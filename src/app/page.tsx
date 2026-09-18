@@ -38,12 +38,12 @@ export default async function LandingPage() {
               </span>
             </div>
           </div>
-          <h1 className="mx-auto mt-5 max-w-xl font-sans text-3xl font-extrabold leading-[1.15] text-cream sm:text-5xl">
-            {t.landing.heroTitleLead}
-            <span className="rounded-sm bg-gold/15 px-1.5 text-gold">
+          <h1 className="mx-auto mt-5 max-w-xl font-sans text-2xl font-extrabold leading-[1.25] text-cream sm:text-5xl sm:leading-[1.15]">
+            <span className="block">{t.landing.heroTitleLead.trim()}</span>
+            <span className="my-1 inline-block whitespace-nowrap rounded-sm bg-gold/15 px-1.5 text-gold">
               {t.landing.heroTitleHighlight}
             </span>
-            {t.landing.heroTitleTrail}
+            <span className="block">{t.landing.heroTitleTrail.trim()}</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm text-dim sm:text-base">
             {t.landing.heroSubtext}
