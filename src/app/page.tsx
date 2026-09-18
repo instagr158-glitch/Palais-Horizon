@@ -166,7 +166,7 @@ export default async function LandingPage() {
           <div className="absolute left-[34%] top-[21%] flex -translate-x-1/2 flex-col items-center sm:left-[29.4%] sm:top-[27.4%] sm:translate-y-3">
             <p className="text-[10px] text-dim sm:text-xs">{t.landing.coverageNewYork}</p>
           </div>
-          <div className="absolute left-[6%] top-[27%] flex -translate-x-1/2 flex-col items-center sm:left-[17.2%] sm:top-[31.1%] sm:translate-y-3">
+          <div className="absolute left-[11%] top-[27%] flex -translate-x-1/2 flex-col items-center sm:left-[17.2%] sm:top-[31.1%] sm:translate-y-3">
             <p className="text-[10px] text-dim sm:text-xs">
               {t.landing.coverageLosAngeles}
             </p>
