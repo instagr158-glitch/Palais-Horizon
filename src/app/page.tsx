@@ -138,33 +138,6 @@ export default async function LandingPage() {
           </span>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-5 rounded-sm border border-ink-border bg-ink-panel/60 px-6 py-6 text-center">
-          <div>
-            <p className="num text-2xl text-gold-gradient sm:text-3xl">
-              {stats.total}+
-            </p>
-            <p className="mt-0.5 text-xs text-dim sm:text-sm">
-              {t.landing.statListingsSuffix}
-            </p>
-          </div>
-          <div>
-            <p className="num text-2xl text-gold-gradient sm:text-3xl">
-              {stats.provinceCount}
-            </p>
-            <p className="mt-0.5 text-xs text-dim sm:text-sm">
-              {t.landing.statRegionsSuffix}
-            </p>
-          </div>
-          <div>
-            <p className="num text-2xl text-gold-gradient sm:text-3xl">
-              {stats.agencyCount}+
-            </p>
-            <p className="mt-0.5 text-xs text-dim sm:text-sm">
-              {t.landing.statAgenciesSuffix}
-            </p>
-          </div>
-        </div>
-
         <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
           <p className="font-display text-xl text-cream">
             {t.landing.unlockBanner}

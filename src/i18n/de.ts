@@ -35,7 +35,6 @@ export const de: Dict = {
     seeAllListings: "Alle Angebote ansehen",
     heroCtaSecondary: "So funktioniert es",
     statListingsSuffix: "geprüfte Luxusangebote",
-    statRegionsSuffix: "Regionen in Thailand",
     statAgenciesSuffix: "Partner-Maklerbüros",
     coverageBadge: "Weltweite Abdeckung",
     coverageTitle: "Immobilienangebote aus aller Welt, analysiert.",

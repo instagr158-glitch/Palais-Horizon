@@ -33,7 +33,6 @@ export const en = {
     seeAllListings: "See all listings",
     heroCtaSecondary: "How it works",
     statListingsSuffix: "verified luxury listings",
-    statRegionsSuffix: "regions across Thailand",
     statAgenciesSuffix: "partner agencies",
     coverageBadge: "Global coverage",
     coverageTitle: "Real-estate listings from around the world, analysed.",
