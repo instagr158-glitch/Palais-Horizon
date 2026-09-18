@@ -224,9 +224,9 @@ export default async function LandingPage() {
           <p className="mt-2 text-xs text-gold">{t.landing.compareChartCaption}</p>
 
           <div className="mx-auto mt-8 max-w-sm rounded-sm border border-gold/30 bg-gold/[0.04] px-5 py-4">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-left">
               <span className="text-sm text-dim">{t.landing.compareStatLabel}</span>
-              <span className="num text-2xl text-gold-gradient">
+              <span className="num whitespace-nowrap text-2xl text-gold-gradient">
                 {t.landing.compareStatValue}
               </span>
             </div>
