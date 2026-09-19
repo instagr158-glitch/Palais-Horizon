@@ -27,7 +27,7 @@ export const fr: Dict = {
     heroTitleHighlight: "au meilleur prix",
     heroTitleTrail: " avant tout le monde.",
     heroSubtext:
-      "Palais Horizon analyse en continu les annonces de toutes les agences de Thaïlande pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
+      "Palais Horizon analyse en continu les annonces de toutes les agences pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
     heroCtaPrimary: "Commencer maintenant",
     heroCtaDemo: "Voir l'outil en action",
     demoCaption: "L'interface Palais Horizon — recherchez, filtrez et comparez les annonces de toutes les agences au même endroit.",
