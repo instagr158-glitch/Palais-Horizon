@@ -163,12 +163,11 @@ export const fr: Dict = {
     emailSent: "Nous vous avons envoyé un email — si vous ne le voyez pas, vérifiez vos spams.",
     emailInvalid: "Veuillez entrer une adresse email valide.",
     features: [
-      "Prix affichés complets (THB + USD)",
       "Localisations exactes et carte",
       "Galeries photo complètes",
       "Mise en relation directe avec l'agence",
       "Recherches et filtres illimités",
-      "Nouvelles annonces de luxe dès leur arrivée",
+      "Nouvelles annonces dès leur arrivée",
     ],
     notConfigured:
       "Le paiement n'est pas encore configuré. Ajoutez vos clés Stripe pour activer le paiement.",

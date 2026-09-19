@@ -21,7 +21,7 @@ export function PricingTable({ configured, prices }: Props) {
       id: "monthly" as const,
       name: t.pricing.monthlyLabel,
       price: "€19",
-      approx: "≈ $21 · ฿700",
+      approx: "≈ $21",
       unit: t.pricing.perMonth,
       note: t.pricing.cancelAnytime,
       highlight: !hasAnnual,
@@ -32,7 +32,7 @@ export function PricingTable({ configured, prices }: Props) {
             id: "annual" as const,
             name: t.pricing.annualLabel,
             price: "€190",
-            approx: "≈ $210 · ฿7,000",
+            approx: "≈ $210",
             unit: t.pricing.perYear,
             note: t.pricing.annualNote,
             highlight: true,
@@ -117,6 +117,15 @@ export function PricingTable({ configured, prices }: Props) {
             >
               {loading === plan.id ? t.pricing.redirecting : t.pricing.cta}
             </button>
+
+            <ul className="mt-5 grid gap-2 border-t border-ink-border pt-5">
+              {t.pricing.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-silver">
+                  <span className="mt-0.5 text-emerald-500">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
@@ -126,15 +135,6 @@ export function PricingTable({ configured, prices }: Props) {
           {error}
         </p>
       )}
-
-      <ul className="mt-8 grid gap-2 sm:grid-cols-2">
-        {t.pricing.features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-sm text-silver">
-            <span className="mt-0.5 text-gold">✦</span>
-            {f}
-          </li>
-        ))}
-      </ul>
 
       {!configured && (
         <p className="mt-6 text-xs text-dim">{t.pricing.ownerNote}</p>
