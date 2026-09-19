@@ -36,11 +36,7 @@ export default async function PricingPage({
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         {/* the payoff — a villa, and the one reason that matters */}
         <div>
-          <h1 className="font-sans text-2xl font-extrabold leading-tight text-cream sm:text-4xl">
-            {t.pricing.unlockTitle}
-          </h1>
-
-          <div className="relative mt-6 aspect-[16/9] max-h-72 overflow-hidden rounded-sm border border-ink-border">
+          <div className="relative aspect-[16/9] max-h-72 overflow-hidden rounded-sm border border-ink-border">
             <Image
               src={HERO_IMAGE}
               alt={t.pricing.unlockTagline}
