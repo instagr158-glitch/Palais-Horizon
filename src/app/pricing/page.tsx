@@ -36,7 +36,7 @@ export default async function PricingPage({
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         {/* the payoff — a villa, and the one reason that matters */}
         <div>
-          <h1 className="font-display text-3xl text-cream sm:text-4xl">
+          <h1 className="font-sans text-2xl font-extrabold leading-tight text-cream sm:text-4xl">
             {t.pricing.unlockTitle}
           </h1>
 
