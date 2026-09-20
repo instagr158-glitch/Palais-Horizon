@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
 import { FeatureTabs } from "@/components/FeatureTabs";
-import { getCatalogStats } from "@/lib/listings";
+import { PropertyShowcase } from "@/components/PropertyShowcase";
+import { getCatalogStats, getShowcaseListings } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
 
@@ -10,6 +11,21 @@ export const dynamic = "force-dynamic";
 export default async function LandingPage() {
   const t = getDictionary(await getLocale());
   const stats = await getCatalogStats();
+  const showcaseListings = await getShowcaseListings();
+  const showcaseItems = showcaseListings.map((item) => {
+    const isAnnual = item.listingType === "rent" && item.province === "Dubai";
+    const monthlyUsd = item.priceUsd ? (isAnnual ? item.priceUsd / 12 : item.priceUsd) : null;
+    return {
+      id: item.id,
+      image: item.images[0] ?? "",
+      title: item.title,
+      city: item.city,
+      country: item.country,
+      flag: item.flag,
+      monthlyEur: monthlyUsd ? Math.round(monthlyUsd * 0.92) : null,
+      isAnnual,
+    };
+  }).filter((item) => item.image);
 
   return (
     <div className="grain relative">
@@ -65,6 +81,8 @@ export default async function LandingPage() {
           </div>
         </div>
       </section>
+
+      <PropertyShowcase items={showcaseItems} t={t} />
 
       {/* product demo — the tool itself, not a listing */}
       <section id="demo" className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">

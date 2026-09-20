@@ -1,0 +1,158 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
+import { TrackedLink } from "@/components/TrackedLink";
+import type { Dict } from "@/i18n";
+
+export type ShowcaseCardData = {
+  id: string;
+  image: string;
+  title: string;
+  city: string;
+  country: string;
+  flag: string;
+  monthlyEur: number | null;
+  isAnnual: boolean;
+};
+
+const AUTOPLAY_MS = 5000;
+
+export function PropertyShowcase({
+  items,
+  t,
+}: {
+  items: ShowcaseCardData[];
+  t: Dict;
+}) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const advance = useCallback(() => {
+    setActive((i) => (i + 1) % items.length);
+  }, [items.length]);
+
+  useEffect(() => {
+    if (paused || items.length < 2) return;
+    const id = setInterval(advance, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [paused, advance, items.length]);
+
+  if (items.length === 0) return null;
+  const current = items[active];
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <div className="text-center">
+        <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+          {t.landing.showcaseBadge}
+        </span>
+        <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+          {t.landing.showcaseTitle}
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-dim sm:text-base">
+          {t.landing.showcaseSubtext}
+        </p>
+      </div>
+
+      <div
+        className="mt-8 grid gap-3 lg:grid-cols-[1.7fr_1fr] lg:gap-4"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* main spotlight panel */}
+        <TrackedLink
+          href="/pricing"
+          event="view_membership_click"
+          location="showcase_main"
+          className="group relative block aspect-[4/3] overflow-hidden rounded-sm border border-ink-border sm:aspect-[16/10]"
+        >
+          {items.map((item, i) => (
+            <Image
+              key={item.id}
+              src={item.image}
+              alt={item.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              priority={i === 0}
+              className={`object-cover transition-opacity duration-700 ${
+                i === active ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+
+          <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs uppercase tracking-wide text-silver backdrop-blur-sm">
+            {current.flag} {current.city}
+          </div>
+
+          {current.monthlyEur != null && (
+            <div className="absolute right-4 top-4 rounded-sm bg-gold px-3 py-1.5 text-sm font-semibold text-black shadow-gold">
+              {t.landing.showcasePriceFrom} {current.monthlyEur} € / mois
+            </div>
+          )}
+
+          <div className="absolute inset-x-0 bottom-[3px] p-4 sm:p-6">
+            <p className="font-display text-lg text-cream sm:text-xl">
+              {current.title}
+            </p>
+            {current.isAnnual && (
+              <p className="mt-1 text-[11px] text-gold/90">
+                {t.landing.showcaseAnnualNote}
+              </p>
+            )}
+          </div>
+
+          {/* auto-advance progress bar, restarts on every active-item change */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black/40">
+            <div
+              key={`${current.id}-${paused}`}
+              className="h-full bg-gold-gradient"
+              style={{
+                animation: paused
+                  ? "none"
+                  : `showcase-progress ${AUTOPLAY_MS}ms linear forwards`,
+                width: paused ? "100%" : undefined,
+              }}
+            />
+          </div>
+        </TrackedLink>
+
+        {/* thumbnail rail */}
+        <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
+          {items.map((item, i) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={item.title}
+              className={`group relative aspect-square overflow-hidden rounded-sm border transition ${
+                i === active
+                  ? "border-gold shadow-gold"
+                  : "border-ink-border opacity-70 hover:opacity-100"
+              }`}
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="120px"
+                className="object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-black/75 px-1.5 py-1 text-left leading-tight">
+                <span className="block truncate text-[10px] text-cream">
+                  {item.flag} {item.country}
+                </span>
+                {item.monthlyEur != null && (
+                  <span className="num block text-[10px] text-gold">
+                    {item.monthlyEur} €/mois
+                  </span>
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

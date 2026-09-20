@@ -74,6 +74,19 @@ body {
   transform: translateY(1px);
 }
 
+.bg-gold-gradient {
+  background-image: linear-gradient(135deg, #f6d98a, #d4af37 55%, #a9801e);
+}
+
+@keyframes showcase-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 .btn-ghost {
   border: 1px solid var(--border);
   color: var(--cream);

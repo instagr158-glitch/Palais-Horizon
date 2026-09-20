@@ -193,6 +193,45 @@ export async function getSimilarListings(
   return rows.map(toFullListing);
 }
 
+/** Country + display flag for a listing, derived from its stored province. */
+function countryOf(province: string): { country: string; flag: string } {
+  if (province === "Bali") return { country: "Bali", flag: "🇮🇩" };
+  if (province === "Dubai") return { country: "Dubai", flag: "🇦🇪" };
+  if (province === "Miami") return { country: "Miami", flag: "🇺🇸" };
+  return { country: "Thailand", flag: "🇹🇭" };
+}
+
+/**
+ * A hand-picked set of real, currently-listed rentals for the homepage
+ * showcase — chosen for being priced near the accessible end of each market
+ * (≈€1,000/month or under for Thailand and Bali, ≈€2,000/month for Dubai and
+ * Miami) and for having a genuine, good-quality listing photo. IDs are
+ * pinned rather than queried by price so the selection stays deliberate;
+ * any listing that later goes inactive is simply skipped.
+ */
+const SHOWCASE_IDS = [
+  "cmty5eh8100d3jw045j87kofh", // Bangkok — Park Origin Thonglor
+  "cmu9jifjp00luig04xwb0wkjk", // Uluwatu, Bali — Nyang Nyang villa
+  "cmu9jczj600frig044bq54ler", // The Views, Dubai — Fairways West
+  "cmu9jcis5005zig04o0pwv89i", // Cutler Bay, Miami
+  "cmty5eh2l00d1jw046mvi0w1u", // Phuket — Aristo 2 sea view condo
+  "cmu9jddjd00kdig04pn0ohnfo", // Canggu, Bali
+  "cmu9jcpzl00apig04i52r1qec", // Damac Hills 2, Dubai — villa
+  "cmu9jcnay0094ig04zp9o8xd3", // Kendall, Miami
+];
+
+export type ShowcaseItem = FullListing & { country: string; flag: string };
+
+export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
+  const rows = await prisma.listing.findMany({
+    where: { id: { in: SHOWCASE_IDS }, status: "active" },
+  });
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  return SHOWCASE_IDS.map((id) => byId.get(id))
+    .filter((r): r is NonNullable<typeof r> => !!r)
+    .map((r) => ({ ...toFullListing(r), ...countryOf(r.province) }));
+}
+
 export async function getCatalogStats() {
   const [total, provinces, agencies] = await Promise.all([
     prisma.listing.count({ where: { status: "active" } }),
