@@ -23,9 +23,14 @@ async function handle(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const url = new URL(req.url);
+  const offset = Number(url.searchParams.get("offset") ?? "0") || 0;
+  const limitParam = url.searchParams.get("limit");
+  const limit = limitParam ? Number(limitParam) || undefined : undefined;
+
   const started = Date.now();
   try {
-    const stats = await runIngest();
+    const stats = await runIngest(undefined, undefined, offset, limit);
     return NextResponse.json({
       ok: true,
       ...stats,

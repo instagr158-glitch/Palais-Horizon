@@ -65,14 +65,22 @@ async function processOne(
   return { result: "added", externalId: data.externalId, title: data.title };
 }
 
-async function runAdapter(name: string, log: Logger): Promise<IngestStats> {
+async function runAdapter(
+  name: string,
+  log: Logger,
+  offset: number,
+  limit: number | undefined,
+): Promise<IngestStats & { total: number }> {
   const stats: IngestStats = { added: 0, updated: 0, rejected: 0, failed: 0 };
   const adapter = enabledAdapters().find((a) => a.name === name);
-  if (!adapter) return stats;
+  if (!adapter) return { ...stats, total: 0 };
 
-  const urls = await adapter.listUrls();
-  log(`[${adapter.name}] ${urls.length} URL(s)`);
-  if (urls.length === 0) return stats;
+  const allUrls = await adapter.listUrls();
+  const urls = limit != null ? allUrls.slice(offset, offset + limit) : allUrls.slice(offset);
+  log(
+    `[${adapter.name}] ${allUrls.length} URL(s) total, processing ${urls.length} (offset ${offset})`,
+  );
+  if (urls.length === 0) return { ...stats, total: allUrls.length };
 
   const seenExternalIds: string[] = [];
 
@@ -87,7 +95,11 @@ async function runAdapter(name: string, log: Logger): Promise<IngestStats> {
     }
   }
 
-  if (seenExternalIds.length > 0) {
+  // Only a full, unpaginated pass has seen every URL for this adapter — on a
+  // partial (offset/limit) run, anything outside this slice would otherwise
+  // get wrongly marked inactive just for not appearing in this batch.
+  const isFullRun = offset === 0 && (limit == null || limit >= allUrls.length);
+  if (isFullRun && seenExternalIds.length > 0) {
     const stale = await prisma.listing.updateMany({
       where: {
         source: adapter.name,
@@ -99,26 +111,40 @@ async function runAdapter(name: string, log: Logger): Promise<IngestStats> {
     if (stale.count > 0) log(`  . ${stale.count} marked inactive`);
   }
 
-  return stats;
+  return { ...stats, total: allUrls.length };
 }
 
 /**
  * Run every enabled source adapter (or just `only`). Safe to call from a route
  * handler (Vercel Cron) or from the CLI (`npm run ingest`).
+ *
+ * `offset`/`limit` process only a slice of each adapter's URL list, so a run
+ * too large to finish inside one serverless invocation can be split across
+ * several calls (e.g. offset=0&limit=300, then offset=300&limit=300, …).
+ * Stale-listing cleanup only runs on a full, unpaginated pass.
  */
 export async function runIngest(
   only?: string,
   log: Logger = noop,
-): Promise<IngestStats> {
+  offset = 0,
+  limit?: number,
+): Promise<IngestStats & { totalUrls: number }> {
   const adapters = enabledAdapters().filter((a) => !only || a.name === only);
-  const total: IngestStats = { added: 0, updated: 0, rejected: 0, failed: 0 };
+  const total: IngestStats & { totalUrls: number } = {
+    added: 0,
+    updated: 0,
+    rejected: 0,
+    failed: 0,
+    totalUrls: 0,
+  };
 
   for (const a of adapters) {
-    const s = await runAdapter(a.name, log);
+    const s = await runAdapter(a.name, log, offset, limit);
     total.added += s.added;
     total.updated += s.updated;
     total.rejected += s.rejected;
     total.failed += s.failed;
+    total.totalUrls += s.total;
   }
 
   log(
