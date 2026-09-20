@@ -82,22 +82,22 @@ export function PropertyShowcase({
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-          <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs uppercase tracking-wide text-silver backdrop-blur-sm">
+          <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
             {current.flag} {current.city}
           </div>
 
           {current.monthlyEur != null && (
-            <div className="absolute right-4 top-4 rounded-sm bg-gold px-3 py-1.5 text-sm font-semibold text-black shadow-gold">
+            <div className="absolute right-4 top-4 rounded-sm bg-gold px-3 py-1.5 text-sm font-bold text-black shadow-gold">
               {t.landing.showcasePriceFrom} {current.monthlyEur} € / mois
             </div>
           )}
 
           <div className="absolute inset-x-0 bottom-[3px] p-4 sm:p-6">
-            <p className="font-display text-lg text-cream sm:text-xl">
+            <p className="font-sans text-base font-bold leading-snug text-cream drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
               {current.title}
             </p>
             {current.isAnnual && (
-              <p className="mt-1 text-[11px] text-gold/90">
+              <p className="mt-1 text-xs font-medium text-gold">
                 {t.landing.showcaseAnnualNote}
               </p>
             )}
@@ -139,12 +139,12 @@ export function PropertyShowcase({
                 sizes="120px"
                 className="object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-black/75 px-1.5 py-1 text-left leading-tight">
-                <span className="block truncate text-[10px] text-cream">
+              <div className="absolute inset-x-0 bottom-0 bg-black/80 px-1.5 py-1 text-left leading-tight">
+                <span className="block truncate text-[11px] font-semibold text-cream">
                   {item.flag} {item.country}
                 </span>
                 {item.monthlyEur != null && (
-                  <span className="num block text-[10px] text-gold">
+                  <span className="num block text-[11px] font-bold text-gold">
                     {item.monthlyEur} €/mois
                   </span>
                 )}
