@@ -210,8 +210,8 @@ export const fr: Dict = {
 
   listings: {
     title: "Résidences",
-    countOne: "annonce de luxe en Thaïlande",
-    countOther: "annonces de luxe en Thaïlande",
+    countOne: "annonce de luxe",
+    countOther: "annonces de luxe",
     countryThailand: "Thaïlande",
     countryDubai: "Dubaï",
     countryMiami: "Miami",

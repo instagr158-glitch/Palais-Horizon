@@ -9,7 +9,16 @@ import { Filters } from "@/components/Filters";
 import { CountryTabs } from "@/components/CountryTabs";
 import { ListingCard } from "@/components/ListingCard";
 import { PaywallScreen } from "@/components/PaywallScreen";
-import { getServerDict } from "@/i18n/server";
+import { getServerDict, getLocale } from "@/i18n/server";
+
+// French needs "en Thaïlande" but "à Bali/Dubaï/Miami" — English and German
+// use a single preposition for all four, so only "fr" needs its own map.
+const FR_PREPOSITIONS: Record<string, string> = {
+  thailand: "en",
+  bali: "à",
+  dubai: "à",
+  miami: "à",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDict();
@@ -33,11 +42,19 @@ export default async function ListingsPage({
   if (!hasActiveSubscription(session.user)) return <PaywallScreen />;
 
   const t = await getServerDict();
+  const locale = await getLocale();
   const sp = await searchParams;
   const country =
     sp.country === "bali" || sp.country === "dubai" || sp.country === "miami"
       ? sp.country
       : "thailand";
+  const countryLabel = {
+    thailand: t.listings.countryThailand,
+    bali: t.listings.countryBali,
+    dubai: t.listings.countryDubai,
+    miami: t.listings.countryMiami,
+  }[country];
+  const preposition = locale === "fr" ? FR_PREPOSITIONS[country] : "in";
   const filters: ListingFilters = {
     q: sp.q,
     country,
@@ -71,7 +88,8 @@ export default async function ListingsPage({
           </h1>
           <p className="mt-1 text-sm text-dim">
             <span className="num">{total}</span>{" "}
-            {total === 1 ? t.listings.countOne : t.listings.countOther}
+            {total === 1 ? t.listings.countOne : t.listings.countOther}{" "}
+            {preposition} {countryLabel}
           </p>
         </div>
       </div>

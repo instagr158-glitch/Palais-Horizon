@@ -209,8 +209,8 @@ export const en = {
 
   listings: {
     title: "Residences",
-    countOne: "luxury listing across Thailand",
-    countOther: "luxury listings across Thailand",
+    countOne: "luxury listing",
+    countOther: "luxury listings",
     countryThailand: "Thailand",
     countryDubai: "Dubai",
     countryMiami: "Miami",
