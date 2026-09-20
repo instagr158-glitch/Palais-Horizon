@@ -27,7 +27,7 @@ export default async function LandingPage() {
           <div className="flex justify-center">
             <div className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-ink-border bg-ink-panel/80 px-4 py-2 text-xs text-dim">
               <span className="text-cream">
-                {stats.total}+ {t.landing.statListingsSuffix}
+                {Math.floor(stats.total / 100) * 100}+ {t.landing.statListingsSuffix}
               </span>
               <span aria-hidden className="text-ink-border">
                 ·
