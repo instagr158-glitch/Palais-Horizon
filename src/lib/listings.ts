@@ -211,11 +211,11 @@ function countryOf(province: string): { country: string; flag: string } {
  */
 const SHOWCASE_IDS = [
   "cmty5eh8100d3jw045j87kofh", // Bangkok — Park Origin Thonglor
-  "cmu9jifjp00luig04xwb0wkjk", // Uluwatu, Bali — Nyang Nyang villa
+  "cmu9jifid00ltig04lss6rutb", // Uluwatu/Balangan, Bali — cozy pool villa
   "cmu9jczj600frig044bq54ler", // The Views, Dubai — Fairways West
   "cmu9jcis5005zig04o0pwv89i", // Cutler Bay, Miami
   "cmty5eh2l00d1jw046mvi0w1u", // Phuket — Aristo 2 sea view condo
-  "cmu9jddjd00kdig04pn0ohnfo", // Canggu, Bali
+  "cmu9jl2qy00qyjp04diwntow1", // Ubud/Kemenuh, Bali — charming pool villa
   "cmu9jcpzl00apig04i52r1qec", // Damac Hills 2, Dubai — villa
   "cmu9jcnay0094ig04zp9o8xd3", // Kendall, Miami
 ];
