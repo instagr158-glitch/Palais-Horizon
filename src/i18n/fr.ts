@@ -59,7 +59,7 @@ export const fr: Dict = {
         title: "Comparez les prix entre agences, au même endroit.",
         body: "Palais Horizon réunit les annonces de toutes les agences pour comparer les prix d'un coup d'œil, sans ouvrir dix sites différents.",
         points: [
-          "Prix affichés en THB et en USD",
+          "Prix affichés en EUR et en USD",
           "Toutes les agences réunies dans un seul catalogue",
           "Repérez en un instant le meilleur prix au m²",
         ],
@@ -229,10 +229,10 @@ export const fr: Dict = {
     samuiRegion: "Koh Samui (Surat Thani)",
     budgets: [
       "Tous budgets",
-      "Jusqu'à ฿25M",
-      "฿25M – ฿50M",
-      "฿50M – ฿100M",
-      "฿100M +",
+      "Jusqu'à 700 000 €",
+      "700 000 € – 1,3 M€",
+      "1,3 M€ – 2,7 M€",
+      "2,7 M€ et plus",
     ],
     sorts: [
       "Plus récentes",
@@ -324,7 +324,7 @@ export const fr: Dict = {
     p2: "Nous ne détenons aucun mandat et ne sommes partie à aucune vente ni location. L'abonnement paie la curation et l'accès — une vue unique et consultable du haut du marché, et une ligne directe vers chaque agence.",
     membersTitle: "Ce que les membres obtiennent",
     members: [
-      "Les prix affichés complets en THB et en USD, avec la localisation exacte et la carte.",
+      "Les prix affichés complets en EUR et en USD, avec la localisation exacte et la carte.",
       "Les galeries photo complètes et le détail des biens.",
       "Une mise en relation en un clic avec la page de l'agence.",
       "Recherche et filtres illimités sur toutes les régions couvertes.",

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { FullListing } from "@/lib/listings";
-import { formatThb, formatUsd } from "@/lib/listings";
+import { formatEur, formatUsd } from "@/lib/listings";
 import type { Dict } from "@/i18n";
 
 function Spec({
@@ -77,9 +77,9 @@ export function ListingCard({ listing, t }: { listing: FullListing; t: Dict }) {
               return (
                 <>
                   <p className="num text-lg text-gold-gradient">
-                    {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
+                    {formatEur(listing.priceUsd, t.listings.priceOnApplication)}
                     {listing.listingType === "rent" &&
-                    listing.priceAmount != null &&
+                    listing.priceUsd != null &&
                     rentSuffix ? (
                       <span className="text-sm text-dim"> {rentSuffix}</span>
                     ) : null}

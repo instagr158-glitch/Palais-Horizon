@@ -251,12 +251,15 @@ export async function getCatalogStats() {
 
 // ---------- formatting ----------
 
-export function formatThb(
-  amount: number | null | undefined,
+// Indicative USD->EUR rate used across the site (matches the homepage showcase).
+const USD_TO_EUR = 0.92;
+
+export function formatEur(
+  usdAmount: number | null | undefined,
   fallback = "Price on application",
 ): string {
-  if (amount == null) return fallback;
-  return `฿${amount.toLocaleString("en-US")}`;
+  if (usdAmount == null) return fallback;
+  return `€${Math.round(usdAmount * USD_TO_EUR).toLocaleString("en-US")}`;
 }
 
 export function formatUsd(amount: number | null | undefined): string {

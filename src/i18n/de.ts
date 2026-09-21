@@ -59,7 +59,7 @@ export const de: Dict = {
         title: "Vergleichen Sie Preise zwischen Agenturen, an einem Ort.",
         body: "Palais Horizon bündelt die Angebote aller Agenturen, damit Sie Preise auf einen Blick vergleichen können, ohne zehn verschiedene Seiten zu öffnen.",
         points: [
-          "Preise in THB und USD angezeigt",
+          "Preise in EUR und USD angezeigt",
           "Alle Agenturen in einem Katalog gebündelt",
           "Den besten Preis pro Quadratmeter sofort erkennen",
         ],
@@ -170,7 +170,6 @@ export const de: Dict = {
     features: [
       "Alle lokalen Angebote an einem Ort",
       "Die Immobilien zum besten Preis",
-      "Vollständige Angebotspreise (THB + USD)",
       "Exakte Lagen und Karte",
       "Vollständige Fotogalerien",
       "Direkte Vermittlung an das Maklerbüro",
@@ -230,10 +229,10 @@ export const de: Dict = {
     samuiRegion: "Koh Samui (Surat Thani)",
     budgets: [
       "Beliebiges Budget",
-      "Bis ฿25M",
-      "฿25M – ฿50M",
-      "฿50M – ฿100M",
-      "฿100M +",
+      "Bis 700.000 €",
+      "700.000 € – 1,3 Mio. €",
+      "1,3 Mio. € – 2,7 Mio. €",
+      "2,7 Mio. € +",
     ],
     sorts: [
       "Neueste zuerst",
@@ -325,7 +324,7 @@ export const de: Dict = {
     p2: "Wir halten keine Immobilienmandate und sind an keinem Verkauf oder Mietvertrag beteiligt. Die Mitgliedschaft bezahlt Kuratierung und Zugang — eine einzige, durchsuchbare Sicht auf die Spitze des Marktes und einen direkten Draht zu jedem Makler.",
     membersTitle: "Was Mitglieder erhalten",
     members: [
-      "Vollständige Angebotspreise in THB und USD, mit exakter Lage und Karte.",
+      "Vollständige Angebotspreise in EUR und USD, mit exakter Lage und Karte.",
       "Vollständige Fotogalerien und Objektdetails.",
       "Eine Ein-Klick-Vermittlung zur Seite des Maklerbüros.",
       "Unbegrenzte Suche und Filter über alle abgedeckten Regionen.",

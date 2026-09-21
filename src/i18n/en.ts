@@ -57,7 +57,7 @@ export const en = {
         title: "Compare prices across agencies, in one place.",
         body: "Palais Horizon gathers every agency's listings so you can compare prices at a glance, without opening ten different sites.",
         points: [
-          "Prices shown in THB and USD",
+          "Prices shown in EUR and USD",
           "Every agency gathered into one catalogue",
           "Spot the best price per square metre instantly",
         ],
@@ -168,7 +168,6 @@ export const en = {
     features: [
       "All local listings in one place",
       "The best-priced properties",
-      "Full asking prices (THB + USD)",
       "Exact locations and map",
       "Complete photo galleries",
       "Direct introduction to the listing agency",
@@ -228,10 +227,10 @@ export const en = {
     samuiRegion: "Koh Samui (Surat Thani)",
     budgets: [
       "Any budget",
-      "Up to ฿25M",
-      "฿25M – ฿50M",
-      "฿50M – ฿100M",
-      "฿100M +",
+      "Up to €700K",
+      "€700K – €1.3M",
+      "€1.3M – €2.7M",
+      "€2.7M +",
     ],
     sorts: ["Most recent", "Price — high to low", "Price — low to high", "Largest"],
     noResults: "No residences match those filters yet.",
@@ -318,7 +317,7 @@ export const en = {
     p2: "We do not hold property mandates and we are not a party to any sale or lease. Membership pays for curation and access — a single, searchable view of the top of the market and a direct line to every agency.",
     membersTitle: "What members get",
     members: [
-      "Full asking prices in THB and USD, with the exact location and map.",
+      "Full asking prices in EUR and USD, with the exact location and map.",
       "Complete photo galleries and property detail.",
       "A one-click introduction to the listing agency's own page.",
       "Unlimited search and filtering across every region we cover.",

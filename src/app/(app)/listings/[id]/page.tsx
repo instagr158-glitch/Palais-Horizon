@@ -6,7 +6,7 @@ import { hasActiveSubscription } from "@/lib/subscription";
 import {
   getListingById,
   getSimilarListings,
-  formatThb,
+  formatEur,
   formatUsd,
 } from "@/lib/listings";
 import { Gallery } from "@/components/Gallery";
@@ -86,9 +86,9 @@ export default async function ListingDetailPage({
             return (
               <>
                 <p className="num text-2xl text-gold-gradient sm:text-3xl">
-                  {formatThb(listing.priceAmount, t.listings.priceOnApplication)}
+                  {formatEur(listing.priceUsd, t.listings.priceOnApplication)}
                   {listing.listingType === "rent" &&
-                  listing.priceAmount != null &&
+                  listing.priceUsd != null &&
                   rentSuffix ? (
                     <span className="text-base text-dim"> {rentSuffix}</span>
                   ) : null}
