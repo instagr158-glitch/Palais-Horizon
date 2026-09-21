@@ -166,14 +166,14 @@ export const en = {
     emailSent: "We've sent you an email — if you don't see it, check your spam folder.",
     emailInvalid: "Please enter a valid email address.",
     features: [
+      "All local listings in one place",
+      "The best-priced properties",
       "Full asking prices (THB + USD)",
       "Exact locations and map",
       "Complete photo galleries",
       "Direct introduction to the listing agency",
       "Unlimited searches and filters",
       "New luxury listings as they land",
-      "All local listings in one place",
-      "The best-priced properties",
     ],
     notConfigured:
       "Payment is not configured yet. Add your Stripe keys to enable checkout.",

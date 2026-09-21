@@ -168,14 +168,14 @@ export const de: Dict = {
     emailSent: "Wir haben Ihnen eine E-Mail gesendet — falls Sie sie nicht sehen, prüfen Sie bitte Ihren Spam-Ordner.",
     emailInvalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     features: [
+      "Alle lokalen Angebote an einem Ort",
+      "Die Immobilien zum besten Preis",
       "Vollständige Angebotspreise (THB + USD)",
       "Exakte Lagen und Karte",
       "Vollständige Fotogalerien",
       "Direkte Vermittlung an das Maklerbüro",
       "Unbegrenzte Suchen und Filter",
       "Neue Luxusangebote, sobald sie erscheinen",
-      "Alle lokalen Angebote an einem Ort",
-      "Die Immobilien zum besten Preis",
     ],
     notConfigured:
       "Die Zahlung ist noch nicht eingerichtet. Fügen Sie Ihre Stripe-Schlüssel hinzu, um die Kasse zu aktivieren.",

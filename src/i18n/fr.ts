@@ -168,13 +168,13 @@ export const fr: Dict = {
     emailSent: "Nous vous avons envoyé un email — si vous ne le voyez pas, vérifiez vos spams.",
     emailInvalid: "Veuillez entrer une adresse email valide.",
     features: [
+      "Toutes les annonces locales au même endroit",
+      "Les biens au meilleur prix",
       "Localisations exactes et carte",
       "Galeries photo complètes",
       "Mise en relation directe avec l'agence",
       "Recherches et filtres illimités",
       "Nouvelles annonces dès leur arrivée",
-      "Toutes les annonces locales au même endroit",
-      "Les biens au meilleur prix",
     ],
     notConfigured:
       "Le paiement n'est pas encore configuré. Ajoutez vos clés Stripe pour activer le paiement.",
