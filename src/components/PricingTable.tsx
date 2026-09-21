@@ -20,8 +20,8 @@ export function PricingTable({ configured, prices }: Props) {
     {
       id: "monthly" as const,
       name: t.pricing.monthlyLabel,
-      price: "€19",
-      approx: "≈ $21",
+      price: "€20",
+      approx: "≈ $22",
       unit: t.pricing.perMonth,
       note: t.pricing.cancelAnytime,
       highlight: !hasAnnual,
@@ -90,18 +90,13 @@ export function PricingTable({ configured, prices }: Props) {
             )}
             {plan.id === "monthly" && (
               <span className="absolute -top-3 left-5 rounded-sm bg-gold px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-black">
-                {t.pricing.promoBadge} · {t.pricing.promoLabel}
+                {t.pricing.promoLabel}
               </span>
             )}
             <p className="text-xs uppercase tracking-widetitle text-dim">
               {plan.name}
             </p>
             <p className="mt-3 flex items-baseline gap-1.5">
-              {plan.id === "monthly" && (
-                <span className="num text-2xl font-semibold text-red-500 line-through decoration-2">
-                  {t.pricing.promoOriginal}
-                </span>
-              )}
               <span className="num text-[2.75rem] leading-none text-cream sm:text-5xl">
                 {plan.price}
               </span>
