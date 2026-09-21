@@ -5,6 +5,7 @@ export const en = {
 
   nav: {
     listings: "Residences",
+    track: "Track",
     pricing: "Membership",
     about: "About",
     account: "My account",
@@ -13,6 +14,19 @@ export const en = {
     signOut: "Sign out",
     language: "Language",
     memberBar: "MEMBER ACCESS ACTIVE",
+  },
+
+  track: {
+    title: "Track — Find a home within your budget",
+    back: "Back",
+    budgetLabel: "YOUR BUDGET",
+    budgetQuestion: "What's the maximum monthly rent you want to pay?",
+    budgetHint: "Drag the slider",
+    budgetMinHint: "Small budget",
+    budgetMaxHint: "Very ambitious",
+    continue: "Continue",
+    destinationLabel: "DESTINATION",
+    destinationQuestion: "Where are you looking?",
   },
 
   gate: {

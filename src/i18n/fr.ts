@@ -7,6 +7,7 @@ export const fr: Dict = {
 
   nav: {
     listings: "Résidences",
+    track: "Track",
     pricing: "Abonnement",
     about: "À propos",
     account: "Mon compte",
@@ -15,6 +16,19 @@ export const fr: Dict = {
     signOut: "Se déconnecter",
     language: "Langue",
     memberBar: "ACCÈS MEMBRE ACTIF",
+  },
+
+  track: {
+    title: "Track — Trouvez un bien selon votre budget",
+    back: "Retour",
+    budgetLabel: "VOTRE BUDGET",
+    budgetQuestion: "Quel loyer maximum voulez-vous mettre par mois ?",
+    budgetHint: "Faites glisser le curseur",
+    budgetMinHint: "Petit budget",
+    budgetMaxHint: "Très ambitieux",
+    continue: "Continuer",
+    destinationLabel: "DESTINATION",
+    destinationQuestion: "Où cherchez-vous ?",
   },
 
   gate: {

@@ -21,9 +21,11 @@ export default async function middleware(req: NextRequest) {
   // Everything else here (the catalogue, the account page) requires sign-in.
   const token = await getToken({ req });
   if (!token) {
+    const callbackUrl = pathname + req.nextUrl.search;
     const url = req.nextUrl.clone();
     url.pathname = "/login";
-    url.searchParams.set("callbackUrl", pathname);
+    url.search = "";
+    url.searchParams.set("callbackUrl", callbackUrl);
     return NextResponse.redirect(url);
   }
 
