@@ -32,6 +32,28 @@ function num(v: string | undefined): number | undefined {
   return Number.isFinite(n) && n > 0 ? n : undefined;
 }
 
+// Keeps the pager short and wrappable on mobile instead of one long row of
+// every page number (which pushed page 1 off-screen with no way back to it
+// on narrow viewports) — always anchors the first and last page, plus a
+// window around the current one.
+function pageNumbers(current: number, total: number): (number | "…")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const keep = new Set(
+    [1, 2, total - 1, total, current - 1, current, current + 1].filter(
+      (p) => p >= 1 && p <= total,
+    ),
+  );
+  const sorted = [...keep].sort((a, b) => a - b);
+  const result: (number | "…")[] = [];
+  let prev = 0;
+  for (const p of sorted) {
+    if (prev && p - prev > 1) result.push("…");
+    result.push(p);
+    prev = p;
+  }
+  return result;
+}
+
 export default async function ListingsPage({
   searchParams,
 }: {
@@ -64,7 +86,7 @@ export default async function ListingsPage({
     minBedrooms: num(sp.minBedrooms),
     minPrice: num(sp.minPrice),
     maxPrice: num(sp.maxPrice),
-    sort: (sp.sort as ListingFilters["sort"]) ?? "recent",
+    sort: (sp.sort as ListingFilters["sort"]) ?? "price_asc",
     page: num(sp.page) ?? 1,
     perPage: 12,
   };
@@ -116,20 +138,48 @@ export default async function ListingsPage({
       )}
 
       {pages > 1 && (
-        <div className="mt-10 flex items-center justify-center gap-2">
-          {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-            <Link
-              key={p}
-              href={pageHref(p)}
-              className={`rounded-sm border px-3 py-1.5 text-sm ${
-                p === page
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-ink-border text-dim hover:text-cream"
-              }`}
-            >
-              {p}
-            </Link>
-          ))}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          <Link
+            href={pageHref(Math.max(1, page - 1))}
+            aria-label={t.listings.prevPage}
+            className={`rounded-sm border px-3 py-1.5 text-sm ${
+              page === 1
+                ? "pointer-events-none border-ink-border text-dim opacity-40"
+                : "border-ink-border text-dim hover:text-cream"
+            }`}
+          >
+            ←
+          </Link>
+          {pageNumbers(page, pages).map((p, i) =>
+            p === "…" ? (
+              <span key={`ellipsis-${i}`} className="px-1 text-sm text-dim">
+                …
+              </span>
+            ) : (
+              <Link
+                key={p}
+                href={pageHref(p)}
+                className={`rounded-sm border px-3 py-1.5 text-sm ${
+                  p === page
+                    ? "border-gold bg-gold/10 text-gold"
+                    : "border-ink-border text-dim hover:text-cream"
+                }`}
+              >
+                {p}
+              </Link>
+            ),
+          )}
+          <Link
+            href={pageHref(Math.min(pages, page + 1))}
+            aria-label={t.listings.nextPage}
+            className={`rounded-sm border px-3 py-1.5 text-sm ${
+              page === pages
+                ? "pointer-events-none border-ink-border text-dim opacity-40"
+                : "border-ink-border text-dim hover:text-cream"
+            }`}
+          >
+            →
+          </Link>
         </div>
       )}
     </div>

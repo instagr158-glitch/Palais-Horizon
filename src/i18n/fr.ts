@@ -256,6 +256,8 @@ export const fr: Dict = {
     ],
     noResults: "Aucune résidence ne correspond encore à ces filtres.",
     clearFilters: "Réinitialiser les filtres",
+    prevPage: "Page précédente",
+    nextPage: "Page suivante",
     bed: "ch.",
     bath: "sdb",
     sqm: "m²",

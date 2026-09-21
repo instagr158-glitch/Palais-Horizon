@@ -249,6 +249,8 @@ export const en = {
     sorts: ["Most recent", "Price — high to low", "Price — low to high", "Largest"],
     noResults: "No residences match those filters yet.",
     clearFilters: "Clear filters",
+    prevPage: "Previous page",
+    nextPage: "Next page",
     bed: "bed",
     bath: "bath",
     sqm: "sqm",
