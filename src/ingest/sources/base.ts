@@ -56,6 +56,9 @@ export async function fetchHtml(url: string): Promise<string | null> {
         accept: "text/html,application/xhtml+xml",
       },
       redirect: "follow",
+      // A single unresponsive page must not stall its whole concurrent batch
+      // for the full serverless function timeout.
+      signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) {
       console.warn(`  ! ${res.status} ${url}`);
