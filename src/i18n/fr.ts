@@ -173,6 +173,8 @@ export const fr: Dict = {
       "Mise en relation directe avec l'agence",
       "Recherches et filtres illimités",
       "Nouvelles annonces dès leur arrivée",
+      "Toutes les annonces locales au même endroit",
+      "Les biens au meilleur prix",
     ],
     notConfigured:
       "Le paiement n'est pas encore configuré. Ajoutez vos clés Stripe pour activer le paiement.",

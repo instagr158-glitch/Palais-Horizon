@@ -174,6 +174,8 @@ export const de: Dict = {
       "Direkte Vermittlung an das Maklerbüro",
       "Unbegrenzte Suchen und Filter",
       "Neue Luxusangebote, sobald sie erscheinen",
+      "Alle lokalen Angebote an einem Ort",
+      "Die Immobilien zum besten Preis",
     ],
     notConfigured:
       "Die Zahlung ist noch nicht eingerichtet. Fügen Sie Ihre Stripe-Schlüssel hinzu, um die Kasse zu aktivieren.",

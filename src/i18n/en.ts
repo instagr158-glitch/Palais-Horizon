@@ -172,6 +172,8 @@ export const en = {
       "Direct introduction to the listing agency",
       "Unlimited searches and filters",
       "New luxury listings as they land",
+      "All local listings in one place",
+      "The best-priced properties",
     ],
     notConfigured:
       "Payment is not configured yet. Add your Stripe keys to enable checkout.",
