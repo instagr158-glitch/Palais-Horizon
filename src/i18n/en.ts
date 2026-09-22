@@ -47,7 +47,7 @@ export const en = {
     showcaseRentTitle: "Renting, available today, in four markets.",
     showcaseRentSubtext: "A handful of real, currently-listed rentals — priced to show what's actually reachable, not just the trophy estates.",
     showcaseSaleBadge: "Real listings — Buy",
-    showcaseSaleTitle: "Buying.",
+    showcaseSaleTitle: "Buy a home.",
     showcaseSaleSubtext: "A handful of real, currently-listed villas for sale.",
     showcasePriceFrom: "From",
     showcaseAnnualNote: "annual rent, shown per month",

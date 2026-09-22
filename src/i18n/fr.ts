@@ -49,7 +49,7 @@ export const fr: Dict = {
     showcaseRentTitle: "Louer, dès aujourd'hui, dans quatre marchés.",
     showcaseRentSubtext: "Une sélection d'annonces de location réelles, actuellement en ligne — pour montrer ce qui est vraiment accessible, pas seulement les biens d'exception.",
     showcaseSaleBadge: "Annonces réelles — Vente",
-    showcaseSaleTitle: "Acheter.",
+    showcaseSaleTitle: "Acheter un bien.",
     showcaseSaleSubtext: "Une sélection de villas réelles à vendre, actuellement en ligne.",
     showcasePriceFrom: "À partir de",
     showcaseAnnualNote: "loyer annuel, affiché par mois",

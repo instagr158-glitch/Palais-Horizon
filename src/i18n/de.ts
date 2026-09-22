@@ -49,7 +49,7 @@ export const de: Dict = {
     showcaseRentTitle: "Schon heute mieten, in vier Märkten.",
     showcaseRentSubtext: "Eine Auswahl echter, aktuell online stehender Mietangebote — sie zeigt, was wirklich erschwinglich ist, nicht nur die Prachtvillen.",
     showcaseSaleBadge: "Echte Angebote — Kauf",
-    showcaseSaleTitle: "Kaufen.",
+    showcaseSaleTitle: "Eine Immobilie kaufen.",
     showcaseSaleSubtext: "Eine Auswahl echter, aktuell online stehender Villen zum Kauf.",
     showcasePriceFrom: "Ab",
     showcaseAnnualNote: "Jahresmiete, pro Monat dargestellt",
