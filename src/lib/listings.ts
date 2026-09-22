@@ -236,12 +236,20 @@ export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
  * homepage showcase's "buy" section — Bali only (Thailand's sale villas
  * near this budget kept coming back with genuinely blurry source photos,
  * so they were dropped rather than shipped looking bad). Genuine market
- * floor, not a target price: only one real Bali villa lists under €140k.
+ * floor, not a target price: the site's own luxury filter rejects any sale
+ * listing under ~$100k, so these sit just above that floor (~€92-98k)
+ * rather than at a lower number that doesn't exist in the real catalogue.
  * Pinned by ID, same rationale as SHOWCASE_IDS above.
  */
 const SALE_SHOWCASE_IDS = [
   "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
   "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
+  "cmucner4e000bl804cf0jpvm4", // Uluwatu/Balangan Beach, Bali — villa, €92,212
+  "cmucnpwhx0000if04zv9ex3ia", // Kerobokan, Bali — villa, €93,165
+  "cmucnpxdr0004if04ti9qg0qk", // Umalas, Bali — villa, €93,165
+  "cmucnpyqf0005if04j6jw78zk", // Pererenan/Tumbak Bayuh, Bali — villa, €93,165
+  "cmucnpwxs0001if04u4nhsmmp", // Kerobokan, Bali — villa, €97,532
+  "cmucnpwy90003if04n76jn46r", // Canggu/Berawa, Bali — villa, €97,823
 ];
 
 // The sale showcase hides location (see PropertyShowcase's showLocation
@@ -251,6 +259,12 @@ const SALE_SHOWCASE_IDS = [
 const SALE_SHOWCASE_TITLE_OVERRIDES: Record<string, string> = {
   "cmu7t8xa60009jv04dhrqzf37": "2-Bedroom Villa for Sale — Affordable Coastal Luxury",
   "cmu7t99f6000ljv04oup9ug9g": "Brand New 1-Bedroom Villa for Sale, Leasehold",
+  "cmucner4e000bl804cf0jpvm4": "Charming 1-Bedroom Villa for Sale, Leasehold",
+  "cmucnpwhx0000if04zv9ex3ia": "Charming 2-Bedroom Villa for Sale, Leasehold",
+  "cmucnpxdr0004if04ti9qg0qk": "Charming 2-Bedroom Villa for Sale, Leasehold",
+  "cmucnpyqf0005if04j6jw78zk": "2-Bedroom Villa for Sale, Leasehold",
+  "cmucnpwxs0001if04u4nhsmmp": "Brand New 2-Bedroom Modern Villa for Sale, Leasehold",
+  "cmucnpwy90003if04n76jn46r": "Charming 1-Bedroom Villa for Sale",
 };
 
 export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
