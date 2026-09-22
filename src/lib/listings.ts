@@ -244,6 +244,15 @@ const SALE_SHOWCASE_IDS = [
   "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
 ];
 
+// The sale showcase hides location (see PropertyShowcase's showLocation
+// prop), so these titles drop the city/country words the real listing
+// titles otherwise include — every other fact (beds, sale, leasehold, "new")
+// is kept as-is.
+const SALE_SHOWCASE_TITLE_OVERRIDES: Record<string, string> = {
+  "cmu7t8xa60009jv04dhrqzf37": "2-Bedroom Villa for Sale — Affordable Coastal Luxury",
+  "cmu7t99f6000ljv04oup9ug9g": "Brand New 1-Bedroom Villa for Sale, Leasehold",
+};
+
 export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
   const rows = await prisma.listing.findMany({
     where: { id: { in: SALE_SHOWCASE_IDS }, status: "active" },
@@ -251,7 +260,11 @@ export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
   const byId = new Map(rows.map((r) => [r.id, r]));
   return SALE_SHOWCASE_IDS.map((id) => byId.get(id))
     .filter((r): r is NonNullable<typeof r> => !!r)
-    .map((r) => ({ ...toFullListing(r), ...countryOf(r.province) }));
+    .map((r) => ({
+      ...toFullListing(r),
+      ...countryOf(r.province),
+      title: SALE_SHOWCASE_TITLE_OVERRIDES[r.id] ?? r.title,
+    }));
 }
 
 export async function getCatalogStats() {
