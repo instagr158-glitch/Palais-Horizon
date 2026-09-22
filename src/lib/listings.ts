@@ -236,14 +236,12 @@ export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
  * homepage showcase's "buy" section — Bali only (Thailand's sale villas
  * near this budget kept coming back with genuinely blurry source photos,
  * so they were dropped rather than shipped looking bad). Genuine market
- * floor, not a target price: only one real Bali villa lists under €140k;
- * the next real ones (no off-plan renders) start at ≈€159.5k. Pinned by
- * ID, same rationale as SHOWCASE_IDS above.
+ * floor, not a target price: only one real Bali villa lists under €140k.
+ * Pinned by ID, same rationale as SHOWCASE_IDS above.
  */
 const SALE_SHOWCASE_IDS = [
   "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
   "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
-  "cmu7t98h0000kjv04e6c6kiqj", // Uluwatu/Balangan Beach, Bali — villa, €159,545
 ];
 
 export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {

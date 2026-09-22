@@ -22,11 +22,13 @@ export function PropertyShowcase({
   badge,
   title,
   subtext,
+  showLocation = true,
 }: {
   items: ShowcaseCardData[];
   badge: string;
   title: string;
   subtext: string;
+  showLocation?: boolean;
 }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -85,9 +87,11 @@ export function PropertyShowcase({
           ))}
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-          <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
-            {current.flag} {current.city}
-          </div>
+          {showLocation && (
+            <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
+              {current.flag} {current.city}
+            </div>
+          )}
 
           {current.priceLabel != null && (
             <div className="absolute right-4 top-4 rounded-sm bg-gold px-3 py-1.5 text-sm font-bold text-black shadow-gold">
@@ -141,9 +145,11 @@ export function PropertyShowcase({
                 className="object-cover"
               />
               <div className="absolute inset-x-0 bottom-0 bg-black/80 px-1.5 py-1 text-left leading-tight">
-                <span className="block truncate text-[11px] font-semibold text-cream">
-                  {item.flag} {item.country}
-                </span>
+                {showLocation && (
+                  <span className="block truncate text-[11px] font-semibold text-cream">
+                    {item.flag} {item.country}
+                  </span>
+                )}
                 {item.priceLabel != null && (
                   <span className="num block text-[11px] font-bold text-gold">
                     {item.priceLabel}

@@ -110,6 +110,7 @@ export default async function LandingPage() {
           badge={t.landing.showcaseSaleBadge}
           title={t.landing.showcaseSaleTitle}
           subtext={t.landing.showcaseSaleSubtext}
+          showLocation={false}
         />
       )}
 
