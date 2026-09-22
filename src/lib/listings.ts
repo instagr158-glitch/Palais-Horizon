@@ -236,12 +236,14 @@ export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
  * homepage showcase's "buy" section — Thailand and Bali only for now.
  * Genuine market floors, not a target price: Thailand houses/villas run
  * from ≈€113k, Bali villas from ≈€140k (nothing genuinely lists lower).
- * Pinned by ID, same rationale as SHOWCASE_IDS above.
+ * The cheapest Thailand villas had genuinely blurry source photos, so these
+ * two are priced a bit higher (≈€168-173k) in exchange for sharp, real
+ * photography. Pinned by ID, same rationale as SHOWCASE_IDS above.
  */
 const SALE_SHOWCASE_IDS = [
-  "cmubcab7q007kl004qnixu8eo", // Hua Hin, Thailand — The Prime villa, €113,333
+  "cmubcc2y6001wl0045rf78lqh", // Hua Hin, Thailand — Lotus Villas and Resort, €173,334
   "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
-  "cmubcc2rc001pl004rxa3sh08", // Hua Hin, Thailand — Leleaf Valley villa, €141,333
+  "cmubcab8z007ol004fe2h2yq0", // Huai Yang, Thailand — NishaVille Resort & Spa, €167,707
   "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
 ];
 

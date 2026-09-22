@@ -104,13 +104,6 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <PropertyShowcase
-        items={showcaseItems}
-        badge={t.landing.showcaseRentBadge}
-        title={t.landing.showcaseRentTitle}
-        subtext={t.landing.showcaseRentSubtext}
-      />
-
       {saleShowcaseItems.length > 0 && (
         <PropertyShowcase
           items={saleShowcaseItems}
@@ -119,6 +112,13 @@ export default async function LandingPage() {
           subtext={t.landing.showcaseSaleSubtext}
         />
       )}
+
+      <PropertyShowcase
+        items={showcaseItems}
+        badge={t.landing.showcaseRentBadge}
+        title={t.landing.showcaseRentTitle}
+        subtext={t.landing.showcaseRentSubtext}
+      />
 
       {/* product demo — the tool itself, not a listing */}
       <section id="demo" className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
