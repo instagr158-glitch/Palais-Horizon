@@ -231,6 +231,30 @@ export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
     .map((r) => ({ ...toFullListing(r), ...countryOf(r.province) }));
 }
 
+/**
+ * A hand-picked set of real, currently-listed for-sale homes for the
+ * homepage showcase's "buy" section — Thailand and Bali only for now.
+ * Genuine market floors, not a target price: Thailand houses/villas run
+ * from ≈€113k, Bali villas from ≈€140k (nothing genuinely lists lower).
+ * Pinned by ID, same rationale as SHOWCASE_IDS above.
+ */
+const SALE_SHOWCASE_IDS = [
+  "cmubcab7q007kl004qnixu8eo", // Hua Hin, Thailand — The Prime villa, €113,333
+  "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
+  "cmubcc2rc001pl004rxa3sh08", // Hua Hin, Thailand — Leleaf Valley villa, €141,333
+  "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
+];
+
+export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
+  const rows = await prisma.listing.findMany({
+    where: { id: { in: SALE_SHOWCASE_IDS }, status: "active" },
+  });
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  return SALE_SHOWCASE_IDS.map((id) => byId.get(id))
+    .filter((r): r is NonNullable<typeof r> => !!r)
+    .map((r) => ({ ...toFullListing(r), ...countryOf(r.province) }));
+}
+
 export async function getCatalogStats() {
   const [total, provinces, agencies] = await Promise.all([
     prisma.listing.count({ where: { status: "active" } }),

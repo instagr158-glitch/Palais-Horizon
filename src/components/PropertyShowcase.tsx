@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
-import type { Dict } from "@/i18n";
 
 export type ShowcaseCardData = {
   id: string;
@@ -12,18 +11,22 @@ export type ShowcaseCardData = {
   city: string;
   country: string;
   flag: string;
-  monthlyEur: number | null;
-  isAnnual: boolean;
+  priceLabel: string | null;
+  note?: string;
 };
 
 const AUTOPLAY_MS = 5000;
 
 export function PropertyShowcase({
   items,
-  t,
+  badge,
+  title,
+  subtext,
 }: {
   items: ShowcaseCardData[];
-  t: Dict;
+  badge: string;
+  title: string;
+  subtext: string;
 }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -45,13 +48,13 @@ export function PropertyShowcase({
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <div className="text-center">
         <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
-          {t.landing.showcaseBadge}
+          {badge}
         </span>
         <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
-          {t.landing.showcaseTitle}
+          {title}
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-dim sm:text-base">
-          {t.landing.showcaseSubtext}
+          {subtext}
         </p>
       </div>
 
@@ -86,9 +89,9 @@ export function PropertyShowcase({
             {current.flag} {current.city}
           </div>
 
-          {current.monthlyEur != null && (
+          {current.priceLabel != null && (
             <div className="absolute right-4 top-4 rounded-sm bg-gold px-3 py-1.5 text-sm font-bold text-black shadow-gold">
-              {t.landing.showcasePriceFrom} {current.monthlyEur} € / mois
+              {current.priceLabel}
             </div>
           )}
 
@@ -96,10 +99,8 @@ export function PropertyShowcase({
             <p className="font-sans text-base font-bold leading-snug text-cream drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] sm:text-xl">
               {current.title}
             </p>
-            {current.isAnnual && (
-              <p className="mt-1 text-xs font-medium text-gold">
-                {t.landing.showcaseAnnualNote}
-              </p>
+            {current.note && (
+              <p className="mt-1 text-xs font-medium text-gold">{current.note}</p>
             )}
           </div>
 
@@ -143,9 +144,9 @@ export function PropertyShowcase({
                 <span className="block truncate text-[11px] font-semibold text-cream">
                   {item.flag} {item.country}
                 </span>
-                {item.monthlyEur != null && (
+                {item.priceLabel != null && (
                   <span className="num block text-[11px] font-bold text-gold">
-                    {item.monthlyEur} €/mois
+                    {item.priceLabel}
                   </span>
                 )}
               </div>

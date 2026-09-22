@@ -2,7 +2,11 @@ import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
 import { FeatureTabs } from "@/components/FeatureTabs";
 import { PropertyShowcase } from "@/components/PropertyShowcase";
-import { getCatalogStats, getShowcaseListings } from "@/lib/listings";
+import {
+  getCatalogStats,
+  getShowcaseListings,
+  getSaleShowcaseListings,
+} from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
 
@@ -15,6 +19,7 @@ export default async function LandingPage() {
   const showcaseItems = showcaseListings.map((item) => {
     const isAnnual = item.listingType === "rent" && item.province === "Dubai";
     const monthlyUsd = item.priceUsd ? (isAnnual ? item.priceUsd / 12 : item.priceUsd) : null;
+    const monthlyEur = monthlyUsd ? Math.round(monthlyUsd * 0.92) : null;
     return {
       id: item.id,
       image: item.images[0] ?? "",
@@ -22,8 +27,25 @@ export default async function LandingPage() {
       city: item.city,
       country: item.country,
       flag: item.flag,
-      monthlyEur: monthlyUsd ? Math.round(monthlyUsd * 0.92) : null,
-      isAnnual,
+      priceLabel:
+        monthlyEur != null
+          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € / mois`
+          : null,
+      note: isAnnual ? t.landing.showcaseAnnualNote : undefined,
+    };
+  }).filter((item) => item.image);
+
+  const saleShowcaseListings = await getSaleShowcaseListings();
+  const saleShowcaseItems = saleShowcaseListings.map((item) => {
+    const saleEur = item.priceUsd ? Math.round(item.priceUsd * 0.92) : null;
+    return {
+      id: item.id,
+      image: item.images[0] ?? "",
+      title: item.title,
+      city: item.city,
+      country: item.country,
+      flag: item.flag,
+      priceLabel: saleEur != null ? `${saleEur.toLocaleString("fr-FR")} €` : null,
     };
   }).filter((item) => item.image);
 
@@ -82,7 +104,21 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <PropertyShowcase items={showcaseItems} t={t} />
+      <PropertyShowcase
+        items={showcaseItems}
+        badge={t.landing.showcaseRentBadge}
+        title={t.landing.showcaseRentTitle}
+        subtext={t.landing.showcaseRentSubtext}
+      />
+
+      {saleShowcaseItems.length > 0 && (
+        <PropertyShowcase
+          items={saleShowcaseItems}
+          badge={t.landing.showcaseSaleBadge}
+          title={t.landing.showcaseSaleTitle}
+          subtext={t.landing.showcaseSaleSubtext}
+        />
+      )}
 
       {/* product demo — the tool itself, not a listing */}
       <section id="demo" className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">
