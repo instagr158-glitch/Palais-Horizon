@@ -233,18 +233,17 @@ export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
 
 /**
  * A hand-picked set of real, currently-listed for-sale homes for the
- * homepage showcase's "buy" section — Thailand and Bali only for now.
- * Genuine market floors, not a target price: Thailand houses/villas run
- * from ≈€113k, Bali villas from ≈€140k (nothing genuinely lists lower).
- * The cheapest Thailand villas had genuinely blurry source photos, so these
- * two are priced a bit higher (≈€168-173k) in exchange for sharp, real
- * photography. Pinned by ID, same rationale as SHOWCASE_IDS above.
+ * homepage showcase's "buy" section — Bali only (Thailand's sale villas
+ * near this budget kept coming back with genuinely blurry source photos,
+ * so they were dropped rather than shipped looking bad). Genuine market
+ * floor, not a target price: only one real Bali villa lists under €140k;
+ * the next real ones (no off-plan renders) start at ≈€159.5k. Pinned by
+ * ID, same rationale as SHOWCASE_IDS above.
  */
 const SALE_SHOWCASE_IDS = [
-  "cmubcc2y6001wl0045rf78lqh", // Hua Hin, Thailand — Lotus Villas and Resort, €173,334
   "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
-  "cmubcab8z007ol004fe2h2yq0", // Huai Yang, Thailand — NishaVille Resort & Spa, €167,707
   "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
+  "cmu7t98h0000kjv04e6c6kiqj", // Uluwatu/Balangan Beach, Bali — villa, €159,545
 ];
 
 export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
