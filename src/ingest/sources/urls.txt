@@ -1535,3 +1535,14 @@ https://www.thailand-property.com/ads/4-bedroom-house-for-rent-in-siwalee-choeng
 https://www.thailand-property.com/ads/4-bedroom-house-for-rent-in-sansaran-2-modchic-ban-waen-chiang-mai_cd6026c075e6-5c91-5932-23b2-76a8c089
 https://www.thailand-property.com/ads/3-bedroom-house-for-rent-in-nong-khwai-chiang-mai_7f874748a109-71df-5c62-fd0d-2a999f89
 https://www.thailand-property.com/ads/4-bedroom-house-for-rent-in-sivalee-meechoke-chiang-mai-san-phi-suea-chiang-mai_50ca8770caf7-bf2f-13f2-33f2-50e29f89
+
+# Bali (Indonesia) — Bali Home Immo, affordable villas for sale, real live
+# listings under ~100k EUR equivalent, verified live against the real
+# ingestion pipeline (fetch + parse + luxury filter) before being added, 6
+# listings, for the homepage sale showcase.
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/uluwatu/brand-new-1-bedroom-villa-for-sale-and-rent-in-uluwatu-nyang-nyang-rf11479
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/ungasan/brand-new-1-bedroom-beautiful-loft-for-sale-leasehold-and-yearly-rental-in-ungasan-rf10038
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/canggu/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/pererenan/modern-1-bedroom-villa-for-sale-and-rental-in-bali-pererenan-tumbak-bayuh-rf6187
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/kerobokan/charming-2-bedroom-villa-for-sale-in-kerobokan-rf3913
+https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/uluwatu/charming-1-bedroom-villa-for-sale-leasehold-near-balangan-beach-rf10638
