@@ -66,6 +66,66 @@ function decodeOpt(text: string | undefined): string | undefined {
   return text != null ? decodeEntities(text) : text;
 }
 
+/**
+ * thailand-property.com serves photos through an image proxy whose URL
+ * path is a base64-encoded {key, edits: {resize: {width, height}}} blob —
+ * the og:image meta tag and the JSON-LD image array often reference the
+ * *same underlying photo* at different sizes (a small social-preview
+ * thumbnail vs. the full-size copy). Decode it so duplicates of one photo
+ * can be collapsed down to its largest variant.
+ */
+function thailandPropertyImageInfo(
+  url: string,
+): { key: string; width: number } | null {
+  try {
+    const u = new URL(url);
+    if (!u.hostname.endsWith("thailand-property.com")) return null;
+    const b64 = u.pathname.split("/").pop();
+    if (!b64) return null;
+    const json = JSON.parse(
+      Buffer.from(decodeURIComponent(b64), "base64").toString("utf8"),
+    ) as { key?: string; edits?: { resize?: { width?: number } } };
+    if (!json.key) return null;
+    return { key: json.key, width: json.edits?.resize?.width ?? 0 };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Collapses same-photo duplicates (see thailandPropertyImageInfo) down to
+ * their largest available variant, keeping first-seen order for everything
+ * else untouched — so the hero image is never an up-scaled, blurry
+ * thumbnail. No-op for every other source site.
+ */
+const DEDUPE_PLACEHOLDER_PREFIX = "##thailand-property-image-key##:";
+
+function preferLargestVariants(urls: string[]): string[] {
+  const bestUrlByKey = new Map<string, string>();
+  const bestWidthByKey = new Map<string, number>();
+  const order: string[] = [];
+
+  for (const url of urls) {
+    const info = thailandPropertyImageInfo(url);
+    if (!info) {
+      order.push(url);
+      continue;
+    }
+    const placeholder = DEDUPE_PLACEHOLDER_PREFIX + info.key;
+    if (!order.includes(placeholder)) order.push(placeholder);
+    if (info.width > (bestWidthByKey.get(info.key) ?? -1)) {
+      bestWidthByKey.set(info.key, info.width);
+      bestUrlByKey.set(info.key, url);
+    }
+  }
+
+  return order.map((entry) =>
+    entry.startsWith(DEDUPE_PLACEHOLDER_PREFIX)
+      ? bestUrlByKey.get(entry.slice(DEDUPE_PLACEHOLDER_PREFIX.length))!
+      : entry,
+  );
+}
+
 /** Units per 1 USD — indicative only, for converting a source price into
  * our internal THB-equivalent unit. THB itself needs no conversion. */
 const UNITS_PER_USD: Record<string, number> = {
@@ -233,12 +293,13 @@ export function parseJsonLdListing(url: string, html: string): RawListing | null
     }
   }
 
-  const images: string[] = [];
+  let images: string[] = [];
   const nodeImage = node?.["image"];
   if (typeof nodeImage === "string") images.push(nodeImage);
   else if (Array.isArray(nodeImage))
     images.push(...nodeImage.map((x) => (typeof x === "string" ? x : (x as LdNode)?.["url"])).filter(Boolean) as string[]);
   if (ogImage && !images.includes(ogImage)) images.unshift(ogImage);
+  images = preferLargestVariants(images);
 
   // og:title is often "<real title> | <Site Name>" for SEO — drop that
   // suffix when a cleaner schema.org name isn't available.
