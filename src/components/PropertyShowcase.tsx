@@ -23,15 +23,20 @@ export function PropertyShowcase({
   title,
   subtext,
   showLocation = true,
+  showFlagOnly = false,
   teaser = false,
   lockBadgeLabel,
   favoriteLabel,
 }: {
   items: ShowcaseCardData[];
-  badge: string;
+  badge?: string;
   title: string;
   subtext: string;
   showLocation?: boolean;
+  /** Shows just the country flag (no city/country text) on the spotlight
+   * photo — for showcases that hide the exact location but still want a
+   * quick visual cue of which market it is. Ignored when showLocation is on. */
+  showFlagOnly?: boolean;
   /** Paywall teaser mode: only items[0] is ever shown in the spotlight; every
    * other thumbnail is blurred, locked and links to /pricing instead of
    * switching the spotlight. */
@@ -74,9 +79,11 @@ export function PropertyShowcase({
         )}
 
         <div className="text-center">
-          <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
-            {badge}
-          </span>
+          {badge && (
+            <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+              {badge}
+            </span>
+          )}
           <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
             {title}
           </h2>
@@ -115,6 +122,12 @@ export function PropertyShowcase({
           {showLocation && (
             <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
               {current.flag} {current.city}
+            </div>
+          )}
+
+          {!showLocation && showFlagOnly && (
+            <div className="absolute left-4 top-4 flex h-8 w-8 items-center justify-center rounded-sm bg-black/70 text-lg backdrop-blur-sm">
+              {current.flag}
             </div>
           )}
 

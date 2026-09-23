@@ -125,10 +125,10 @@ export default async function LandingPage() {
       {miamiShowcaseItems.length > 0 && (
         <PropertyShowcase
           items={miamiShowcaseItems}
-          badge={t.landing.showcaseMiamiBadge}
           title={t.landing.showcaseMiamiTitle}
           subtext={t.landing.showcaseMiamiSubtext}
           showLocation={false}
+          showFlagOnly
           teaser
           lockBadgeLabel="+99"
           favoriteLabel={t.landing.showcaseMiamiFavoriteLabel}
