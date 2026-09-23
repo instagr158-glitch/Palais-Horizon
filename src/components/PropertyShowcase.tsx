@@ -23,12 +23,20 @@ export function PropertyShowcase({
   title,
   subtext,
   showLocation = true,
+  teaser = false,
+  lockBadgeLabel,
 }: {
   items: ShowcaseCardData[];
   badge: string;
   title: string;
   subtext: string;
   showLocation?: boolean;
+  /** Paywall teaser mode: only items[0] is ever shown in the spotlight; every
+   * other thumbnail is blurred, locked and links to /pricing instead of
+   * switching the spotlight. */
+  teaser?: boolean;
+  /** Badge (e.g. "+99") shown with the lock icon on the last thumbnail. */
+  lockBadgeLabel?: string;
 }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -38,13 +46,13 @@ export function PropertyShowcase({
   }, [items.length]);
 
   useEffect(() => {
-    if (paused || items.length < 2) return;
+    if (teaser || paused || items.length < 2) return;
     const id = setInterval(advance, AUTOPLAY_MS);
     return () => clearInterval(id);
-  }, [paused, advance, items.length]);
+  }, [teaser, paused, advance, items.length]);
 
   if (items.length === 0) return null;
-  const current = items[active];
+  const current = teaser ? items[0] : items[active];
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -109,55 +117,92 @@ export function PropertyShowcase({
           </div>
 
           {/* auto-advance progress bar, restarts on every active-item change */}
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black/40">
-            <div
-              key={`${current.id}-${paused}`}
-              className="h-full bg-gold-gradient"
-              style={{
-                animation: paused
-                  ? "none"
-                  : `showcase-progress ${AUTOPLAY_MS}ms linear forwards`,
-                width: paused ? "100%" : undefined,
-              }}
-            />
-          </div>
+          {!teaser && (
+            <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black/40">
+              <div
+                key={`${current.id}-${paused}`}
+                className="h-full bg-gold-gradient"
+                style={{
+                  animation: paused
+                    ? "none"
+                    : `showcase-progress ${AUTOPLAY_MS}ms linear forwards`,
+                  width: paused ? "100%" : undefined,
+                }}
+              />
+            </div>
+          )}
         </TrackedLink>
 
         {/* thumbnail rail */}
         <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
-          {items.map((item, i) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={item.title}
-              className={`group relative aspect-square overflow-hidden rounded-sm border transition ${
-                i === active
-                  ? "border-gold shadow-gold"
-                  : "border-ink-border opacity-70 hover:opacity-100"
-              }`}
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                sizes="120px"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-black/80 px-1.5 py-1 text-left leading-tight">
-                {showLocation && (
-                  <span className="block truncate text-[11px] font-semibold text-cream">
-                    {item.flag} {item.country}
-                  </span>
-                )}
-                {item.priceLabel != null && (
-                  <span className="num block text-[11px] font-bold text-gold">
-                    {item.priceLabel}
-                  </span>
-                )}
-              </div>
-            </button>
-          ))}
+          {items.map((item, i) => {
+            const locked = teaser && i > 0;
+            const isLastLocked = locked && i === items.length - 1;
+
+            if (locked) {
+              return (
+                <TrackedLink
+                  key={item.id}
+                  href="/pricing"
+                  event="view_membership_click"
+                  location="showcase_locked_thumbnail"
+                  aria-label={item.title}
+                  className="group relative aspect-square overflow-hidden rounded-sm border border-ink-border"
+                >
+                  <Image
+                    src={item.image}
+                    alt=""
+                    fill
+                    sizes="120px"
+                    className="scale-110 object-cover blur-md"
+                  />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/75">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-gold">
+                      <rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor" opacity="0.9" />
+                      <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    {isLastLocked && lockBadgeLabel && (
+                      <span className="text-xs font-bold text-gold">{lockBadgeLabel}</span>
+                    )}
+                  </div>
+                </TrackedLink>
+              );
+            }
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={item.title}
+                className={`group relative aspect-square overflow-hidden rounded-sm border transition ${
+                  i === active
+                    ? "border-gold shadow-gold"
+                    : "border-ink-border opacity-70 hover:opacity-100"
+                }`}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-black/80 px-1.5 py-1 text-left leading-tight">
+                  {showLocation && (
+                    <span className="block truncate text-[11px] font-semibold text-cream">
+                      {item.flag} {item.country}
+                    </span>
+                  )}
+                  {item.priceLabel != null && (
+                    <span className="num block text-[11px] font-bold text-gold">
+                      {item.priceLabel}
+                    </span>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>

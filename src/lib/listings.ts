@@ -292,8 +292,6 @@ export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
 const MIAMI_SHOWCASE_IDS = [
   "cmue9bszg0000jp041i4thh46", // 1631 NE Miami Gardens Dr, Unit 133 — $1,450, 1bd/1ba
   "cmue9btd40005jp04iejrasmt", // 2368 SW 21st St — $1,475, studio, Spanish-style cottage
-  "cmue9xjk10002jk04vdwrt8mw", // 1260 NE 115th St, Unit 4 — $1,450, 1bd/1ba, marble kitchen
-  "cmue9xjkf0004jk04gxhg41t6", // 271 NE 154th St, Unit 1 — $1,600, 1bd/1ba, furnished
   "cmue9xjcb0001jk043a0yxr49", // 365 NW 8th St, Unit 202 — $1,600, 1bd/1ba, stainless kitchen
   "cmue9xjkh0005jk040ku9fq41", // 930 SW 4th Ave, Unit 3 — $1,500, studio, modern bathroom
 ];
@@ -304,8 +302,6 @@ const MIAMI_SHOWCASE_IDS = [
 const MIAMI_SHOWCASE_TITLE_OVERRIDES: Record<string, string> = {
   "cmue9bszg0000jp041i4thh46": "Bright Renovated 1-Bedroom Apartment",
   "cmue9btd40005jp04iejrasmt": "Spanish-Style Studio Cottage with Private Driveway",
-  "cmue9xjk10002jk04vdwrt8mw": "Renovated 1-Bedroom Apartment, Marble Kitchen",
-  "cmue9xjkf0004jk04gxhg41t6": "Furnished 1-Bedroom Apartment, Fully Equipped",
   "cmue9xjcb0001jk043a0yxr49": "Modern 1-Bedroom Apartment, Stainless Steel Kitchen",
   "cmue9xjkh0005jk040ku9fq41": "Modern Studio Apartment, Walk-In Shower",
 };

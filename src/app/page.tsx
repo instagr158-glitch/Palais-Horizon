@@ -129,6 +129,8 @@ export default async function LandingPage() {
           title={t.landing.showcaseMiamiTitle}
           subtext={t.landing.showcaseMiamiSubtext}
           showLocation={false}
+          teaser
+          lockBadgeLabel="+99"
         />
       )}
 

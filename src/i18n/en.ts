@@ -47,7 +47,7 @@ export const en = {
     showcaseRentTitle: "Renting, available today, in four markets",
     showcaseRentSubtext: "A handful of real, currently-listed rentals — priced to show what's actually reachable, not just the trophy estates.",
     showcaseMiamiBadge: "Real listings — Miami",
-    showcaseMiamiTitle: "Rent an apartment in Miami",
+    showcaseMiamiTitle: "Renting in Miami",
     showcaseMiamiSubtext: "A handful of real, currently-listed Miami apartments, priced to be reachable.",
     showcaseSaleBadge: "Real listings — Buy",
     showcaseSaleTitle: "Buy a home",
