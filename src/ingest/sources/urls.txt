@@ -1546,3 +1546,14 @@ https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/pererena
 https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/kerobokan/charming-2-bedroom-villa-for-sale-leasehold-in-bali-kerobokan-rf8596
 https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/kerobokan/brand-new-2-bedroom-modern-villa-for-sale-leasehold-in-kerobokan-bali-rf3293
 https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/canggu/charming-1-bedroom-villa-for-sale-in-canggu-berawa-rf9457
+
+# Miami (USA) — Compass, affordable apartment rentals $1,300-$1,500/month,
+# verified live against the real ingestion pipeline (fetch + parse + luxury
+# filter) before being added, 6 listings, for the homepage's new Miami
+# rental showcase.
+https://www.compass.com/homedetails/11060-SW-221st-Ter-Unit-B-Miami-FL-33170/2G6N83_pid/
+https://www.compass.com/homedetails/55-NE-59th-St-Unit-2-Miami-FL-33137/1C48OF_pid/
+https://www.compass.com/homedetails/910-SW-8th-Ave-Unit-B-Miami-FL-33130/1EEK9D_pid/
+https://www.compass.com/homedetails/1631-NE-Miami-Gardens-Dr-Unit-133-Miami-FL-33179/1DSRG6_pid/
+https://www.compass.com/homedetails/7535-NE-2nd-Ct-Unit-3-Miami-FL-33138/2GAF7J_pid/
+https://www.compass.com/homedetails/2368-SW-21st-St-Miami-FL-33145/1CHC5T_pid/
