@@ -1557,3 +1557,12 @@ https://www.compass.com/homedetails/910-SW-8th-Ave-Unit-B-Miami-FL-33130/1EEK9D_
 https://www.compass.com/homedetails/1631-NE-Miami-Gardens-Dr-Unit-133-Miami-FL-33179/1DSRG6_pid/
 https://www.compass.com/homedetails/7535-NE-2nd-Ct-Unit-3-Miami-FL-33138/2GAF7J_pid/
 https://www.compass.com/homedetails/2368-SW-21st-St-Miami-FL-33145/1CHC5T_pid/
+
+# Miami (USA) — Compass, more modern/spacious apartment rentals under
+# $1,630/month (~1,500 EUR), verified live against the real ingestion
+# pipeline (fetch + parse + luxury filter) before being added, 4 listings,
+# for the homepage's Miami rental showcase.
+https://www.compass.com/homedetails/1260-NE-115th-St-Unit-4-Miami-FL-33161/2EYOPE_pid/
+https://www.compass.com/homedetails/271-NE-154th-St-Unit-1-Miami-FL-33162/25TLIS_pid/
+https://www.compass.com/homedetails/365-NW-8th-St-Unit-202-Miami-FL-33136/2A0PSH_pid/
+https://www.compass.com/homedetails/930-SW-4th-Ave-Unit-3-Miami-FL-33130/2G4UI2_pid/
