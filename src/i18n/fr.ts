@@ -37,7 +37,7 @@ export const fr: Dict = {
   },
 
   landing: {
-    heroTitleLead: "Trouvez les biens immobiliers ",
+    heroTitleLead: "L'agent qui trouve les biens ",
     heroTitleHighlight: "au meilleur prix",
     heroTitleTrail: " avant tout le monde.",
     heroSubtext:

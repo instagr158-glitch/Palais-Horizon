@@ -37,9 +37,9 @@ export const de: Dict = {
   },
 
   landing: {
-    heroTitleLead: "Finden Sie die ",
+    heroTitleLead: "Der Agent, der die ",
     heroTitleHighlight: "besten Immobilienpreise",
-    heroTitleTrail: " vor allen anderen.",
+    heroTitleTrail: " vor allen anderen findet.",
     heroSubtext:
       "Palais Horizon durchsucht laufend die Angebote aller Agenturen, um die besten Preise zu finden und Ihnen Neuheiten zuerst zu zeigen.",
     heroCtaPrimary: "Jetzt starten",

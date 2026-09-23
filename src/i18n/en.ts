@@ -35,8 +35,8 @@ export const en = {
   },
 
   landing: {
-    heroTitleLead: "Find the ",
-    heroTitleHighlight: "best real estate prices",
+    heroTitleLead: "The agent that finds ",
+    heroTitleHighlight: "the best real estate prices",
     heroTitleTrail: " before anyone else.",
     heroSubtext:
       "Palais Horizon continuously scans every agency's listings to surface the best prices and the newest properties first.",
