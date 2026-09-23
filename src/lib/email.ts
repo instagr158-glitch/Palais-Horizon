@@ -73,7 +73,7 @@ function checkoutEmailHtml(siteUrl: string, locale: Locale): string {
                 <table role="presentation" width="100%">
                   <tr>
                     <td align="center" style="padding-bottom:28px;">
-                      <a href="${siteUrl}" style="display:inline-block;background-image:linear-gradient(135deg,#f6d98a,#d4af37 55%,#a9801e);color:#101010;font-weight:600;padding:14px 36px;border-radius:4px;text-decoration:none;font-size:14px;">${c.cta}</a>
+                      <a href="${siteUrl}" style="display:inline-block;background-image:linear-gradient(135deg,#f6d98a,#d4af37 55%,#a9801e);color:#101010;font-weight:600;padding:14px 36px;border-radius:999px;text-decoration:none;font-size:14px;">${c.cta}</a>
                     </td>
                   </tr>
                 </table>
