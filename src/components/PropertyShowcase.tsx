@@ -38,8 +38,8 @@ export function PropertyShowcase({
   teaser?: boolean;
   /** Badge (e.g. "+99") shown with the lock icon on the last thumbnail. */
   lockBadgeLabel?: string;
-  /** "Most popular"-style pill floating above the spotlight card's top
-   * border, same treatment as a pricing page's "most chosen" plan badge. */
+  /** "Most popular"-style pill floating above a border framing the whole
+   * showcase block, same treatment as a pricing page's "most chosen" plan. */
   favoriteLabel?: string;
 }) {
   const [active, setActive] = useState(0);
@@ -60,37 +60,42 @@ export function PropertyShowcase({
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="text-center">
-        <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
-          {badge}
-        </span>
-        <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
-          {title}
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-dim sm:text-base">
-          {subtext}
-        </p>
-      </div>
-
       <div
-        className="mt-8 grid gap-3 lg:grid-cols-[1.7fr_1fr] lg:gap-4"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        className={`relative ${
+          favoriteLabel
+            ? "rounded-lg border-2 border-gold p-5 shadow-gold sm:p-8"
+            : ""
+        }`}
       >
-        {/* main spotlight panel */}
-        <div className="relative">
-          {favoriteLabel && (
-            <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-black shadow-gold sm:-top-4">
-              {favoriteLabel}
-            </div>
-          )}
+        {favoriteLabel && (
+          <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-black shadow-gold sm:-top-4">
+            {favoriteLabel}
+          </div>
+        )}
+
+        <div className="text-center">
+          <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+            {badge}
+          </span>
+          <h2 className="mx-auto mt-4 max-w-2xl font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+            {title}
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-dim sm:text-base">
+            {subtext}
+          </p>
+        </div>
+
+        <div
+          className="mt-8 grid gap-3 lg:grid-cols-[1.7fr_1fr] lg:gap-4"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {/* main spotlight panel */}
           <TrackedLink
             href="/pricing"
             event="view_membership_click"
             location="showcase_main"
-            className={`group relative block aspect-[4/3] overflow-hidden rounded-sm border sm:aspect-[16/10] ${
-              favoriteLabel ? "border-gold shadow-gold" : "border-ink-border"
-            }`}
+            className="group relative block aspect-[4/3] overflow-hidden rounded-sm border border-ink-border sm:aspect-[16/10]"
           >
           {items.map((item, i) => (
             <Image
@@ -144,10 +149,9 @@ export function PropertyShowcase({
             </div>
           )}
           </TrackedLink>
-        </div>
 
-        {/* thumbnail rail */}
-        <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
+          {/* thumbnail rail */}
+          <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
           {items.map((item, i) => {
             const locked = teaser && i > 0;
             const isLastLocked = locked && i === items.length - 1;
@@ -216,6 +220,7 @@ export function PropertyShowcase({
               </button>
             );
           })}
+        </div>
         </div>
       </div>
     </section>

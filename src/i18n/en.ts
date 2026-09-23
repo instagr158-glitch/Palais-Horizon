@@ -49,7 +49,7 @@ export const en = {
     showcaseMiamiBadge: "Real listings — Miami",
     showcaseMiamiTitle: "Renting in Miami",
     showcaseMiamiSubtext: "A handful of real, currently-listed Miami apartments, priced to be reachable.",
-    showcaseMiamiFavoriteLabel: "Customer favorite",
+    showcaseMiamiFavoriteLabel: "Favorite",
     showcaseSaleBadge: "Real listings — Buy",
     showcaseSaleTitle: "Buy a home",
     showcaseSaleSubtext: "A handful of real, currently-listed villas for sale.",

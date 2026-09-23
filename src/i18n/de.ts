@@ -51,7 +51,7 @@ export const de: Dict = {
     showcaseMiamiBadge: "Echte Angebote — Miami",
     showcaseMiamiTitle: "Miete in Miami",
     showcaseMiamiSubtext: "Eine Auswahl echter, aktuell online stehender Wohnungen in Miami zu einem erschwinglichen Preis.",
-    showcaseMiamiFavoriteLabel: "Kundenfavorit",
+    showcaseMiamiFavoriteLabel: "Favorit",
     showcaseSaleBadge: "Echte Angebote — Kauf",
     showcaseSaleTitle: "Eine Immobilie kaufen",
     showcaseSaleSubtext: "Eine Auswahl echter, aktuell online stehender Villen zum Kauf.",
