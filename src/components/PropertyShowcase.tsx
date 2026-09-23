@@ -24,7 +24,7 @@ export function PropertyShowcase({
   subtext,
   showLocation = true,
   showFlagOnly = false,
-  teaser = false,
+  visibleCount,
   lockBadgeLabel,
   favoriteLabel,
 }: {
@@ -37,31 +37,35 @@ export function PropertyShowcase({
    * photo — for showcases that hide the exact location but still want a
    * quick visual cue of which market it is. Ignored when showLocation is on. */
   showFlagOnly?: boolean;
-  /** Paywall teaser mode: only items[0] is ever shown in the spotlight; every
-   * other thumbnail is blurred, locked and links to /pricing instead of
-   * switching the spotlight. */
-  teaser?: boolean;
+  /** Paywall teaser mode: only items[0..visibleCount) are ever shown in the
+   * spotlight; every item from visibleCount onward is blurred, locked and
+   * links to /pricing instead of switching the spotlight. Omit to disable
+   * the teaser and show every item normally. */
+  visibleCount?: number;
   /** Badge (e.g. "+99") shown with the lock icon on the last thumbnail. */
   lockBadgeLabel?: string;
   /** "Most popular"-style pill floating above a border framing the whole
    * showcase block, same treatment as a pricing page's "most chosen" plan. */
   favoriteLabel?: string;
 }) {
+  const teaser = visibleCount != null;
+  const activeCount = teaser ? Math.max(1, Math.min(visibleCount!, items.length)) : items.length;
+
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
   const advance = useCallback(() => {
-    setActive((i) => (i + 1) % items.length);
-  }, [items.length]);
+    setActive((i) => (i + 1) % activeCount);
+  }, [activeCount]);
 
   useEffect(() => {
-    if (teaser || paused || items.length < 2) return;
+    if (paused || activeCount < 2) return;
     const id = setInterval(advance, AUTOPLAY_MS);
     return () => clearInterval(id);
-  }, [teaser, paused, advance, items.length]);
+  }, [paused, advance, activeCount]);
 
   if (items.length === 0) return null;
-  const current = teaser ? items[0] : items[active];
+  const current = items[Math.min(active, activeCount - 1)];
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -147,7 +151,7 @@ export function PropertyShowcase({
           </div>
 
           {/* auto-advance progress bar, restarts on every active-item change */}
-          {!teaser && (
+          {activeCount > 1 && (
             <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black/40">
               <div
                 key={`${current.id}-${paused}`}
@@ -166,7 +170,7 @@ export function PropertyShowcase({
           {/* thumbnail rail */}
           <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
           {items.map((item, i) => {
-            const locked = teaser && i > 0;
+            const locked = teaser && i >= activeCount;
             const isLastLocked = locked && i === items.length - 1;
 
             if (locked) {

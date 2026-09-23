@@ -209,14 +209,17 @@ function countryOf(province: string): { country: string; flag: string } {
  * pinned rather than queried by price so the selection stays deliberate;
  * any listing that later goes inactive is simply skipped.
  */
+// Order matters: the homepage teaser keeps the first N visible and blurs
+// the rest (see visibleCount in page.tsx), so the last two entries here are
+// deliberately the ones meant to end up blurred.
 const SHOWCASE_IDS = [
   "cmty5eh8100d3jw045j87kofh", // Bangkok — Park Origin Thonglor
   "cmu9jifid00ltig04lss6rutb", // Uluwatu/Balangan, Bali — cozy pool villa
-  "cmu9jczj600frig044bq54ler", // The Views, Dubai — Fairways West
-  "cmu9jcis5005zig04o0pwv89i", // Cutler Bay, Miami
-  "cmty5eh2l00d1jw046mvi0w1u", // Phuket — Aristo 2 sea view condo
-  "cmu9jcpzl00apig04i52r1qec", // Damac Hills 2, Dubai — villa
+  "cmu9jcpzl00apig04i52r1qec", // Damac Hills 2, Dubai — villa, 3bd
   "cmu9jcnay0094ig04zp9o8xd3", // Kendall, Miami
+  "cmu9jcis5005zig04o0pwv89i", // Cutler Bay, Miami — blurred
+  "cmu9jczj600frig044bq54ler", // The Views, Dubai — Fairways West, 1bd — blurred, last
+  "cmty5eh2l00d1jw046mvi0w1u", // Phuket — Aristo 2 sea view condo (currently inactive)
 ];
 
 export type ShowcaseItem = FullListing & { country: string; flag: string };

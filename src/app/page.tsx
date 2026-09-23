@@ -129,7 +129,7 @@ export default async function LandingPage() {
           subtext={t.landing.showcaseMiamiSubtext}
           showLocation={false}
           showFlagOnly
-          teaser
+          visibleCount={1}
           lockBadgeLabel="+99"
           favoriteLabel={t.landing.showcaseMiamiFavoriteLabel}
         />
@@ -142,6 +142,8 @@ export default async function LandingPage() {
           title={t.landing.showcaseSaleTitle}
           subtext={t.landing.showcaseSaleSubtext}
           showLocation={false}
+          visibleCount={Math.max(1, saleShowcaseItems.length - 4)}
+          lockBadgeLabel="+99"
         />
       )}
 
@@ -150,6 +152,8 @@ export default async function LandingPage() {
         badge={t.landing.showcaseRentBadge}
         title={t.landing.showcaseRentTitle}
         subtext={t.landing.showcaseRentSubtext}
+        visibleCount={Math.max(1, showcaseItems.length - 2)}
+        lockBadgeLabel="+99"
       />
 
       {/* product demo — the tool itself, not a listing */}
