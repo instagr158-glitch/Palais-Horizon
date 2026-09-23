@@ -28,7 +28,7 @@ export default async function SubscribeSuccessPage({
         <div className="mb-4 text-4xl text-gold">✦</div>
         <h1 className="font-display text-3xl text-cream">{t.success.title}</h1>
         <p className="mt-3 text-dim">{t.success.body}</p>
-        <Link href="/listings" className="btn-gold mt-6 rounded-sm px-6 py-2.5 text-sm">
+        <Link href="/listings" className="btn-gold mt-6 rounded-full px-6 py-2.5 text-sm">
           {t.success.cta}
         </Link>
         <p className="mt-3 text-xs text-dim">{t.success.hint}</p>
@@ -64,7 +64,7 @@ export default async function SubscribeSuccessPage({
               <div className="mb-4 text-4xl text-gold">✦</div>
               <h1 className="font-display text-3xl text-cream">{t.success.existingTitle}</h1>
               <p className="mt-3 text-dim">{t.success.existingBody}</p>
-              <Link href="/login?next=/listings" className="btn-gold mt-6 rounded-sm px-6 py-2.5 text-sm">
+              <Link href="/login?next=/listings" className="btn-gold mt-6 rounded-full px-6 py-2.5 text-sm">
                 {t.success.existingCta}
               </Link>
             </div>
@@ -81,7 +81,7 @@ export default async function SubscribeSuccessPage({
       <div className="mb-4 text-4xl text-gold">✦</div>
       <h1 className="font-display text-3xl text-cream">{t.success.genericTitle}</h1>
       <p className="mt-3 text-dim">{t.success.genericBody}</p>
-      <Link href="/login?next=/listings" className="btn-gold mt-6 rounded-sm px-6 py-2.5 text-sm">
+      <Link href="/login?next=/listings" className="btn-gold mt-6 rounded-full px-6 py-2.5 text-sm">
         {t.success.existingCta}
       </Link>
     </div>

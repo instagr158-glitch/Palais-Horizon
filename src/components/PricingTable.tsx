@@ -108,7 +108,7 @@ export function PricingTable({ configured, prices }: Props) {
             <button
               onClick={() => choose(plan.id)}
               disabled={loading !== null}
-              className="btn-gold mt-5 w-full rounded-sm px-4 py-3 text-sm disabled:opacity-60"
+              className="btn-gold mt-5 w-full rounded-full px-4 py-3 text-sm disabled:opacity-60"
             >
               {loading === plan.id ? t.pricing.redirecting : t.pricing.cta}
             </button>

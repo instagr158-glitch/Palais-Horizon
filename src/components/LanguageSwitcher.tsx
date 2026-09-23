@@ -29,7 +29,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`flex items-center gap-1.5 rounded-sm border border-ink-border px-2.5 py-1.5 text-xs uppercase tracking-wide text-dim transition-colors hover:border-gold/60 hover:text-cream ${
+        className={`flex items-center gap-1.5 rounded-full border border-ink-border px-2.5 py-1.5 text-xs uppercase tracking-wide text-dim transition-colors hover:border-gold/60 hover:text-cream ${
           compact ? "" : ""
         }`}
         aria-haspopup="listbox"

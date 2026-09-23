@@ -70,7 +70,7 @@ export function JoinForm() {
       <button
         type="submit"
         disabled={loading}
-        className="btn-gold w-full rounded-sm px-4 py-2.5 text-sm disabled:opacity-60"
+        className="btn-gold w-full rounded-full px-4 py-2.5 text-sm disabled:opacity-60"
       >
         {loading ? t.pricing.emailSending : t.pricing.emailCta}
       </button>

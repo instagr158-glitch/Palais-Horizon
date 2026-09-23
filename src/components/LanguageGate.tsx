@@ -41,7 +41,7 @@ export function LanguageGate({ initialLocale }: { initialLocale: Locale }) {
             <button
               key={l}
               onClick={() => choose(l)}
-              className="btn-ghost rounded-sm px-4 py-3 text-sm font-medium hover:border-gold/60"
+              className="btn-ghost rounded-full px-4 py-3 text-sm font-medium hover:border-gold/60"
             >
               {LOCALE_LABELS[l]}
             </button>

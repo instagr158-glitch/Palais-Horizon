@@ -10,7 +10,7 @@ export default function NotFound() {
       <p className="font-display text-6xl text-gold-gradient">404</p>
       <h1 className="mt-3 font-display text-2xl text-cream">{t.notFound.title}</h1>
       <p className="mt-2 text-dim">{t.notFound.body}</p>
-      <Link href="/" className="btn-gold mt-6 rounded-sm px-6 py-2.5 text-sm">
+      <Link href="/" className="btn-gold mt-6 rounded-full px-6 py-2.5 text-sm">
         {t.notFound.cta}
       </Link>
     </div>

@@ -29,7 +29,7 @@ export default async function AboutPage() {
         href="/pricing"
         event="view_membership_click"
         location="about"
-        className="btn-gold mt-8 inline-block rounded-sm px-6 py-2.5 text-sm"
+        className="btn-gold mt-8 inline-block rounded-full px-6 py-2.5 text-sm"
       >
         {t.about.cta}
       </TrackedLink>

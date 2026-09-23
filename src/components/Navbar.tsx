@@ -56,7 +56,7 @@ export function Navbar() {
               </Link>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="btn-ghost rounded-sm px-3 py-1.5 text-sm"
+                className="btn-ghost rounded-full px-3 py-1.5 text-sm"
               >
                 {t.nav.signOut}
               </button>
@@ -70,7 +70,7 @@ export function Navbar() {
                 href="/pricing"
                 event="view_membership_click"
                 location="navbar"
-                className="btn-gold rounded-sm px-4 py-1.5 text-sm"
+                className="btn-gold rounded-full px-4 py-1.5 text-sm"
               >
                 {t.nav.join}
               </TrackedLink>
@@ -79,7 +79,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="btn-ghost rounded-sm p-2 md:hidden"
+          className="btn-ghost rounded-full p-2 md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Menu"
         >
@@ -114,7 +114,7 @@ export function Navbar() {
                 </Link>
                 <button
                   onClick={() => signOut({ callbackUrl: "/" })}
-                  className="btn-ghost rounded-sm px-3 py-2 text-left text-sm"
+                  className="btn-ghost rounded-full px-3 py-2 text-left text-sm"
                 >
                   {t.nav.signOut}
                 </button>
@@ -129,7 +129,7 @@ export function Navbar() {
                   event="view_membership_click"
                   location="navbar_mobile"
                   onClick={() => setOpen(false)}
-                  className="btn-gold rounded-sm px-4 py-2 text-center text-sm"
+                  className="btn-gold rounded-full px-4 py-2 text-center text-sm"
                 >
                   {t.nav.join}
                 </TrackedLink>

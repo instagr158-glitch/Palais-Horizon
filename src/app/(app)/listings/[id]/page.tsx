@@ -193,7 +193,7 @@ export default async function ListingDetailPage({
                 href={listing.agencyUrl}
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
-                className="btn-gold mt-3 block rounded-sm px-4 py-2.5 text-center text-sm"
+                className="btn-gold mt-3 block rounded-full px-4 py-2.5 text-center text-sm"
               >
                 {t.detail.viewOnAgency} →
               </a>

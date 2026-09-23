@@ -142,7 +142,7 @@ export default async function ListingsPage({
           <Link
             href={pageHref(Math.max(1, page - 1))}
             aria-label={t.listings.prevPage}
-            className={`rounded-sm border px-3 py-1.5 text-sm ${
+            className={`rounded-full border px-3 py-1.5 text-sm ${
               page === 1
                 ? "pointer-events-none border-ink-border text-dim opacity-40"
                 : "border-ink-border text-dim hover:text-cream"
@@ -159,7 +159,7 @@ export default async function ListingsPage({
               <Link
                 key={p}
                 href={pageHref(p)}
-                className={`rounded-sm border px-3 py-1.5 text-sm ${
+                className={`rounded-full border px-3 py-1.5 text-sm ${
                   p === page
                     ? "border-gold bg-gold/10 text-gold"
                     : "border-ink-border text-dim hover:text-cream"
@@ -172,7 +172,7 @@ export default async function ListingsPage({
           <Link
             href={pageHref(Math.min(pages, page + 1))}
             aria-label={t.listings.nextPage}
-            className={`rounded-sm border px-3 py-1.5 text-sm ${
+            className={`rounded-full border px-3 py-1.5 text-sm ${
               page === pages
                 ? "pointer-events-none border-ink-border text-dim opacity-40"
                 : "border-ink-border text-dim hover:text-cream"

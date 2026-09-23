@@ -15,7 +15,7 @@ export function PaywallScreen() {
       </div>
       <h1 className="font-display text-3xl text-cream">{t.paywall.expiredTitle}</h1>
       <p className="mt-3 text-dim">{t.paywall.expiredBody}</p>
-      <Link href="/pricing" className="btn-gold mt-6 rounded-sm px-6 py-2.5 text-sm">
+      <Link href="/pricing" className="btn-gold mt-6 rounded-full px-6 py-2.5 text-sm">
         {t.paywall.expiredCta}
       </Link>
     </div>

@@ -108,13 +108,13 @@ export default async function LandingPage() {
               href="/pricing"
               event="view_membership_click"
               location="hero_primary"
-              className="btn-gold inline-block rounded-sm px-6 py-3 text-sm"
+              className="btn-gold inline-block rounded-full px-6 py-3 text-sm"
             >
               {t.landing.heroCtaPrimary}
             </TrackedLink>
             <a
               href="#demo"
-              className="inline-block rounded-sm border border-ink-border px-6 py-3 text-sm text-cream transition hover:border-gold/50"
+              className="inline-block rounded-full border border-ink-border px-6 py-3 text-sm text-cream transition hover:border-gold/50"
             >
               {t.landing.heroCtaDemo}
             </a>
@@ -310,7 +310,7 @@ export default async function LandingPage() {
               href="/pricing"
               event="view_membership_click"
               location="unlock_banner"
-              className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
+              className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"
             >
               {t.landing.heroCta}
             </TrackedLink>
@@ -351,7 +351,7 @@ export default async function LandingPage() {
               href="/pricing"
               event="view_membership_click"
               location="faq"
-              className="btn-gold mt-4 inline-block rounded-sm px-6 py-2.5 text-sm"
+              className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"
             >
               {t.nav.join}
             </TrackedLink>

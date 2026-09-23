@@ -116,7 +116,7 @@ export function TrackWizard() {
 
           <button
             onClick={() => setStep(2)}
-            className="btn-gold mt-10 w-full rounded-sm px-4 py-3 text-sm"
+            className="btn-gold mt-10 w-full rounded-full px-4 py-3 text-sm"
           >
             {t.track.continue} →
           </button>
@@ -135,7 +135,7 @@ export function TrackWizard() {
               <button
                 key={d}
                 onClick={() => chooseDestination(d)}
-                className="rounded-sm border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+                className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
               >
                 <span className="block text-3xl">{FLAGS[d]}</span>
                 <span className="mt-2 block text-sm text-cream">

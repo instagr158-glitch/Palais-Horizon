@@ -48,14 +48,14 @@ export function AccountActions({
         <button
           onClick={openPortal}
           disabled={loading}
-          className="btn-ghost w-full rounded-sm px-4 py-2.5 text-sm disabled:opacity-60"
+          className="btn-ghost w-full rounded-full px-4 py-2.5 text-sm disabled:opacity-60"
         >
           {loading ? t.account.opening : t.account.manageBilling}
         </button>
       ) : (
         <Link
           href="/pricing"
-          className="btn-gold block w-full rounded-sm px-4 py-2.5 text-center text-sm"
+          className="btn-gold block w-full rounded-full px-4 py-2.5 text-center text-sm"
         >
           {isMember ? t.account.viewMembership : t.account.startMembership}
         </Link>
@@ -64,7 +64,7 @@ export function AccountActions({
       {!isMember && hasStripeCustomer && (
         <Link
           href="/pricing"
-          className="btn-gold block w-full rounded-sm px-4 py-2.5 text-center text-sm"
+          className="btn-gold block w-full rounded-full px-4 py-2.5 text-center text-sm"
         >
           {t.account.reactivate}
         </Link>
