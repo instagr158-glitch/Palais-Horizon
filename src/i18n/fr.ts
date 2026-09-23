@@ -170,7 +170,7 @@ export const fr: Dict = {
     title: "Abonnement",
     body: "Un seul abonnement. Toute la collection de luxe, et une ligne directe vers chaque agence.",
     unlockTitle: "Achat / location : Trouver des biens exclusifs et économiser jusqu'à -30%",
-    unlockTagline: "Les biens immobiliers au meilleur prix",
+    unlockTagline: "Recherche de biens immobiliers",
     monthlyLabel: "Mensuel",
     annualLabel: "Annuel",
     annualNote: "2 mois offerts",

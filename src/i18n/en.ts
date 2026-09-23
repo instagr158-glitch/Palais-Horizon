@@ -168,7 +168,7 @@ export const en = {
     title: "Membership",
     body: "One membership. The entire luxury collection, and a direct line to every agency.",
     unlockTitle: "Buy / rent: Find exclusive properties and save up to -30%",
-    unlockTagline: "The best real estate prices",
+    unlockTagline: "Real estate search",
     monthlyLabel: "Monthly",
     annualLabel: "Annual",
     annualNote: "2 months free",

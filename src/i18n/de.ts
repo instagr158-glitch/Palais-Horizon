@@ -170,7 +170,7 @@ export const de: Dict = {
     title: "Mitgliedschaft",
     body: "Eine Mitgliedschaft. Die gesamte Luxuskollektion und ein direkter Draht zu jedem Makler.",
     unlockTitle: "Kaufen / Mieten: Exklusive Immobilien finden und bis zu -30 % sparen",
-    unlockTagline: "Die besten Immobilienpreise",
+    unlockTagline: "Immobiliensuche",
     monthlyLabel: "Monatlich",
     annualLabel: "Jährlich",
     annualNote: "2 Monate gratis",

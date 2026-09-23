@@ -87,6 +87,24 @@ body {
   }
 }
 
+@keyframes radar-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes radar-blip {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .btn-ghost {
   border: 1px solid var(--border);
   color: var(--cream);
