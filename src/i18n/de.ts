@@ -38,10 +38,10 @@ export const de: Dict = {
 
   landing: {
     heroTitleLead: "Finden Sie die ",
-    heroTitleHighlight: "günstigsten Villen",
-    heroTitleTrail: " Thailands — vor allen anderen.",
+    heroTitleHighlight: "besten Immobilienpreise",
+    heroTitleTrail: " vor allen anderen.",
     heroSubtext:
-      "Palais Horizon durchsucht laufend die Angebote aller Agenturen Thailands, um die besten Preise zu finden und Ihnen Neuheiten zuerst zu zeigen.",
+      "Palais Horizon durchsucht laufend die Angebote aller Agenturen, um die besten Preise zu finden und Ihnen Neuheiten zuerst zu zeigen.",
     heroCtaPrimary: "Jetzt starten",
     heroCtaDemo: "Das Tool in Aktion sehen",
     demoCaption: "Die Palais-Horizon-Oberfläche — durchsuchen, filtern und vergleichen Sie die Angebote aller Agenturen an einem Ort.",
@@ -169,8 +169,8 @@ export const de: Dict = {
   pricing: {
     title: "Mitgliedschaft",
     body: "Eine Mitgliedschaft. Die gesamte Luxuskollektion und ein direkter Draht zu jedem Makler.",
-    unlockTitle: "Ein letzter Schritt, bevor Sie alle Angebote freischalten",
-    unlockTagline: "Immobilien zu Bestpreisen",
+    unlockTitle: "Kaufen / Mieten: Exklusive Immobilien finden und bis zu -30 % sparen",
+    unlockTagline: "Die besten Immobilienpreise",
     monthlyLabel: "Monatlich",
     annualLabel: "Jährlich",
     annualNote: "2 Monate gratis",

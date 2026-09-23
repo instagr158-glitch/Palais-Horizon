@@ -36,10 +36,10 @@ export const en = {
 
   landing: {
     heroTitleLead: "Find the ",
-    heroTitleHighlight: "best-priced villas",
-    heroTitleTrail: " in Thailand — before anyone else.",
+    heroTitleHighlight: "best real estate prices",
+    heroTitleTrail: " before anyone else.",
     heroSubtext:
-      "Palais Horizon continuously scans every agency's listings across Thailand to surface the best prices and the newest properties first.",
+      "Palais Horizon continuously scans every agency's listings to surface the best prices and the newest properties first.",
     heroCtaPrimary: "Get started",
     heroCtaDemo: "See the tool in action",
     demoCaption: "The Palais Horizon interface — search, filter and compare every agency's listings in one place.",
@@ -167,8 +167,8 @@ export const en = {
   pricing: {
     title: "Membership",
     body: "One membership. The entire luxury collection, and a direct line to every agency.",
-    unlockTitle: "One last step before you unlock every listing",
-    unlockTagline: "The best-priced properties",
+    unlockTitle: "Buy / rent: Find exclusive properties and save up to -30%",
+    unlockTagline: "The best real estate prices",
     monthlyLabel: "Monthly",
     annualLabel: "Annual",
     annualNote: "2 months free",
@@ -319,7 +319,7 @@ export const en = {
     title: "Welcome to Palais Horizon",
     body: "Your membership is being activated. This can take a few seconds while the payment confirms.",
     cta: "Enter the collection",
-    hint: "If the catalogue still asks for a plan, refresh in a moment — the webhook is finishing up.",
+    hint: "If the catalogue still asks for a plan, refresh in a moment — the confirmation is finishing up.",
     claimTitle: "Your membership is active",
     claimBody: "Set a password so you can sign back in anytime — no account was needed to pay.",
     claimPasswordHint: "(8+ characters)",

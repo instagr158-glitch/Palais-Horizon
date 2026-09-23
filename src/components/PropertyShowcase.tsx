@@ -150,10 +150,8 @@ export function PropertyShowcase({
           )}
           </TrackedLink>
 
-          {/* thumbnail rail — always 2 columns so price/location text has
-              room to breathe; 4 tiny mobile squares made that text wrap
-              into an unreadable 3-line stack. */}
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          {/* thumbnail rail */}
+          <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
           {items.map((item, i) => {
             const locked = teaser && i > 0;
             const isLastLocked = locked && i === items.length - 1;
