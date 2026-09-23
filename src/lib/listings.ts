@@ -290,24 +290,16 @@ export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
  * real catalogue. Pinned by ID, same rationale as SHOWCASE_IDS above.
  */
 const MIAMI_SHOWCASE_IDS = [
-  "cmue9btci0002jp041o06yv11", // 11060 SW 221st Ter, Unit B — $1,300, 3bd/2ba, renovated
-  "cmue9btco0004jp04gp05b308", // 55 NE 59th St, Unit 2 — $1,450, 1bd/1ba, pool + garden
   "cmue9bszg0000jp041i4thh46", // 1631 NE Miami Gardens Dr, Unit 133 — $1,450, 1bd/1ba
   "cmue9btd40005jp04iejrasmt", // 2368 SW 21st St — $1,475, studio, Spanish-style cottage
-  "cmue9bt4x0001jp043j2rdn82", // 7535 NE 2nd Ct, Unit 3 — $1,495, 1bd/1ba, renovated
-  "cmue9btcn0003jp04txbqwjs9", // 910 SW 8th Ave, Unit B — $1,500, 1bd/1ba, furnished
 ];
 
 // Real MLS listing titles are just the street address ("11060 SW 221st Ter,
 // Unit B, Miami, FL 33170") — replaced here with a short description of the
 // property itself, same rationale as SALE_SHOWCASE_TITLE_OVERRIDES above.
 const MIAMI_SHOWCASE_TITLE_OVERRIDES: Record<string, string> = {
-  "cmue9btci0002jp041o06yv11": "Fully Renovated 3-Bedroom Apartment, Marble Finishes",
-  "cmue9btco0004jp04gp05b308": "Poolside 1-Bedroom Cottage with Private Garden",
   "cmue9bszg0000jp041i4thh46": "Bright Renovated 1-Bedroom Apartment",
   "cmue9btd40005jp04iejrasmt": "Spanish-Style Studio Cottage with Private Driveway",
-  "cmue9bt4x0001jp043j2rdn82": "Renovated 1-Bedroom Apartment, Modern Bathroom",
-  "cmue9btcn0003jp04txbqwjs9": "Modern Furnished Studio Apartment",
 };
 
 export async function getMiamiShowcaseListings(): Promise<ShowcaseItem[]> {
