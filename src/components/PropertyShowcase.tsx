@@ -38,8 +38,8 @@ export function PropertyShowcase({
   teaser?: boolean;
   /** Badge (e.g. "+99") shown with the lock icon on the last thumbnail. */
   lockBadgeLabel?: string;
-  /** "Customer favorite"-style ribbon on the spotlight image's top-left
-   * corner (only rendered when showLocation is off, same corner). */
+  /** "Most popular"-style pill floating above the spotlight card's top
+   * border, same treatment as a pricing page's "most chosen" plan badge. */
   favoriteLabel?: string;
 }) {
   const [active, setActive] = useState(0);
@@ -78,12 +78,20 @@ export function PropertyShowcase({
         onMouseLeave={() => setPaused(false)}
       >
         {/* main spotlight panel */}
-        <TrackedLink
-          href="/pricing"
-          event="view_membership_click"
-          location="showcase_main"
-          className="group relative block aspect-[4/3] overflow-hidden rounded-sm border border-ink-border sm:aspect-[16/10]"
-        >
+        <div className="relative">
+          {favoriteLabel && (
+            <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold px-4 py-1.5 text-xs font-extrabold uppercase tracking-wide text-black shadow-gold sm:-top-4">
+              {favoriteLabel}
+            </div>
+          )}
+          <TrackedLink
+            href="/pricing"
+            event="view_membership_click"
+            location="showcase_main"
+            className={`group relative block aspect-[4/3] overflow-hidden rounded-sm border sm:aspect-[16/10] ${
+              favoriteLabel ? "border-gold shadow-gold" : "border-ink-border"
+            }`}
+          >
           {items.map((item, i) => (
             <Image
               key={item.id}
@@ -102,15 +110,6 @@ export function PropertyShowcase({
           {showLocation && (
             <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
               {current.flag} {current.city}
-            </div>
-          )}
-
-          {!showLocation && favoriteLabel && (
-            <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-sm bg-gold px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-black shadow-gold">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21s-6.7-4.35-9.3-8.1C1 10.3 1.6 6.9 4.4 5.4c2.3-1.2 4.8-.5 6.3 1.3l1.3 1.5 1.3-1.5c1.5-1.8 4-2.5 6.3-1.3 2.8 1.5 3.4 4.9 1.7 7.5C18.7 16.65 12 21 12 21Z" />
-              </svg>
-              {favoriteLabel}
             </div>
           )}
 
@@ -144,7 +143,8 @@ export function PropertyShowcase({
               />
             </div>
           )}
-        </TrackedLink>
+          </TrackedLink>
+        </div>
 
         {/* thumbnail rail */}
         <div className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
