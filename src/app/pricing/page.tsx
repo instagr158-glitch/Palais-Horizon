@@ -32,11 +32,14 @@ export default async function PricingPage({
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         {/* the payoff — a live agent scanning for listings, not a stock photo */}
         <div>
-          <div className="relative flex aspect-[16/9] max-h-72 flex-col items-center justify-center gap-5 overflow-hidden rounded-sm border border-ink-border bg-ink-panel">
+          <div className="relative aspect-[16/9] max-h-72 overflow-hidden rounded-sm border border-ink-border bg-ink-panel">
             <RadarIcon />
-            <p className="font-display text-xl text-cream sm:text-2xl">
-              {t.pricing.unlockTagline}
-            </p>
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-panel via-ink-panel/70 to-transparent" />
+            <div className="absolute inset-x-0 bottom-5 text-center">
+              <p className="font-display text-xl text-cream sm:text-2xl">
+                {t.pricing.unlockTagline}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -55,34 +58,46 @@ export default async function PricingPage({
   );
 }
 
-/** A continuously sweeping radar, standing in for a live agent scanning
- * every agency's listings — not a static stock photo. */
+/** A continuously sweeping radar filling the whole panel, standing in for a
+ * live agent scanning every agency's listings — not a static stock photo. */
 function RadarIcon() {
   return (
-    <div className="flex h-24 w-24 items-center justify-center rounded-full border border-gold/30 bg-gold/[0.06]">
-      <svg width="52" height="52" viewBox="0 0 24 24" className="text-gold">
-        <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1" opacity="0.25" fill="none" />
-        <circle cx="12" cy="12" r="6.5" stroke="currentColor" strokeWidth="1" opacity="0.35" fill="none" />
-        <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1" opacity="0.45" fill="none" />
-        <g style={{ transformOrigin: "12px 12px", animation: "radar-sweep 2.4s linear infinite" }}>
-          <path d="M12 12 L12 2.5 A9.5 9.5 0 0 1 18.7 5.3 Z" fill="currentColor" opacity="0.22" />
-        </g>
-        <circle
-          cx="16"
-          cy="8"
-          r="0.9"
-          fill="currentColor"
-          style={{ transformOrigin: "16px 8px", animation: "radar-blip 2.4s ease-in-out infinite" }}
-        />
-        <circle
-          cx="7.5"
-          cy="15"
-          r="0.7"
-          fill="currentColor"
-          style={{ transformOrigin: "7.5px 15px", animation: "radar-blip 2.4s ease-in-out infinite 1.2s" }}
-        />
-        <circle cx="12" cy="12" r="1" fill="currentColor" />
-      </svg>
-    </div>
+    <svg
+      viewBox="0 0 24 24"
+      preserveAspectRatio="xMidYMid meet"
+      className="absolute inset-0 h-full w-full text-gold"
+    >
+      <circle cx="12" cy="12" r="11.5" stroke="currentColor" strokeWidth="0.4" opacity="0.2" fill="none" />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="0.4" opacity="0.28" fill="none" />
+      <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="0.4" opacity="0.38" fill="none" />
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="0.4" opacity="0.5" fill="none" />
+      <line x1="0.5" y1="12" x2="23.5" y2="12" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
+      <line x1="12" y1="0.5" x2="12" y2="23.5" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
+      <g style={{ transformOrigin: "12px 12px", animation: "radar-sweep 2.4s linear infinite" }}>
+        <path d="M12 12 L12 0.5 A11.5 11.5 0 0 1 21.6 6.1 Z" fill="currentColor" opacity="0.18" />
+      </g>
+      <circle
+        cx="17.5"
+        cy="7"
+        r="0.35"
+        fill="currentColor"
+        style={{ transformOrigin: "17.5px 7px", animation: "radar-blip 2.4s ease-in-out infinite" }}
+      />
+      <circle
+        cx="6"
+        cy="16.5"
+        r="0.3"
+        fill="currentColor"
+        style={{ transformOrigin: "6px 16.5px", animation: "radar-blip 2.4s ease-in-out infinite 0.8s" }}
+      />
+      <circle
+        cx="16"
+        cy="17"
+        r="0.28"
+        fill="currentColor"
+        style={{ transformOrigin: "16px 17px", animation: "radar-blip 2.4s ease-in-out infinite 1.6s" }}
+      />
+      <circle cx="12" cy="12" r="0.5" fill="currentColor" />
+    </svg>
   );
 }
