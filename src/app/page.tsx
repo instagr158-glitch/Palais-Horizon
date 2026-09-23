@@ -30,7 +30,7 @@ export default async function LandingPage() {
       flag: item.flag,
       priceLabel:
         monthlyEur != null
-          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € / mois`
+          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € ${t.listings.perMonth}`
           : null,
       note: isAnnual ? t.landing.showcaseAnnualNote : undefined,
     };
@@ -48,7 +48,7 @@ export default async function LandingPage() {
       flag: item.flag,
       priceLabel:
         monthlyEur != null
-          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € / mois`
+          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € ${t.listings.perMonth}`
           : null,
     };
   }).filter((item) => item.image);
