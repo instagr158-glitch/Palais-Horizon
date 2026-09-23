@@ -131,6 +131,7 @@ export default async function LandingPage() {
           showLocation={false}
           teaser
           lockBadgeLabel="+99"
+          favoriteLabel={t.landing.showcaseMiamiFavoriteLabel}
         />
       )}
 

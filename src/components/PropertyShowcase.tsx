@@ -25,6 +25,7 @@ export function PropertyShowcase({
   showLocation = true,
   teaser = false,
   lockBadgeLabel,
+  favoriteLabel,
 }: {
   items: ShowcaseCardData[];
   badge: string;
@@ -37,6 +38,9 @@ export function PropertyShowcase({
   teaser?: boolean;
   /** Badge (e.g. "+99") shown with the lock icon on the last thumbnail. */
   lockBadgeLabel?: string;
+  /** "Customer favorite"-style ribbon on the spotlight image's top-left
+   * corner (only rendered when showLocation is off, same corner). */
+  favoriteLabel?: string;
 }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -98,6 +102,15 @@ export function PropertyShowcase({
           {showLocation && (
             <div className="absolute left-4 top-4 rounded-sm bg-black/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-cream backdrop-blur-sm">
               {current.flag} {current.city}
+            </div>
+          )}
+
+          {!showLocation && favoriteLabel && (
+            <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-sm bg-gold px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-black shadow-gold">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21s-6.7-4.35-9.3-8.1C1 10.3 1.6 6.9 4.4 5.4c2.3-1.2 4.8-.5 6.3 1.3l1.3 1.5 1.3-1.5c1.5-1.8 4-2.5 6.3-1.3 2.8 1.5 3.4 4.9 1.7 7.5C18.7 16.65 12 21 12 21Z" />
+              </svg>
+              {favoriteLabel}
             </div>
           )}
 
