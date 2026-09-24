@@ -60,8 +60,6 @@ export const en = {
     showcaseSaleBadge: "Real listings — Buy",
     showcaseSaleTitle: "Buy a home",
     showcaseSaleSubtext: "A handful of real, currently-listed villas for sale.",
-    showcasePriceFrom: "From",
-    showcaseAnnualNote: "annual rent, shown per month",
     heroCta: "View membership",
     seeAllListings: "See all listings",
     heroCtaSecondary: "How it works",

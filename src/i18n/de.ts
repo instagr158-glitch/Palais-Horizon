@@ -62,8 +62,6 @@ export const de: Dict = {
     showcaseSaleBadge: "Echte Angebote — Kauf",
     showcaseSaleTitle: "Eine Immobilie kaufen",
     showcaseSaleSubtext: "Eine Auswahl echter, aktuell online stehender Villen zum Kauf.",
-    showcasePriceFrom: "Ab",
-    showcaseAnnualNote: "Jahresmiete, pro Monat dargestellt",
     heroCta: "Mitgliedschaft ansehen",
     seeAllListings: "Alle Angebote ansehen",
     heroCtaSecondary: "So funktioniert es",

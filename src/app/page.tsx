@@ -23,40 +23,28 @@ export default async function LandingPage() {
   const heroTitleMobileSize = locale === "fr" ? "text-3xl" : "text-2xl";
   const stats = await getCatalogStats();
   const showcaseListings = await getShowcaseListings();
-  const showcaseItems = showcaseListings.map((item) => {
-    const isAnnual = item.listingType === "rent" && item.province === "Dubai";
-    const monthlyUsd = item.priceUsd ? (isAnnual ? item.priceUsd / 12 : item.priceUsd) : null;
-    const monthlyEur = monthlyUsd ? Math.round(monthlyUsd * 0.92) : null;
-    return {
-      id: item.id,
-      image: item.images[0] ?? "",
-      title: item.title,
-      city: item.city,
-      country: item.country,
-      flag: item.flag,
-      priceLabel:
-        monthlyEur != null
-          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € ${t.listings.perMonth}`
-          : null,
-      note: isAnnual ? t.landing.showcaseAnnualNote : undefined,
-    };
-  }).filter((item) => item.image);
+  const showcaseItems = showcaseListings.map((item) => ({
+    id: item.id,
+    image: item.images[0] ?? "",
+    title: item.title,
+    city: item.city,
+    country: item.country,
+    flag: item.flag,
+    priceLabel: null,
+  })).filter((item) => item.image);
 
   const miamiHighlightItems = await getMiamiHighlightListings();
 
   const saleShowcaseListings = await getSaleShowcaseListings();
-  const saleShowcaseItems = saleShowcaseListings.map((item) => {
-    const saleEur = item.priceUsd ? Math.round(item.priceUsd * 0.92) : null;
-    return {
-      id: item.id,
-      image: item.images[0] ?? "",
-      title: item.title,
-      city: item.city,
-      country: item.country,
-      flag: item.flag,
-      priceLabel: saleEur != null ? `${saleEur.toLocaleString("fr-FR")} €` : null,
-    };
-  }).filter((item) => item.image);
+  const saleShowcaseItems = saleShowcaseListings.map((item) => ({
+    id: item.id,
+    image: item.images[0] ?? "",
+    title: item.title,
+    city: item.city,
+    country: item.country,
+    flag: item.flag,
+    priceLabel: null,
+  })).filter((item) => item.image);
 
   return (
     <div className="grain relative">
@@ -125,7 +113,7 @@ export default async function LandingPage() {
           title={t.landing.showcaseSaleTitle}
           subtext={t.landing.showcaseSaleSubtext}
           showLocation={false}
-          visibleCount={Math.max(1, saleShowcaseItems.length - 4)}
+          visibleCount={Math.max(1, saleShowcaseItems.length - 2)}
           lockBadgeLabel="+99"
         />
       )}

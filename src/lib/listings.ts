@@ -201,87 +201,76 @@ function countryOf(province: string): { country: string; flag: string } {
   return { country: "Thailand", flag: "🇹🇭" };
 }
 
-/**
- * A hand-picked set of real, currently-listed rentals for the homepage
- * showcase — chosen for being priced near the accessible end of each market
- * (≈€1,000/month or under for Thailand and Bali, ≈€2,000/month for Dubai and
- * Miami) and for having a genuine, good-quality listing photo. IDs are
- * pinned rather than queried by price so the selection stays deliberate;
- * any listing that later goes inactive is simply skipped.
- */
-// Order matters: the homepage teaser keeps the first N visible and blurs
-// the rest (see visibleCount in page.tsx), so the last two entries here are
-// deliberately the ones meant to end up blurred.
-const SHOWCASE_IDS = [
-  "cmty5eh8100d3jw045j87kofh", // Bangkok — Park Origin Thonglor
-  "cmu9jifid00ltig04lss6rutb", // Uluwatu/Balangan, Bali — cozy pool villa
-  "cmu9jcpzl00apig04i52r1qec", // Damac Hills 2, Dubai — villa, 3bd
-  "cmu9jcnay0094ig04zp9o8xd3", // Kendall, Miami
-  "cmu9jcis5005zig04o0pwv89i", // Cutler Bay, Miami — blurred
-  "cmu9jczj600frig044bq54ler", // The Views, Dubai — Fairways West, 1bd — blurred, last
-  "cmty5eh2l00d1jw046mvi0w1u", // Phuket — Aristo 2 sea view condo (currently inactive)
-];
-
 export type ShowcaseItem = FullListing & { country: string; flag: string };
 
+/**
+ * A hand-picked set of real, currently-listed high-end Miami rentals for the
+ * homepage's "Louer un bien" showcase — Brickell/Park West high-rises with
+ * floor-to-ceiling windows and balconies. No price is shown for this block,
+ * so titles replace the real MLS title (just the street address) with a
+ * short, address-free description; each entry also pins the specific photo
+ * (by index into that listing's own image list) chosen for showing the
+ * window/balcony, not just images[0].
+ */
+// Order matters: the homepage teaser keeps the first N visible and blurs
+// the rest (see visibleCount in page.tsx), so the last entries here are
+// deliberately the ones meant to end up blurred.
+const SHOWCASE_ITEMS: { id: string; imageIndex: number; title: string }[] = [
+  { id: "cmu9iy62d0024jl04vz03o1el", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Floor-to-Ceiling Windows" }, // 1300 S Miami Ave, Unit 1206 — Brickell
+  { id: "cmu9j01xe002mjn04fbmkoxvz", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Panoramic Bay Views" }, // 1100 Biscayne Blvd, Unit 3805 — Marquis
+  { id: "cmu9j02lh002ojn040p3mxqgv", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Ocean-View Balcony" }, // 2101 Brickell Ave, Unit 3005 — Skyline on Brickell
+  { id: "cmu9j01n4002ljn04k991n8x6", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Modern Open Kitchen" }, // 801 Brickell Key Blvd, Unit 1512
+  { id: "cmu9j02wp002pjn043rws4xq3", imageIndex: 3, title: "2-Bedroom High-Rise Apartment, Designer Interior" }, // 801 S Miami Ave, Unit 1810 — Brickell — blurred
+  { id: "cmu9izwig0026jn04sp0mvea9", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Skyline-View Suite" }, // 1400 Biscayne Blvd, Unit 602 — Omni — blurred, last
+];
+
 export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
+  const ids = SHOWCASE_ITEMS.map((s) => s.id);
   const rows = await prisma.listing.findMany({
-    where: { id: { in: SHOWCASE_IDS }, status: "active" },
+    where: { id: { in: ids }, status: "active" },
   });
   const byId = new Map(rows.map((r) => [r.id, r]));
-  return SHOWCASE_IDS.map((id) => byId.get(id))
-    .filter((r): r is NonNullable<typeof r> => !!r)
-    .map((r) => ({ ...toFullListing(r), ...countryOf(r.province) }));
+  return SHOWCASE_ITEMS.map(({ id, imageIndex, title }) => {
+    const row = byId.get(id);
+    if (!row) return null;
+    const images = parseJsonArray(row.images);
+    const image = images[imageIndex] ?? images[0];
+    if (!image) return null;
+    return { ...toFullListing(row), ...countryOf(row.province), images: [image], title };
+  }).filter((r): r is NonNullable<typeof r> => !!r);
 }
 
 /**
- * A hand-picked set of real, currently-listed for-sale homes for the
- * homepage showcase's "buy" section — Bali only (Thailand's sale villas
- * near this budget kept coming back with genuinely blurry source photos,
- * so they were dropped rather than shipped looking bad). Genuine market
- * floor, not a target price: the site's own luxury filter rejects any sale
- * listing under ~$100k, so these sit just above that floor (~€92-98k)
- * rather than at a lower number that doesn't exist in the real catalogue.
- * Pinned by ID, same rationale as SHOWCASE_IDS above.
+ * A hand-picked set of real, currently-listed high-end Miami condos for sale
+ * for the homepage's "Acheter un bien" showcase — same Brickell/Downtown
+ * high-rise style as the rental showcase above. No price is shown for this
+ * block, so titles replace the real MLS title (just the street address)
+ * with a short, address-free description; each entry pins the specific
+ * photo (by index into that listing's own image list) chosen for showing
+ * the window/balcony, not just images[0].
  */
-const SALE_SHOWCASE_IDS = [
-  "cmu7t8xa60009jv04dhrqzf37", // Jimbaran, Bali — villa, €139,747
-  "cmu7t99f6000ljv04oup9ug9g", // Ungasan, Bali — villa, €143,240
-  "cmucner4e000bl804cf0jpvm4", // Uluwatu/Balangan Beach, Bali — villa, €92,212
-  "cmucnpwhx0000if04zv9ex3ia", // Kerobokan, Bali — villa, €93,165
-  "cmucnpxdr0004if04ti9qg0qk", // Umalas, Bali — villa, €93,165
-  "cmucnpyqf0005if04j6jw78zk", // Pererenan/Tumbak Bayuh, Bali — villa, €93,165
-  "cmucnpwxs0001if04u4nhsmmp", // Kerobokan, Bali — villa, €97,532
-  "cmucnpwy90003if04n76jn46r", // Canggu/Berawa, Bali — villa, €97,823
+const SALE_SHOWCASE_ITEMS: { id: string; imageIndex: number; title: string }[] = [
+  { id: "cmu7t9ty7001tjv044zp9dk8a", imageIndex: 2, title: "2-Bedroom Condo for Sale, Floor-to-Ceiling Windows" }, // 475 Brickell Ave, Unit 5507
+  { id: "cmu7t9ur7001vjv044i4od9im", imageIndex: 2, title: "1-Bedroom Condo for Sale, Open Kitchen & Balcony" }, // 68 SE 6th St, Unit 806 — Brickell
+  { id: "cmu7t9rvc001ojv048ylkah04", imageIndex: 2, title: "1-Bedroom Condo for Sale, Skyline Balcony View" }, // 31 SE 5th St, Unit 3309 — Brickell
+  { id: "cmu7t9rft001njv04u6y2w8xz", imageIndex: 2, title: "1-Bedroom Condo for Sale, Panoramic City Views" }, // 90 SW 3rd St, Unit 2014 — blurred
+  { id: "cmu7t9tjp001sjv04gigukt2h", imageIndex: 3, title: "1-Bedroom Condo for Sale, Downtown High-Rise" }, // 151 SE 1st St, Unit 1202 — blurred, last
 ];
 
-// The sale showcase hides location (see PropertyShowcase's showLocation
-// prop), so these titles drop the city/country words the real listing
-// titles otherwise include — every other fact (beds, sale, leasehold, "new")
-// is kept as-is.
-const SALE_SHOWCASE_TITLE_OVERRIDES: Record<string, string> = {
-  "cmu7t8xa60009jv04dhrqzf37": "2-Bedroom Villa for Sale — Affordable Coastal Luxury",
-  "cmu7t99f6000ljv04oup9ug9g": "Brand New 1-Bedroom Villa for Sale, Leasehold",
-  "cmucner4e000bl804cf0jpvm4": "Charming 1-Bedroom Villa for Sale, Leasehold",
-  "cmucnpwhx0000if04zv9ex3ia": "Charming 2-Bedroom Villa for Sale, Leasehold",
-  "cmucnpxdr0004if04ti9qg0qk": "Charming 2-Bedroom Villa for Sale, Leasehold",
-  "cmucnpyqf0005if04j6jw78zk": "2-Bedroom Villa for Sale, Leasehold",
-  "cmucnpwxs0001if04u4nhsmmp": "Brand New 2-Bedroom Modern Villa for Sale, Leasehold",
-  "cmucnpwy90003if04n76jn46r": "Charming 1-Bedroom Villa for Sale",
-};
-
 export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
+  const ids = SALE_SHOWCASE_ITEMS.map((s) => s.id);
   const rows = await prisma.listing.findMany({
-    where: { id: { in: SALE_SHOWCASE_IDS }, status: "active" },
+    where: { id: { in: ids }, status: "active" },
   });
   const byId = new Map(rows.map((r) => [r.id, r]));
-  return SALE_SHOWCASE_IDS.map((id) => byId.get(id))
-    .filter((r): r is NonNullable<typeof r> => !!r)
-    .map((r) => ({
-      ...toFullListing(r),
-      ...countryOf(r.province),
-      title: SALE_SHOWCASE_TITLE_OVERRIDES[r.id] ?? r.title,
-    }));
+  return SALE_SHOWCASE_ITEMS.map(({ id, imageIndex, title }) => {
+    const row = byId.get(id);
+    if (!row) return null;
+    const images = parseJsonArray(row.images);
+    const image = images[imageIndex] ?? images[0];
+    if (!image) return null;
+    return { ...toFullListing(row), ...countryOf(row.province), images: [image], title };
+  }).filter((r): r is NonNullable<typeof r> => !!r);
 }
 
 /**

@@ -62,8 +62,6 @@ export const fr: Dict = {
     showcaseSaleBadge: "Annonces réelles — Vente",
     showcaseSaleTitle: "Acheter un bien",
     showcaseSaleSubtext: "Une sélection de villas réelles à vendre, actuellement en ligne.",
-    showcasePriceFrom: "À partir de",
-    showcaseAnnualNote: "loyer annuel, affiché par mois",
     heroCta: "Voir l'abonnement",
     seeAllListings: "Voir toutes les annonces",
     heroCtaSecondary: "Comment ça marche",
