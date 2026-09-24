@@ -31,8 +31,8 @@ export function PricingTable({ configured, prices }: Props) {
     {
       id: "monthly" as const,
       name: t.pricing.monthlyLabel,
-      price: "€20",
-      approx: "≈ $22",
+      price: "€19",
+      approx: "≈ $21",
       unit: t.pricing.perMonth,
       note: t.pricing.cancelAnytime,
       highlight: !hasAnnual,

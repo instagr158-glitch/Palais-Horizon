@@ -9,7 +9,7 @@ export async function generateMetadata() {
 /**
  * Where TikTok/Instagram/Facebook in-app browser visitors land instead of
  * /pricing (see middleware.ts) — a plain account-creation step, kept
- * separate from the €20/month plan card so the two don't visually blur
+ * separate from the €19/month plan card so the two don't visually blur
  * together. The email link it sends leads back to /pricing once opened in
  * a real browser.
  */
