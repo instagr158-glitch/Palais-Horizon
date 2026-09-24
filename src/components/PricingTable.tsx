@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 
 export function PricingTable({ configured, prices }: Props) {
   const { t } = useI18n();
+  const router = useRouter();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,30 +43,17 @@ export function PricingTable({ configured, prices }: Props) {
       : []),
   ];
 
-  async function choose(plan: "monthly" | "annual") {
+  function choose(plan: "monthly" | "annual") {
     setError(null);
     if (!configured || !prices[plan]) {
       setError(t.pricing.notConfigured);
       return;
     }
+    // Don't hit Stripe straight away — the Track quiz collects what the
+    // member is looking for first, then starts checkout itself once they
+    // confirm, carrying those answers through as Stripe metadata.
     setLoading(plan);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setError(data.error ?? t.pricing.networkError);
-        setLoading(null);
-      }
-    } catch {
-      setError(t.pricing.networkError);
-      setLoading(null);
-    }
+    router.push(`/track?plan=${plan}`);
   }
 
   return (

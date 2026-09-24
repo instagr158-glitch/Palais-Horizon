@@ -8,12 +8,22 @@ export type CheckoutSessionResult =
   | { url: string }
   | { error: string; status: number };
 
+/** The Track quiz's answers, carried through Stripe as metadata so the
+ * post-payment success page can hand the member straight to a pre-filtered
+ * catalogue instead of a blank one. */
+export type CheckoutPreferences = {
+  listingType?: string;
+  country?: string;
+  maxPrice?: string;
+};
+
 /**
  * Builds a Stripe Checkout Session for a plan. Signed-in visitors reuse
  * their account; everyone else checks out as a guest.
  */
 export async function buildCheckoutSession(
   plan: string | undefined,
+  preferences?: CheckoutPreferences,
 ): Promise<CheckoutSessionResult> {
   if (!stripe || !stripeConfigured) {
     return { error: "Payment is not configured on this site yet.", status: 503 };
@@ -61,14 +71,21 @@ export async function buildCheckoutSession(
       }
     }
 
+    // Only keep defined preference values — Stripe's metadata rejects
+    // undefined and we don't want empty strings cluttering the session.
+    const prefMetadata = Object.fromEntries(
+      Object.entries(preferences ?? {}).filter(([, v]) => !!v),
+    );
+
     const checkout = await stripe.checkout.sessions.create({
       mode: "subscription",
       ...(customerId ? { customer: customerId } : {}),
       ...(clientReferenceId ? { client_reference_id: clientReferenceId } : {}),
       line_items: [{ price: priceId, quantity: 1 }],
       allow_promotion_codes: true,
+      metadata: prefMetadata,
       subscription_data: {
-        metadata: { userId: clientReferenceId ?? "", plan: plan ?? "" },
+        metadata: { userId: clientReferenceId ?? "", plan: plan ?? "", ...prefMetadata },
       },
       success_url: `${APP_URL}/subscribe/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${APP_URL}/pricing?canceled=1`,

@@ -8,9 +8,10 @@ import { useI18n } from "@/components/I18nProvider";
 type Props = {
   sessionId: string;
   email: string;
+  redirectTo?: string;
 };
 
-export function ClaimAccountForm({ sessionId, email }: Props) {
+export function ClaimAccountForm({ sessionId, email, redirectTo = "/listings" }: Props) {
   const router = useRouter();
   const { t } = useI18n();
   const [password, setPassword] = useState("");
@@ -39,7 +40,7 @@ export function ClaimAccountForm({ sessionId, email }: Props) {
         setLoading(false);
         return;
       }
-      router.push("/listings");
+      router.push(redirectTo);
       router.refresh();
     } catch {
       setError(t.success.claimNetworkError);

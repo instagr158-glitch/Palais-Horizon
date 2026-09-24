@@ -17,16 +17,25 @@ export const en = {
   },
 
   track: {
-    title: "Track — Find a home within your budget",
+    title: "Track — Find a home that matches you",
     back: "Back",
+    typeLabel: "PROPERTY TYPE",
+    typeQuestion: "What are you looking for?",
+    typeRent: "Rent",
+    typeBuy: "Buy",
+    destinationLabel: "DESTINATION",
+    destinationQuestion: "Where are you looking?",
     budgetLabel: "YOUR BUDGET",
     budgetQuestion: "What's the maximum monthly rent you want to pay?",
+    budgetQuestionBuy: "What's the maximum budget you want to spend?",
     budgetHint: "Drag the slider",
     budgetMinHint: "Small budget",
     budgetMaxHint: "Very ambitious",
     continue: "Continue",
-    destinationLabel: "DESTINATION",
-    destinationQuestion: "Where are you looking?",
+    searchingLabel: "SEARCHING",
+    searchingQuestion: "We're analysing the listings that match your criteria…",
+    resultsFound: "match your criteria",
+    viewListingsCta: "See available listings",
   },
 
   gate: {

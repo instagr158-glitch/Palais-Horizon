@@ -87,6 +87,15 @@ body {
   }
 }
 
+@keyframes track-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
 .btn-ghost {
   border: 1px solid var(--border);
   color: var(--cream);

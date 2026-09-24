@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
 const BUDGET_MAX = 20000;
@@ -25,11 +25,29 @@ const FLAGS: Record<(typeof DESTINATIONS)[number], string> = {
   miami: "🇺🇸",
 };
 
+type ListingType = "rent" | "sale";
+type Step = "type" | "destination" | "budget" | "searching" | "results";
+
+const STEP_INDEX: Record<Step, number> = {
+  type: 1,
+  destination: 2,
+  budget: 3,
+  searching: 4,
+  results: 4,
+};
+
 export function TrackWizard() {
   const { t } = useI18n();
-  const router = useRouter();
-  const [step, setStep] = useState<1 | 2>(1);
+  const searchParams = useSearchParams();
+  const plan = searchParams.get("plan") === "annual" ? "annual" : "monthly";
+
+  const [step, setStep] = useState<Step>("type");
+  const [listingType, setListingType] = useState<ListingType | null>(null);
+  const [country, setCountry] = useState<string | null>(null);
   const [budget, setBudget] = useState(0);
+  const [resultCount, setResultCount] = useState<number | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const countryLabel: Record<string, string> = {
     thailand: t.listings.countryThailand,
@@ -38,24 +56,76 @@ export function TrackWizard() {
     miami: t.listings.countryMiami,
   };
 
-  function chooseDestination(country: string) {
-    const params = new URLSearchParams({
-      country,
-      listingType: "rent",
-      sort: "price_asc",
+  const maxPriceThb = budget > 0 ? eurToThbEquivalent(budget) : undefined;
+
+  // Once all three answers are in, run the (real) search: fetch how many
+  // active listings actually match, with a short animated delay so the
+  // "searching" moment reads as a live lookup rather than an instant flash.
+  useEffect(() => {
+    if (step !== "searching" || !listingType || !country) return;
+    let cancelled = false;
+    const params = new URLSearchParams({ country, listingType });
+    if (maxPriceThb) params.set("maxPrice", String(maxPriceThb));
+
+    const fetchCount = fetch(`/api/listings/count?${params.toString()}`)
+      .then((r) => r.json())
+      .then((data) => (typeof data.count === "number" ? data.count : 0))
+      .catch(() => 0);
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 1600));
+
+    Promise.all([fetchCount, minDelay]).then(([count]) => {
+      if (cancelled) return;
+      setResultCount(count);
+      setStep("results");
     });
-    if (budget > 0) {
-      params.set("maxPrice", String(eurToThbEquivalent(budget)));
+    return () => {
+      cancelled = true;
+    };
+  }, [step, listingType, country, maxPriceThb]);
+
+  async function goToCheckout() {
+    setCheckoutError(null);
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plan,
+          preferences: {
+            listingType: listingType ?? undefined,
+            country: country ?? undefined,
+            maxPrice: maxPriceThb ? String(maxPriceThb) : undefined,
+          },
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setCheckoutError(data.error ?? t.pricing.networkError);
+        setCheckoutLoading(false);
+      }
+    } catch {
+      setCheckoutError(t.pricing.networkError);
+      setCheckoutLoading(false);
     }
-    router.push(`/listings?${params.toString()}`);
   }
+
+  function back() {
+    if (step === "destination") setStep("type");
+    else if (step === "budget") setStep("destination");
+  }
+
+  const showBack = step === "destination" || step === "budget";
+  const totalSteps = 3;
 
   return (
     <div className="mx-auto flex min-h-[75vh] max-w-lg flex-col justify-center px-4 py-16">
       <div className="mb-6 flex items-center justify-between">
-        {step === 2 ? (
+        {showBack ? (
           <button
-            onClick={() => setStep(1)}
+            onClick={back}
             aria-label={t.track.back}
             className="text-dim transition-colors hover:text-cream"
           >
@@ -64,24 +134,97 @@ export function TrackWizard() {
         ) : (
           <span />
         )}
-        <span className="num text-xs tracking-widetitle text-dim">{step} / 2</span>
+        {step !== "searching" && step !== "results" && (
+          <span className="num text-xs tracking-widetitle text-dim">
+            {STEP_INDEX[step]} / {totalSteps}
+          </span>
+        )}
       </div>
 
-      <div className="mb-10 flex gap-2">
-        <div className={`h-1 flex-1 rounded-full ${step >= 1 ? "bg-gold" : "bg-ink-border"}`} />
-        <div className={`h-1 flex-1 rounded-full ${step >= 2 ? "bg-gold" : "bg-ink-border"}`} />
-      </div>
+      {step !== "searching" && step !== "results" && (
+        <div className="mb-10 flex gap-2">
+          {[1, 2, 3].map((n) => (
+            <div
+              key={n}
+              className={`h-1 flex-1 rounded-full ${
+                STEP_INDEX[step] >= n ? "bg-gold" : "bg-ink-border"
+              }`}
+            />
+          ))}
+        </div>
+      )}
 
-      {step === 1 ? (
+      {step === "type" && (
         <div className="text-center">
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/30 bg-gold/[0.06] text-3xl">
-            🎯
+            🏠
           </div>
+          <p className="text-xs uppercase tracking-widetitle text-gold">
+            {t.track.typeLabel}
+          </p>
+          <h1 className="mt-3 font-display text-2xl text-cream sm:text-3xl">
+            {t.track.typeQuestion}
+          </h1>
+
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            <button
+              onClick={() => {
+                setListingType("rent");
+                setStep("destination");
+              }}
+              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+            >
+              <span className="block text-3xl">🔑</span>
+              <span className="mt-2 block text-sm text-cream">{t.track.typeRent}</span>
+            </button>
+            <button
+              onClick={() => {
+                setListingType("sale");
+                setStep("destination");
+              }}
+              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+            >
+              <span className="block text-3xl">🔏</span>
+              <span className="mt-2 block text-sm text-cream">{t.track.typeBuy}</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {step === "destination" && (
+        <div className="text-center">
+          <p className="text-xs uppercase tracking-widetitle text-gold">
+            {t.track.destinationLabel}
+          </p>
+          <h1 className="mt-3 font-display text-2xl text-cream sm:text-3xl">
+            {t.track.destinationQuestion}
+          </h1>
+
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {DESTINATIONS.map((d) => (
+              <button
+                key={d}
+                onClick={() => {
+                  setCountry(d);
+                  setStep("budget");
+                }}
+                className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+              >
+                <span className="block text-3xl">{FLAGS[d]}</span>
+                <span className="mt-2 block text-sm text-cream">{countryLabel[d]}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {step === "budget" && (
+        <div className="text-center">
           <p className="text-xs uppercase tracking-widetitle text-gold">
             {t.track.budgetLabel}
           </p>
           <h1 className="mt-3 font-display text-2xl text-cream sm:text-3xl">
-            {t.track.budgetQuestion}
+            {listingType === "sale" ? t.track.budgetQuestionBuy : t.track.budgetQuestion}
           </h1>
 
           <p className="num mt-8 text-5xl text-gold-gradient">
@@ -115,35 +258,55 @@ export function TrackWizard() {
           </div>
 
           <button
-            onClick={() => setStep(2)}
+            onClick={() => setStep("searching")}
             className="btn-gold mt-10 w-full rounded-full px-4 py-3 text-sm"
           >
             {t.track.continue} →
           </button>
         </div>
-      ) : (
+      )}
+
+      {step === "searching" && (
         <div className="text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/30 bg-gold/[0.06] text-3xl">
+            🔎
+          </div>
           <p className="text-xs uppercase tracking-widetitle text-gold">
-            {t.track.destinationLabel}
+            {t.track.searchingLabel}
           </p>
           <h1 className="mt-3 font-display text-2xl text-cream sm:text-3xl">
-            {t.track.destinationQuestion}
+            {t.track.searchingQuestion}
           </h1>
-
-          <div className="mt-8 grid grid-cols-2 gap-3">
-            {DESTINATIONS.map((d) => (
-              <button
-                key={d}
-                onClick={() => chooseDestination(d)}
-                className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
-              >
-                <span className="block text-3xl">{FLAGS[d]}</span>
-                <span className="mt-2 block text-sm text-cream">
-                  {countryLabel[d]}
-                </span>
-              </button>
-            ))}
+          <div className="mx-auto mt-8 h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-ink-border">
+            <div className="h-full w-1/3 animate-[track-scan_1.1s_ease-in-out_infinite] rounded-full bg-gold-gradient" />
           </div>
+        </div>
+      )}
+
+      {step === "results" && (
+        <div className="text-center">
+          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/30 bg-gold/[0.06] text-3xl">
+            ✦
+          </div>
+          <p className="num text-5xl text-gold-gradient">{resultCount ?? 0}</p>
+          <p className="mt-2 text-sm text-dim">
+            {resultCount === 1 ? t.listings.countOne : t.listings.countOther}{" "}
+            {t.track.resultsFound}
+          </p>
+
+          {checkoutError && (
+            <p className="mt-4 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
+              {checkoutError}
+            </p>
+          )}
+
+          <button
+            onClick={goToCheckout}
+            disabled={checkoutLoading}
+            className="btn-gold mt-8 w-full rounded-full px-4 py-3 text-sm disabled:opacity-60"
+          >
+            {checkoutLoading ? t.pricing.redirecting : t.track.viewListingsCta}
+          </button>
         </div>
       )}
     </div>

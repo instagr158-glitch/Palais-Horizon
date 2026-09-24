@@ -19,16 +19,25 @@ export const fr: Dict = {
   },
 
   track: {
-    title: "Track — Trouvez un bien selon votre budget",
+    title: "Track — Trouvez un bien selon vos critères",
     back: "Retour",
+    typeLabel: "TYPE DE BIEN",
+    typeQuestion: "Que recherchez-vous ?",
+    typeRent: "Louer",
+    typeBuy: "Acheter",
+    destinationLabel: "DESTINATION",
+    destinationQuestion: "Où cherchez-vous ?",
     budgetLabel: "VOTRE BUDGET",
     budgetQuestion: "Quel loyer maximum voulez-vous mettre par mois ?",
+    budgetQuestionBuy: "Quel budget maximum voulez-vous mettre ?",
     budgetHint: "Faites glisser le curseur",
     budgetMinHint: "Petit budget",
     budgetMaxHint: "Très ambitieux",
     continue: "Continuer",
-    destinationLabel: "DESTINATION",
-    destinationQuestion: "Où cherchez-vous ?",
+    searchingLabel: "RECHERCHE EN COURS",
+    searchingQuestion: "Nous analysons les annonces qui correspondent à vos critères…",
+    resultsFound: "correspondent à vos critères",
+    viewListingsCta: "Voir les annonces disponibles",
   },
 
   gate: {

@@ -19,16 +19,25 @@ export const de: Dict = {
   },
 
   track: {
-    title: "Track — Finden Sie eine Immobilie nach Budget",
+    title: "Track — Finden Sie eine Immobilie nach Ihren Kriterien",
     back: "Zurück",
+    typeLabel: "IMMOBILIENTYP",
+    typeQuestion: "Wonach suchen Sie?",
+    typeRent: "Mieten",
+    typeBuy: "Kaufen",
+    destinationLabel: "REISEZIEL",
+    destinationQuestion: "Wo suchen Sie?",
     budgetLabel: "IHR BUDGET",
     budgetQuestion: "Welche monatliche Miete möchten Sie maximal zahlen?",
+    budgetQuestionBuy: "Welches Budget möchten Sie maximal einsetzen?",
     budgetHint: "Schieberegler ziehen",
     budgetMinHint: "Kleines Budget",
     budgetMaxHint: "Sehr ambitioniert",
     continue: "Weiter",
-    destinationLabel: "REISEZIEL",
-    destinationQuestion: "Wo suchen Sie?",
+    searchingLabel: "SUCHE LÄUFT",
+    searchingQuestion: "Wir werten die Angebote aus, die zu Ihren Kriterien passen…",
+    resultsFound: "entsprechen Ihren Kriterien",
+    viewListingsCta: "Verfügbare Angebote ansehen",
   },
 
   gate: {

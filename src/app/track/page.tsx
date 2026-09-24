@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { TrackWizard } from "@/components/TrackWizard";
 import { getServerDict } from "@/i18n/server";
 
@@ -8,5 +9,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function TrackPage() {
-  return <TrackWizard />;
+  return (
+    <Suspense fallback={null}>
+      <TrackWizard />
+    </Suspense>
+  );
 }
