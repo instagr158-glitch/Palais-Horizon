@@ -79,7 +79,8 @@ export function TrackWizard() {
   }
 
   const showBack = step === "destination" || step === "budget";
-  const totalSteps = 3;
+  // Buying skips the budget question entirely, so its flow is only 2 steps.
+  const totalSteps = listingType === "sale" ? 2 : 3;
 
   return (
     <div className="mx-auto flex min-h-[75vh] max-w-lg flex-col justify-center px-4 py-16">
@@ -104,7 +105,7 @@ export function TrackWizard() {
 
       {step !== "searching" && step !== "results" && (
         <div className="mb-10 flex gap-2">
-          {[1, 2, 3].map((n) => (
+          {Array.from({ length: totalSteps }, (_, i) => i + 1).map((n) => (
             <div
               key={n}
               className={`h-1 flex-1 rounded-full ${
@@ -133,7 +134,7 @@ export function TrackWizard() {
                 setListingType("rent");
                 setStep("destination");
               }}
-              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors [@media(hover:hover)]:hover:border-gold/60 [@media(hover:hover)]:hover:bg-gold/[0.04]"
             >
               <span className="block text-3xl">🔑</span>
               <span className="mt-2 block text-sm text-cream">{t.track.typeRent}</span>
@@ -143,7 +144,7 @@ export function TrackWizard() {
                 setListingType("sale");
                 setStep("destination");
               }}
-              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+              className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors [@media(hover:hover)]:hover:border-gold/60 [@media(hover:hover)]:hover:bg-gold/[0.04]"
             >
               <span className="block text-3xl">🔏</span>
               <span className="mt-2 block text-sm text-cream">{t.track.typeBuy}</span>
@@ -167,12 +168,13 @@ export function TrackWizard() {
                 key={d}
                 onClick={() => {
                   setCountry(d);
-                  setStep("budget");
+                  // Buying skips straight to the search — no budget question.
+                  setStep(listingType === "sale" ? "searching" : "budget");
                 }}
                 className={`rounded-xl border p-6 text-center transition-colors ${
                   d === "miami"
                     ? "border-gold bg-gold/[0.04] shadow-gold"
-                    : "border-ink-border bg-ink-panel hover:border-gold/60 hover:bg-gold/[0.04]"
+                    : "border-ink-border bg-ink-panel [@media(hover:hover)]:hover:border-gold/60 [@media(hover:hover)]:hover:bg-gold/[0.04]"
                 }`}
               >
                 <span className="block text-3xl">{FLAGS[d]}</span>
