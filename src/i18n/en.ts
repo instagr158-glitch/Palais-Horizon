@@ -151,7 +151,7 @@ export const en = {
       },
       {
         q: "Where do the listings come from?",
-        a: "Leading Thai luxury agencies and portals. We normalise their listings into one searchable collection and keep the link back to the source.",
+        a: "Leading luxury agencies and portals. We normalise their listings into one searchable collection and keep the link back to the source.",
       },
       {
         q: "Can I cancel?",

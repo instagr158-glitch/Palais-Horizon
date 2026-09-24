@@ -153,7 +153,7 @@ export const de: Dict = {
       },
       {
         q: "Woher stammen die Angebote?",
-        a: "Von führenden thailändischen Luxusmaklern und -portalen. Wir vereinheitlichen ihre Inserate zu einer durchsuchbaren Kollektion und behalten den Link zur Quelle.",
+        a: "Von führenden Luxusmaklern und -portalen. Wir vereinheitlichen ihre Inserate zu einer durchsuchbaren Kollektion und behalten den Link zur Quelle.",
       },
       {
         q: "Kann ich kündigen?",

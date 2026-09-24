@@ -153,7 +153,7 @@ export const fr: Dict = {
       },
       {
         q: "D'où viennent les annonces ?",
-        a: "Des grandes agences et portails de luxe thaïlandais. Nous harmonisons leurs annonces en une seule collection consultable et conservons le lien vers la source.",
+        a: "Des grandes agences et portails de luxe. Nous harmonisons leurs annonces en une seule collection consultable et conservons le lien vers la source.",
       },
       {
         q: "Puis-je résilier ?",
