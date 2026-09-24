@@ -103,6 +103,7 @@ export default async function LandingPage() {
 
       <MiamiHighlightCarousel
         items={miamiHighlightItems}
+        title={t.landing.miamiHighlightTitle}
         ctaLabel={t.landing.miamiHighlightCta}
       />
 

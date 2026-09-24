@@ -58,6 +58,7 @@ export const fr: Dict = {
     showcaseRentTitle: "Louer un bien",
     showcaseRentSubtext: "Une sélection d'annonces réelles à louer, actuellement en ligne.",
     showcaseMiamiBadge: "Annonces réelles — Miami",
+    miamiHighlightTitle: "Miami, le rêve américain",
     miamiHighlightCta: "Voir les annonces",
     showcaseSaleBadge: "Annonces réelles — Vente",
     showcaseSaleTitle: "Acheter un bien",

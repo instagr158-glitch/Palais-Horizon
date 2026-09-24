@@ -56,6 +56,7 @@ export const en = {
     showcaseRentTitle: "Rent a home",
     showcaseRentSubtext: "A handful of real, currently-listed rentals.",
     showcaseMiamiBadge: "Real listings — Miami",
+    miamiHighlightTitle: "Miami, the American dream",
     miamiHighlightCta: "See listings",
     showcaseSaleBadge: "Real listings — Buy",
     showcaseSaleTitle: "Buy a home",

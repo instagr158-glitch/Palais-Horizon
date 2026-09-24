@@ -7,9 +7,11 @@ import type { HighlightItem } from "@/lib/listings";
 
 export function MiamiHighlightCarousel({
   items,
+  title,
   ctaLabel,
 }: {
   items: HighlightItem[];
+  title: string;
   ctaLabel: string;
 }) {
   const cardRefs = useRef(new Map<string, HTMLDivElement>());
@@ -39,6 +41,9 @@ export function MiamiHighlightCarousel({
 
   return (
     <section className="border-b border-ink-border py-12 sm:py-16">
+      <h2 className="mx-auto mb-8 max-w-2xl px-4 text-center font-sans text-2xl font-extrabold leading-[1.2] text-cream sm:text-4xl">
+        {title}
+      </h2>
       <div className="hide-scrollbar flex gap-6 overflow-x-auto px-4 pt-3 pb-3 sm:justify-center sm:px-6">
         {items.map((item) => {
           const active = visibleIds.has(item.id);
