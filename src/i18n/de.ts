@@ -36,7 +36,8 @@ export const de: Dict = {
     continue: "Weiter",
     searchingLabel: "SUCHE LÄUFT",
     searchingQuestion: "Wir werten die Angebote aus, die zu Ihren Kriterien passen…",
-    resultsFound: "entsprechen Ihren Kriterien",
+    searchDoneTitle: "Ihre Suche ist bereit",
+    searchDoneBody: "Schalten Sie die Kollektion frei, um die passenden Angebote zu entdecken.",
     viewListingsCta: "Verfügbare Angebote ansehen",
   },
 

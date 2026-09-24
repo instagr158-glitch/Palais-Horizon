@@ -34,7 +34,8 @@ export const en = {
     continue: "Continue",
     searchingLabel: "SEARCHING",
     searchingQuestion: "We're analysing the listings that match your criteria…",
-    resultsFound: "match your criteria",
+    searchDoneTitle: "Your search is ready",
+    searchDoneBody: "Unlock the collection to discover the listings that match your criteria.",
     viewListingsCta: "See available listings",
   },
 

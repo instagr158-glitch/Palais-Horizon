@@ -36,7 +36,8 @@ export const fr: Dict = {
     continue: "Continuer",
     searchingLabel: "RECHERCHE EN COURS",
     searchingQuestion: "Nous analysons les annonces qui correspondent à vos critères…",
-    resultsFound: "correspondent à vos critères",
+    searchDoneTitle: "Votre recherche est prête",
+    searchDoneBody: "Débloquez la collection pour découvrir les annonces qui correspondent à vos critères.",
     viewListingsCta: "Voir les annonces disponibles",
   },
 

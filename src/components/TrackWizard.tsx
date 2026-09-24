@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
-const BUDGET_MAX = 20000;
+const BUDGET_MAX = 10000;
 const BUDGET_STEP = 100;
 
 // Same conversion the rest of the site uses (src/lib/listings.ts,
@@ -17,7 +17,7 @@ function eurToThbEquivalent(eur: number): number {
   return Math.round((eur / USD_TO_EUR) * THB_PER_USD);
 }
 
-const DESTINATIONS = ["thailand", "bali", "dubai", "miami"] as const;
+const DESTINATIONS = ["miami", "bali", "dubai", "thailand"] as const;
 const FLAGS: Record<(typeof DESTINATIONS)[number], string> = {
   thailand: "🇹🇭",
   bali: "🇮🇩",
@@ -44,7 +44,6 @@ export function TrackWizard() {
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [budget, setBudget] = useState(0);
-  const [resultCount, setResultCount] = useState<number | null>(null);
   const [redirecting, setRedirecting] = useState(false);
 
   const countryLabel: Record<string, string> = {
@@ -56,30 +55,14 @@ export function TrackWizard() {
 
   const maxPriceThb = budget > 0 ? eurToThbEquivalent(budget) : undefined;
 
-  // Once all three answers are in, run the (real) search: fetch how many
-  // active listings actually match, with a short animated delay so the
-  // "searching" moment reads as a live lookup rather than an instant flash.
+  // Once all three answers are in, show a brief "searching" animation before
+  // revealing the CTA — a paced transition, not a real lookup, since no
+  // match count is shown here.
   useEffect(() => {
-    if (step !== "searching" || !listingType || !country) return;
-    let cancelled = false;
-    const params = new URLSearchParams({ country, listingType });
-    if (maxPriceThb) params.set("maxPrice", String(maxPriceThb));
-
-    const fetchCount = fetch(`/api/listings/count?${params.toString()}`)
-      .then((r) => r.json())
-      .then((data) => (typeof data.count === "number" ? data.count : 0))
-      .catch(() => 0);
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 1600));
-
-    Promise.all([fetchCount, minDelay]).then(([count]) => {
-      if (cancelled) return;
-      setResultCount(count);
-      setStep("results");
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [step, listingType, country, maxPriceThb]);
+    if (step !== "searching") return;
+    const id = setTimeout(() => setStep("results"), 1600);
+    return () => clearTimeout(id);
+  }, [step]);
 
   function goToPricing() {
     setRedirecting(true);
@@ -186,7 +169,11 @@ export function TrackWizard() {
                   setCountry(d);
                   setStep("budget");
                 }}
-                className="rounded-xl border border-ink-border bg-ink-panel p-6 text-center transition-colors hover:border-gold/60 hover:bg-gold/[0.04]"
+                className={`rounded-xl border p-6 text-center transition-colors ${
+                  d === "miami"
+                    ? "border-gold bg-gold/[0.04] shadow-gold"
+                    : "border-ink-border bg-ink-panel hover:border-gold/60 hover:bg-gold/[0.04]"
+                }`}
               >
                 <span className="block text-3xl">{FLAGS[d]}</span>
                 <span className="mt-2 block text-sm text-cream">{countryLabel[d]}</span>
@@ -266,11 +253,10 @@ export function TrackWizard() {
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/30 bg-gold/[0.06] text-3xl">
             ✦
           </div>
-          <p className="num text-5xl text-gold-gradient">{resultCount ?? 0}</p>
-          <p className="mt-2 text-sm text-dim">
-            {resultCount === 1 ? t.listings.countOne : t.listings.countOther}{" "}
-            {t.track.resultsFound}
-          </p>
+          <h1 className="font-display text-2xl text-cream sm:text-3xl">
+            {t.track.searchDoneTitle}
+          </h1>
+          <p className="mt-2 text-sm text-dim">{t.track.searchDoneBody}</p>
 
           <button
             onClick={goToPricing}
