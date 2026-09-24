@@ -323,6 +323,39 @@ export async function getMiamiShowcaseListings(): Promise<ShowcaseItem[]> {
     }));
 }
 
+/**
+ * A hand-picked set of real, currently-listed high-end Miami condos —
+ * floor-to-ceiling windows and balconies, Brickell/Brickell Key/Park West
+ * towers — shown as a plain photo carousel above the Miami showcase, with no
+ * price. Each entry pins the specific photo (by index into that listing's
+ * own image list) chosen for showing the window/balcony, not just images[0].
+ */
+const MIAMI_HIGHLIGHT_IDS: { id: string; imageIndex: number }[] = [
+  { id: "cmu7t9uc4001ujv045evtksm1", imageIndex: 1 }, // 485 Brickell Ave, Unit 1609 — Icon Brickell
+  { id: "cmu7t9t5x001rjv048rak6e7n", imageIndex: 1 }, // 801 Brickell Key Blvd, Unit 2006
+  { id: "cmu7t9sco001pjv04vid97tck", imageIndex: 2 }, // 485 Brickell Ave, Unit 1909 — Icon Brickell
+  { id: "cmu7t9qjc001ljv041n2tqly7", imageIndex: 2 }, // 851 NE 1st Ave, Unit 3506 — Park West
+  { id: "cmu7t9wpv001zjv049087k2cu", imageIndex: 2 }, // 79 SW 12th St, Unit 2201S — Brickell
+  { id: "cmu7t9r2l001mjv04e0zg0l3r", imageIndex: 2 }, // 20 NE 11th St, Unit EXECPH03A — Park West
+];
+
+export type HighlightItem = { id: string; image: string };
+
+export async function getMiamiHighlightListings(): Promise<HighlightItem[]> {
+  const ids = MIAMI_HIGHLIGHT_IDS.map((h) => h.id);
+  const rows = await prisma.listing.findMany({
+    where: { id: { in: ids }, status: "active" },
+  });
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  return MIAMI_HIGHLIGHT_IDS.map(({ id, imageIndex }) => {
+    const row = byId.get(id);
+    if (!row) return null;
+    const images = parseJsonArray(row.images);
+    const image = images[imageIndex] ?? images[0];
+    return image ? { id, image } : null;
+  }).filter((x): x is HighlightItem => !!x);
+}
+
 export async function getCatalogStats() {
   const [total, provinces, agencies] = await Promise.all([
     prisma.listing.count({ where: { status: "active" } }),

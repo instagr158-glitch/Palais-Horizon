@@ -2,11 +2,13 @@ import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
 import { FeatureTabs } from "@/components/FeatureTabs";
 import { PropertyShowcase } from "@/components/PropertyShowcase";
+import { MiamiHighlightCarousel } from "@/components/MiamiHighlightCarousel";
 import {
   getCatalogStats,
   getShowcaseListings,
   getSaleShowcaseListings,
   getMiamiShowcaseListings,
+  getMiamiHighlightListings,
 } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
@@ -40,6 +42,8 @@ export default async function LandingPage() {
       note: isAnnual ? t.landing.showcaseAnnualNote : undefined,
     };
   }).filter((item) => item.image);
+
+  const miamiHighlightItems = await getMiamiHighlightListings();
 
   const miamiShowcaseListings = await getMiamiShowcaseListings();
   const miamiShowcaseItems = miamiShowcaseListings.map((item) => {
@@ -126,6 +130,11 @@ export default async function LandingPage() {
           </div>
         </div>
       </section>
+
+      <MiamiHighlightCarousel
+        items={miamiHighlightItems}
+        ctaLabel={t.landing.miamiHighlightCta}
+      />
 
       {miamiShowcaseItems.length > 0 && (
         <PropertyShowcase

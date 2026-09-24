@@ -96,6 +96,15 @@ body {
   }
 }
 
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .btn-ghost {
   border: 1px solid var(--border);
   color: var(--cream);
