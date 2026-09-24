@@ -93,8 +93,14 @@ export default async function LandingPage() {
               </span>
             </div>
           </div>
-          <h1 className="mx-auto mt-5 max-w-xl font-sans text-4xl font-extrabold leading-[1.15] text-cream sm:text-5xl sm:leading-[1.15]">
-            <span className="block text-balance">{t.landing.heroTitleLead.trim()}</span>
+          <h1 className="mx-auto mt-5 max-w-xl font-sans text-3xl font-extrabold leading-[1.15] text-cream sm:text-5xl sm:leading-[1.15]">
+            {t.landing.heroTitleLead.trim()
+              .split("\n")
+              .map((line, i) => (
+                <span key={i} className="block text-balance">
+                  {line}
+                </span>
+              ))}
             <span className="my-1 inline-block rounded-sm bg-gold/15 px-1.5 text-gold sm:whitespace-nowrap">
               {t.landing.heroTitleHighlight}
             </span>

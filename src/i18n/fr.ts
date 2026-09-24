@@ -47,7 +47,7 @@ export const fr: Dict = {
   },
 
   landing: {
-    heroTitleLead: "L'agent qui compare et trouve les biens ",
+    heroTitleLead: "L'agent qui compare\net trouve les biens",
     heroTitleHighlight: "au meilleur prix",
     heroTitleTrail: "",
     heroSubtext:
