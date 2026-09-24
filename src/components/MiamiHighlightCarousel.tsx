@@ -13,11 +13,11 @@ export function MiamiHighlightCarousel({
 
   return (
     <section className="border-b border-ink-border py-12 sm:py-16">
-      <div className="hide-scrollbar flex gap-6 overflow-x-auto px-4 pt-2 pb-3 sm:justify-center sm:px-6">
+      <div className="hide-scrollbar flex gap-6 overflow-x-auto px-4 pt-3 pb-3 sm:justify-center sm:px-6">
         {items.map((item) => (
           <div
             key={item.id}
-            className="relative aspect-[3/4] w-[280px] flex-none overflow-hidden rounded-2xl shadow-panel transition-transform duration-300 [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:shadow-gold sm:w-[320px]"
+            className="relative z-0 aspect-[3/4] w-[280px] flex-none overflow-hidden rounded-2xl shadow-panel transition-transform duration-300 hover:-translate-y-2 hover:z-50 hover:shadow-gold sm:w-[320px]"
           >
             <Image
               src={item.image}
