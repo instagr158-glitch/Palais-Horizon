@@ -47,9 +47,9 @@ export const fr: Dict = {
   },
 
   landing: {
-    heroTitleLead: "L'agent qui trouve les biens ",
+    heroTitleLead: "L'agent qui compare et trouve les biens ",
     heroTitleHighlight: "au meilleur prix",
-    heroTitleTrail: " avant tout le monde.",
+    heroTitleTrail: "",
     heroSubtext:
       "Palais Horizon analyse en continu les annonces de toutes les agences pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
     heroCtaPrimary: "Commencer maintenant",
