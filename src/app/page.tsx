@@ -7,7 +7,6 @@ import {
   getCatalogStats,
   getShowcaseListings,
   getSaleShowcaseListings,
-  getMiamiShowcaseListings,
   getMiamiHighlightListings,
 } from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
@@ -44,23 +43,6 @@ export default async function LandingPage() {
   }).filter((item) => item.image);
 
   const miamiHighlightItems = await getMiamiHighlightListings();
-
-  const miamiShowcaseListings = await getMiamiShowcaseListings();
-  const miamiShowcaseItems = miamiShowcaseListings.map((item) => {
-    const monthlyEur = item.priceUsd ? Math.round(item.priceUsd * 0.92) : null;
-    return {
-      id: item.id,
-      image: item.images[0] ?? "",
-      title: item.title,
-      city: item.city,
-      country: item.country,
-      flag: item.flag,
-      priceLabel:
-        monthlyEur != null
-          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € ${t.listings.perMonth}`
-          : null,
-    };
-  }).filter((item) => item.image);
 
   const saleShowcaseListings = await getSaleShowcaseListings();
   const saleShowcaseItems = saleShowcaseListings.map((item) => {
@@ -135,19 +117,6 @@ export default async function LandingPage() {
         items={miamiHighlightItems}
         ctaLabel={t.landing.miamiHighlightCta}
       />
-
-      {miamiShowcaseItems.length > 0 && (
-        <PropertyShowcase
-          items={miamiShowcaseItems}
-          title={t.landing.showcaseMiamiTitle}
-          subtext={t.landing.showcaseMiamiSubtext}
-          showLocation={false}
-          showFlagOnly
-          visibleCount={1}
-          lockBadgeLabel="+99"
-          favoriteLabel={t.landing.showcaseMiamiFavoriteLabel}
-        />
-      )}
 
       {saleShowcaseItems.length > 0 && (
         <PropertyShowcase
