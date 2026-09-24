@@ -14,7 +14,12 @@ import { getDictionary } from "@/i18n";
 export const dynamic = "force-dynamic";
 
 export default async function LandingPage() {
-  const t = getDictionary(await getLocale());
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  // English/German hero titles have three parts (lead, highlight, trail) that
+  // each need to stay on one line to match the desktop layout, so they need a
+  // smaller mobile size than French, whose lead is only two short lines.
+  const heroTitleMobileSize = locale === "fr" ? "text-3xl" : "text-2xl";
   const stats = await getCatalogStats();
   const showcaseListings = await getShowcaseListings();
   const showcaseItems = showcaseListings.map((item) => {
@@ -93,7 +98,7 @@ export default async function LandingPage() {
               </span>
             </div>
           </div>
-          <h1 className="mx-auto mt-5 max-w-xl font-sans text-3xl font-extrabold leading-[1.15] text-cream sm:text-5xl sm:leading-[1.15]">
+          <h1 className={`mx-auto mt-5 max-w-xl font-sans ${heroTitleMobileSize} font-extrabold leading-[1.15] text-cream sm:text-5xl sm:leading-[1.15]`}>
             {t.landing.heroTitleLead.trim()
               .split("\n")
               .map((line, i) => (
