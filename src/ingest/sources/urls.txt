@@ -1566,3 +1566,8 @@ https://www.compass.com/homedetails/1260-NE-115th-St-Unit-4-Miami-FL-33161/2EYOP
 https://www.compass.com/homedetails/271-NE-154th-St-Unit-1-Miami-FL-33162/25TLIS_pid/
 https://www.compass.com/homedetails/365-NW-8th-St-Unit-202-Miami-FL-33136/2A0PSH_pid/
 https://www.compass.com/homedetails/930-SW-4th-Ave-Unit-3-Miami-FL-33130/2G4UI2_pid/
+
+# Miami (USA) — Compass, ~$1,300/month studio cottage, verified live against
+# the real ingestion pipeline (fetch + parse + luxury filter) before being
+# added, 1 listing, replacing the homepage Miami showcase's featured item.
+https://www.compass.com/homedetails/3640-SW-25th-St-Unit-CASITA-Miami-FL-33133/1D6UD8_pid/
