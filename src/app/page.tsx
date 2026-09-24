@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
 import { FeatureTabs } from "@/components/FeatureTabs";
+import { PropertyShowcase } from "@/components/PropertyShowcase";
 import { MiamiHighlightCarousel } from "@/components/MiamiHighlightCarousel";
-import { getCatalogStats, getMiamiHighlightListings } from "@/lib/listings";
+import {
+  getCatalogStats,
+  getShowcaseListings,
+  getSaleShowcaseListings,
+  getMiamiHighlightListings,
+} from "@/lib/listings";
 import { getLocale } from "@/i18n/server";
 import { getDictionary } from "@/i18n";
 
@@ -16,7 +22,41 @@ export default async function LandingPage() {
   // smaller mobile size than French, whose lead is only two short lines.
   const heroTitleMobileSize = locale === "fr" ? "text-3xl" : "text-2xl";
   const stats = await getCatalogStats();
+  const showcaseListings = await getShowcaseListings();
+  const showcaseItems = showcaseListings.map((item) => {
+    const isAnnual = item.listingType === "rent" && item.province === "Dubai";
+    const monthlyUsd = item.priceUsd ? (isAnnual ? item.priceUsd / 12 : item.priceUsd) : null;
+    const monthlyEur = monthlyUsd ? Math.round(monthlyUsd * 0.92) : null;
+    return {
+      id: item.id,
+      image: item.images[0] ?? "",
+      title: item.title,
+      city: item.city,
+      country: item.country,
+      flag: item.flag,
+      priceLabel:
+        monthlyEur != null
+          ? `${t.landing.showcasePriceFrom} ${monthlyEur} € ${t.listings.perMonth}`
+          : null,
+      note: isAnnual ? t.landing.showcaseAnnualNote : undefined,
+    };
+  }).filter((item) => item.image);
+
   const miamiHighlightItems = await getMiamiHighlightListings();
+
+  const saleShowcaseListings = await getSaleShowcaseListings();
+  const saleShowcaseItems = saleShowcaseListings.map((item) => {
+    const saleEur = item.priceUsd ? Math.round(item.priceUsd * 0.92) : null;
+    return {
+      id: item.id,
+      image: item.images[0] ?? "",
+      title: item.title,
+      city: item.city,
+      country: item.country,
+      flag: item.flag,
+      priceLabel: saleEur != null ? `${saleEur.toLocaleString("fr-FR")} €` : null,
+    };
+  }).filter((item) => item.image);
 
   return (
     <div className="grain relative">
@@ -76,6 +116,27 @@ export default async function LandingPage() {
       <MiamiHighlightCarousel
         items={miamiHighlightItems}
         ctaLabel={t.landing.miamiHighlightCta}
+      />
+
+      {saleShowcaseItems.length > 0 && (
+        <PropertyShowcase
+          items={saleShowcaseItems}
+          badge={t.landing.showcaseSaleBadge}
+          title={t.landing.showcaseSaleTitle}
+          subtext={t.landing.showcaseSaleSubtext}
+          showLocation={false}
+          visibleCount={Math.max(1, saleShowcaseItems.length - 4)}
+          lockBadgeLabel="+99"
+        />
+      )}
+
+      <PropertyShowcase
+        items={showcaseItems}
+        badge={t.landing.showcaseRentBadge}
+        title={t.landing.showcaseRentTitle}
+        subtext={t.landing.showcaseRentSubtext}
+        visibleCount={Math.max(1, showcaseItems.length - 2)}
+        lockBadgeLabel="+99"
       />
 
       {/* product demo — the tool itself, not a listing */}
