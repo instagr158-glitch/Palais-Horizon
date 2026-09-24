@@ -53,7 +53,6 @@ export const fr: Dict = {
     heroSubtext:
       "Palais Horizon analyse en continu les annonces de toutes les agences pour repérer les meilleurs prix et vous montrer les nouveautés en premier.",
     heroCtaPrimary: "Commencer maintenant",
-    heroCtaDemo: "Voir l'outil en action",
     demoCaption: "L'interface Palais Horizon — recherchez, filtrez et comparez les annonces de toutes les agences au même endroit.",
     showcaseRentBadge: "Annonces réelles — Location",
     showcaseRentTitle: "Louer un bien",

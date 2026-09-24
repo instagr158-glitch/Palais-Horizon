@@ -53,7 +53,6 @@ export const de: Dict = {
     heroSubtext:
       "Palais Horizon durchsucht laufend die Angebote aller Agenturen, um die besten Preise zu finden und Ihnen Neuheiten zuerst zu zeigen.",
     heroCtaPrimary: "Jetzt starten",
-    heroCtaDemo: "Das Tool in Aktion sehen",
     demoCaption: "Die Palais-Horizon-Oberfläche — durchsuchen, filtern und vergleichen Sie die Angebote aller Agenturen an einem Ort.",
     showcaseRentBadge: "Echte Angebote — Miete",
     showcaseRentTitle: "Eine Immobilie mieten",

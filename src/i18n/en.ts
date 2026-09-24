@@ -51,7 +51,6 @@ export const en = {
     heroSubtext:
       "Palais Horizon continuously scans every agency's listings to surface the best prices and the newest properties first.",
     heroCtaPrimary: "Get started",
-    heroCtaDemo: "See the tool in action",
     demoCaption: "The Palais Horizon interface — search, filter and compare every agency's listings in one place.",
     showcaseRentBadge: "Real listings — Rent",
     showcaseRentTitle: "Rent a home",

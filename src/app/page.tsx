@@ -112,12 +112,6 @@ export default async function LandingPage() {
             >
               {t.landing.heroCtaPrimary}
             </TrackedLink>
-            <a
-              href="#demo"
-              className="inline-block rounded-full border border-ink-border px-6 py-3 text-sm text-cream transition hover:border-gold/50"
-            >
-              {t.landing.heroCtaDemo}
-            </a>
           </div>
         </div>
       </section>
