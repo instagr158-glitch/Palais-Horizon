@@ -67,7 +67,7 @@ export function Navbar() {
                 {t.nav.login}
               </Link>
               <TrackedLink
-                href="/pricing"
+                href="/track"
                 event="view_membership_click"
                 location="navbar"
                 className="btn-gold rounded-full px-4 py-1.5 text-sm"
@@ -125,7 +125,7 @@ export function Navbar() {
                   {t.nav.login}
                 </Link>
                 <TrackedLink
-                  href="/pricing"
+                  href="/track"
                   event="view_membership_click"
                   location="navbar_mobile"
                   onClick={() => setOpen(false)}

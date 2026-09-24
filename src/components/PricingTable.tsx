@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
 type Props = {
@@ -11,9 +11,18 @@ type Props = {
 
 export function PricingTable({ configured, prices }: Props) {
   const { t } = useI18n();
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Carried over from the Track quiz (see TrackWizard.tsx), which now runs
+  // *before* this page — these ride along into Stripe as metadata so the
+  // post-payment success page can hand the member a pre-filtered catalogue.
+  const preferences = {
+    listingType: searchParams.get("listingType") ?? undefined,
+    country: searchParams.get("country") ?? undefined,
+    maxPrice: searchParams.get("maxPrice") ?? undefined,
+  };
 
   // The annual plan only appears when an annual Stripe price is configured.
   const hasAnnual = !!prices.annual;
@@ -43,17 +52,30 @@ export function PricingTable({ configured, prices }: Props) {
       : []),
   ];
 
-  function choose(plan: "monthly" | "annual") {
+  async function choose(plan: "monthly" | "annual") {
     setError(null);
     if (!configured || !prices[plan]) {
       setError(t.pricing.notConfigured);
       return;
     }
-    // Don't hit Stripe straight away — the Track quiz collects what the
-    // member is looking for first, then starts checkout itself once they
-    // confirm, carrying those answers through as Stripe metadata.
     setLoading(plan);
-    router.push(`/track?plan=${plan}`);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan, preferences }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError(data.error ?? t.pricing.networkError);
+        setLoading(null);
+      }
+    } catch {
+      setError(t.pricing.networkError);
+      setLoading(null);
+    }
   }
 
   return (

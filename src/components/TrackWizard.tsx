@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
 const BUDGET_MAX = 20000;
@@ -38,16 +38,14 @@ const STEP_INDEX: Record<Step, number> = {
 
 export function TrackWizard() {
   const { t } = useI18n();
-  const searchParams = useSearchParams();
-  const plan = searchParams.get("plan") === "annual" ? "annual" : "monthly";
+  const router = useRouter();
 
   const [step, setStep] = useState<Step>("type");
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [budget, setBudget] = useState(0);
   const [resultCount, setResultCount] = useState<number | null>(null);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [redirecting, setRedirecting] = useState(false);
 
   const countryLabel: Record<string, string> = {
     thailand: t.listings.countryThailand,
@@ -83,33 +81,13 @@ export function TrackWizard() {
     };
   }, [step, listingType, country, maxPriceThb]);
 
-  async function goToCheckout() {
-    setCheckoutError(null);
-    setCheckoutLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          plan,
-          preferences: {
-            listingType: listingType ?? undefined,
-            country: country ?? undefined,
-            maxPrice: maxPriceThb ? String(maxPriceThb) : undefined,
-          },
-        }),
-      });
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setCheckoutError(data.error ?? t.pricing.networkError);
-        setCheckoutLoading(false);
-      }
-    } catch {
-      setCheckoutError(t.pricing.networkError);
-      setCheckoutLoading(false);
-    }
+  function goToPricing() {
+    setRedirecting(true);
+    const params = new URLSearchParams();
+    if (listingType) params.set("listingType", listingType);
+    if (country) params.set("country", country);
+    if (maxPriceThb) params.set("maxPrice", String(maxPriceThb));
+    router.push(`/pricing?${params.toString()}`);
   }
 
   function back() {
@@ -294,18 +272,12 @@ export function TrackWizard() {
             {t.track.resultsFound}
           </p>
 
-          {checkoutError && (
-            <p className="mt-4 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
-              {checkoutError}
-            </p>
-          )}
-
           <button
-            onClick={goToCheckout}
-            disabled={checkoutLoading}
+            onClick={goToPricing}
+            disabled={redirecting}
             className="btn-gold mt-8 w-full rounded-full px-4 py-3 text-sm disabled:opacity-60"
           >
-            {checkoutLoading ? t.pricing.redirecting : t.track.viewListingsCta}
+            {redirecting ? t.pricing.redirecting : t.track.viewListingsCta}
           </button>
         </div>
       )}

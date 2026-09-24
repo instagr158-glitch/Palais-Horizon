@@ -105,7 +105,7 @@ export default async function LandingPage() {
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <TrackedLink
-              href="/pricing"
+              href="/track"
               event="view_membership_click"
               location="hero_primary"
               className="btn-gold inline-block rounded-full px-6 py-3 text-sm"
@@ -311,7 +311,7 @@ export default async function LandingPage() {
           <div className="mt-10 rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
             <p className="font-display text-xl text-cream">{t.landing.unlockBanner}</p>
             <TrackedLink
-              href="/pricing"
+              href="/track"
               event="view_membership_click"
               location="unlock_banner"
               className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"
@@ -352,7 +352,7 @@ export default async function LandingPage() {
           <div className="text-center">
             <p className="font-display text-2xl text-cream">{t.tagline}</p>
             <TrackedLink
-              href="/pricing"
+              href="/track"
               event="view_membership_click"
               location="faq"
               className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"

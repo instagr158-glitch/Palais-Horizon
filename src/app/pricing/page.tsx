@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { PricingTable } from "@/components/PricingTable";
 import { stripeConfigured, PRICE_IDS } from "@/lib/stripe";
 import { getServerDict } from "@/i18n/server";
@@ -30,10 +31,12 @@ export default async function PricingPage({
       )}
 
       <div className="mx-auto max-w-md">
-        <PricingTable
-          configured={stripeConfigured}
-          prices={{ monthly: PRICE_IDS.monthly, annual: PRICE_IDS.annual }}
-        />
+        <Suspense fallback={null}>
+          <PricingTable
+            configured={stripeConfigured}
+            prices={{ monthly: PRICE_IDS.monthly, annual: PRICE_IDS.annual }}
+          />
+        </Suspense>
       </div>
 
       <div className="hr-gold my-12" />

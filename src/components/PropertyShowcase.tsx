@@ -103,7 +103,7 @@ export function PropertyShowcase({
         >
           {/* main spotlight panel */}
           <TrackedLink
-            href="/pricing"
+            href="/track"
             event="view_membership_click"
             location="showcase_main"
             className="group relative block aspect-[4/3] overflow-hidden rounded-sm border border-ink-border sm:aspect-[16/10]"
@@ -177,7 +177,7 @@ export function PropertyShowcase({
               return (
                 <TrackedLink
                   key={item.id}
-                  href="/pricing"
+                  href="/track"
                   event="view_membership_click"
                   location="showcase_locked_thumbnail"
                   aria-label={item.title}
