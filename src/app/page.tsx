@@ -1,7 +1,8 @@
-import { LandingContent } from "@/components/LandingContent";
+import PartsPage, { generateMetadata as partsMetadata } from "./parts/page";
 
 export const dynamic = "force-dynamic";
 
-export default function LandingPage() {
-  return <LandingContent market="miami" />;
-}
+// The home page is the buy-shares page.
+export const generateMetadata = partsMetadata;
+
+export default PartsPage;
