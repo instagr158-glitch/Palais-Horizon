@@ -67,22 +67,27 @@ export default async function InvestMiamiPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-      <h1 className="mb-8 max-w-xl text-left font-sans text-[1.7rem] font-extrabold leading-[1.1] sm:max-w-3xl sm:text-5xl">
-        <span className="block text-balance text-cream">{t.titleLead}</span>
-        <span className="text-gold-gradient mt-1 block text-balance">{t.titleTrail}</span>
-      </h1>
-      <a
-        href="#biens"
-        className="btn-gold mb-10 inline-block rounded-full px-6 py-3 text-sm"
-      >
-        {dict.landing.heroCtaPrimary}
-      </a>
-      <div className="mb-8 text-center">
-        <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
-          {t.badge}
-        </span>
-      </div>
+      <header className="text-center">
+        <h1 className="mx-auto max-w-xl font-sans text-[1.7rem] font-extrabold leading-[1.1] sm:max-w-3xl sm:text-5xl">
+          <span className="block text-balance text-cream">{t.titleLead}</span>
+          <span className="text-gold-gradient mt-1 block text-balance">{t.titleTrail}</span>
+        </h1>
+        <a
+          href="#biens"
+          className="btn-gold mt-8 inline-block rounded-full px-8 py-3.5 text-sm"
+        >
+          {dict.landing.heroCtaPrimary}
+        </a>
+      </header>
+
+      <div className="hr-gold my-10 sm:my-14" />
+
       <div id="biens" className="scroll-mt-20">
+        <div className="mb-6 text-center">
+          <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
+            {t.badge}
+          </span>
+        </div>
       <InvestGrid
         cards={cards}
         labels={{

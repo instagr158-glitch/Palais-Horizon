@@ -218,7 +218,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
 
   return (
     <>
-      <div className="flex gap-2">
+      <div className="flex justify-center gap-2">
         <button type="button" onClick={() => setOnlyFavorites(false)} className={chip(!onlyFavorites)}>
           {labels.all}
         </button>
@@ -231,7 +231,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
 
       {miamiCards.length > 0 && (
         <section className="mt-6">
-          <h2 className="font-sans text-xl font-extrabold text-cream sm:text-2xl">
+          <h2 className="text-center font-sans text-xl font-extrabold text-cream sm:text-2xl">
             {labels.miamiTitle}
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -243,7 +243,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
       {mainCards.length > 0 && (
         <section className={miamiCards.length > 0 ? "mt-12" : "mt-6"}>
           {miamiCards.length > 0 && (
-            <h2 className="mb-6 font-sans text-xl font-extrabold text-cream sm:text-2xl">
+            <h2 className="mb-6 text-center font-sans text-xl font-extrabold text-cream sm:text-2xl">
               {labels.otherTitle}
             </h2>
           )}
