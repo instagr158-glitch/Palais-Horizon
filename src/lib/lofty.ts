@@ -33,7 +33,21 @@ const CURATED_SLUGS = [
   "8848-N-95th-St-K_Milwaukee-WI-53224",
 ];
 
-export type LoftyKind = "vacation" | "single" | "multi" | "commercial" | "other";
+// South Florida properties (Miami first). They are shown in their own section
+// even though none pays rent yet, so each one is read without a minimum yield.
+const MIAMI_SLUGS = [
+  "927-Euclid-Ave-Apt-10_Miami-Beach-FL-33139",
+  "9264-Dickens-Ave_Surfside-FL-33154",
+  "230-Seacrest-Ln_Delray-Beach-FL-33444",
+  "1990-Parkside-Cir-S_Boca-Raton-FL-33486",
+];
+
+// Lofty tags this unit "Single Family", but its own description calls it a condo.
+const KIND_OVERRIDES: Record<string, LoftyKind> = {
+  "927-Euclid-Ave-Apt-10_Miami-Beach-FL-33139": "apartment",
+};
+
+export type LoftyKind = "vacation" | "single" | "multi" | "commercial" | "apartment" | "other";
 
 export type LoftyProperty = {
   url: string;
@@ -112,7 +126,11 @@ function investorsFor(marketHtml: string | null, slug: string, folderIds: Set<st
   return match && folderIds.has(match[1]) ? Number(match[2]) : null;
 }
 
-async function readProperty(slug: string, marketHtml: string | null): Promise<LoftyProperty | null> {
+async function readProperty(
+  slug: string,
+  marketHtml: string | null,
+  minYield: number,
+): Promise<LoftyProperty | null> {
   const url = `${LOFTY_BASE}/property_deal/${slug}`;
   const html = await fetchText(url);
   if (!html) return null;
@@ -120,7 +138,7 @@ async function readProperty(slug: string, marketHtml: string | null): Promise<Lo
 
   const price = Number(text.match(/Share price \$([\d.]+)/)?.[1]);
   const currentYield = Number(text.match(/Current yield ([\d.]+)%/)?.[1]);
-  if (!(price > 0) || !(currentYield > MIN_YIELD_PCT) || currentYield > MAX_PLAUSIBLE_YIELD_PCT) return null;
+  if (!(price > 0) || !(currentYield > minYield) || currentYield > MAX_PLAUSIBLE_YIELD_PCT) return null;
 
   const images = [
     ...new Set(
@@ -136,7 +154,7 @@ async function readProperty(slug: string, marketHtml: string | null): Promise<Lo
   return {
     url,
     ...addressOf(slug),
-    kind: kindOf(text.match(/[A-Z]{2} \d{5} ([A-Za-z ]+?) 1D/)?.[1]),
+    kind: KIND_OVERRIDES[slug] ?? kindOf(text.match(/[A-Z]{2} \d{5} ([A-Za-z ]+?) 1D/)?.[1]),
     sharePriceUsd: price,
     currentYieldPct: currentYield,
     investors: investorsFor(marketHtml, slug, folderIds),
@@ -146,6 +164,13 @@ async function readProperty(slug: string, marketHtml: string | null): Promise<Lo
 
 export async function getLoftyProperties(): Promise<LoftyProperty[]> {
   const marketHtml = await fetchText(`${LOFTY_BASE}/marketplace`);
-  const all = await Promise.all(CURATED_SLUGS.map((slug) => readProperty(slug, marketHtml)));
+  const all = await Promise.all(CURATED_SLUGS.map((slug) => readProperty(slug, marketHtml, MIN_YIELD_PCT)));
+  return all.filter((p): p is LoftyProperty => p !== null);
+}
+
+export async function getLoftyMiamiProperties(): Promise<LoftyProperty[]> {
+  const marketHtml = await fetchText(`${LOFTY_BASE}/marketplace`);
+  // A yield of 0 is expected here, so anything from 0 up passes.
+  const all = await Promise.all(MIAMI_SLUGS.map((slug) => readProperty(slug, marketHtml, -1)));
   return all.filter((p): p is LoftyProperty => p !== null);
 }

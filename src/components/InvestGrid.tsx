@@ -7,6 +7,10 @@ export type InvestCard = {
   url: string;
   street: string;
   place: string;
+  /** "main" = the yield-ranked list, "miami" = the Miami / Florida section. */
+  group: "main" | "miami";
+  /** Whether the property pays rent today (shows its yield instead of "no rent yet"). */
+  paying: boolean;
   isVacation: boolean;
   kindLabel: string;
   photos: string[];
@@ -23,6 +27,9 @@ export type InvestGridLabels = {
   perShare: string;
   yieldLabel: string;
   cashFlowing: string;
+  noRent: string;
+  miamiTitle: string;
+  miamiNote: string;
   buy: string;
   addFavorite: string;
   removeFavorite: string;
@@ -111,12 +118,106 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
   }
 
   const visible = onlyFavorites ? cards.filter((c) => favorites.has(c.url)) : cards;
+  const mainCards = visible.filter((c) => c.group === "main");
+  const miamiCards = visible.filter((c) => c.group === "miami");
   const chip = (active: boolean) =>
     `rounded-full border px-4 py-1.5 text-sm transition-colors ${
       active
         ? "border-gold bg-gold/10 text-gold"
         : "border-ink-border text-dim hover:text-cream"
     }`;
+
+  const renderCard = (c: InvestCard) => {
+    const isFavorite = favorites.has(c.url);
+    return (
+      <article
+        key={c.url}
+        className="flex flex-col overflow-hidden rounded-2xl border border-ink-border bg-ink-panel"
+      >
+        <div className="relative">
+          <PhotoSlider photos={c.photos} alt={`${c.street}, ${c.place}`} />
+          <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
+            <span
+              className={`rounded-md px-2.5 py-1 text-xs font-semibold text-white ${
+                c.isVacation ? "bg-emerald-600" : "bg-slate-600"
+              }`}
+            >
+              {c.kindLabel}
+            </span>
+            <span
+              className={`rounded-md px-2.5 py-1 text-xs font-semibold ${
+                c.paying ? "bg-gold text-black" : "bg-black/60 text-cream"
+              }`}
+            >
+              {c.paying ? labels.cashFlowing : labels.noRent}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => toggle(c.url)}
+            aria-pressed={isFavorite}
+            aria-label={isFavorite ? labels.removeFavorite : labels.addFavorite}
+            className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors ${
+              isFavorite ? "text-gold" : "text-white hover:text-gold"
+            }`}
+          >
+            <HeartIcon filled={isFavorite} />
+          </button>
+        </div>
+
+        <div className="flex flex-1 flex-col p-5">
+          <h2 className="font-sans text-base font-bold text-cream">{c.street}</h2>
+          <p className="text-sm text-dim">{c.place}</p>
+
+          <p className="mt-3 text-sm">
+            <span className="num font-semibold text-cream">{c.priceText}</span>
+            <span className="text-dim">{labels.perShare}</span>
+            {c.paying && (
+              <>
+                <span className="text-dim"> · </span>
+                <span className="num font-semibold text-gold">{c.yieldText}</span>{" "}
+                <span className="lowercase text-dim">{labels.yieldLabel}</span>
+              </>
+            )}
+          </p>
+
+          {c.investorsText && (
+            <p className="mt-2 flex items-center gap-2 text-sm text-dim">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-gold"
+                aria-hidden
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              {c.investorsText}
+            </p>
+          )}
+
+          <p className="mt-2 text-xs text-dim">{c.examplesText}</p>
+
+          <a
+            href={c.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold mt-5 inline-block self-start rounded-full px-5 py-2.5 text-sm"
+          >
+            {labels.buy}
+          </a>
+        </div>
+      </article>
+    );
+  };
 
   return (
     <>
@@ -129,94 +230,24 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
         </button>
       </div>
 
-      {visible.length === 0 ? (
-        <p className="mt-6 text-sm text-dim">{labels.noFavorites}</p>
-      ) : (
+      {visible.length === 0 && <p className="mt-6 text-sm text-dim">{labels.noFavorites}</p>}
+
+      {mainCards.length > 0 && (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((c) => {
-            const isFavorite = favorites.has(c.url);
-            return (
-              <article
-                key={c.url}
-                className="flex flex-col overflow-hidden rounded-2xl border border-ink-border bg-ink-panel"
-              >
-                <div className="relative">
-                  <PhotoSlider photos={c.photos} alt={`${c.street}, ${c.place}`} />
-                  <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
-                    <span
-                      className={`rounded-md px-2.5 py-1 text-xs font-semibold text-white ${
-                        c.isVacation ? "bg-emerald-600" : "bg-slate-600"
-                      }`}
-                    >
-                      {c.kindLabel}
-                    </span>
-                    <span className="rounded-md bg-gold px-2.5 py-1 text-xs font-semibold text-black">
-                      {labels.cashFlowing}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => toggle(c.url)}
-                    aria-pressed={isFavorite}
-                    aria-label={isFavorite ? labels.removeFavorite : labels.addFavorite}
-                    className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors ${
-                      isFavorite ? "text-gold" : "text-white hover:text-gold"
-                    }`}
-                  >
-                    <HeartIcon filled={isFavorite} />
-                  </button>
-                </div>
-
-                <div className="flex flex-1 flex-col p-5">
-                  <h2 className="font-sans text-base font-bold text-cream">{c.street}</h2>
-                  <p className="text-sm text-dim">{c.place}</p>
-
-                  <p className="mt-3 text-sm">
-                    <span className="num font-semibold text-cream">{c.priceText}</span>
-                    <span className="text-dim">{labels.perShare}</span>
-                    <span className="text-dim"> · </span>
-                    <span className="num font-semibold text-gold">{c.yieldText}</span>{" "}
-                    <span className="lowercase text-dim">{labels.yieldLabel}</span>
-                  </p>
-
-                  {c.investorsText && (
-                    <p className="mt-2 flex items-center gap-2 text-sm text-dim">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-gold"
-                        aria-hidden
-                      >
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
-                      {c.investorsText}
-                    </p>
-                  )}
-
-                  <p className="mt-2 text-xs text-dim">{c.examplesText}</p>
-
-                  <a
-                    href={c.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-gold mt-5 inline-block self-start rounded-full px-5 py-2.5 text-sm"
-                  >
-                    {labels.buy}
-                  </a>
-                </div>
-              </article>
-            );
-          })}
+          {mainCards.map(renderCard)}
         </div>
+      )}
+
+      {miamiCards.length > 0 && (
+        <section className="mt-12">
+          <h2 className="font-sans text-xl font-extrabold text-cream sm:text-2xl">
+            {labels.miamiTitle}
+          </h2>
+          <p className="mt-1 text-sm text-dim">{labels.miamiNote}</p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {miamiCards.map(renderCard)}
+          </div>
+        </section>
       )}
     </>
   );
