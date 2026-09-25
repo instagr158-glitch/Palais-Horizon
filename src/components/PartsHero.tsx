@@ -78,7 +78,7 @@ export function PartsHero({
           </span>
         </div>
 
-        <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-2.5 sm:gap-4">
+        <dl className="mt-12 grid max-w-md grid-cols-2 gap-2.5 sm:gap-4">
           {stats.map((s) => (
             <div
               key={s.label}

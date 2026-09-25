@@ -97,7 +97,6 @@ export default async function InvestMiamiPage() {
             value: minPrice.toLocaleString(nf, { style: "currency", currency: "USD", maximumFractionDigits: 0 }),
             label: t.statShareLabel,
           },
-          { value: String(cards.length), label: t.statPropsLabel },
           { value: t.statWorldValue, label: t.statWorldLabel },
         ]}
       />
