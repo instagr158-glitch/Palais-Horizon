@@ -5,6 +5,9 @@ import Image from "next/image";
 
 export type InvestCard = {
   url: string;
+  /** Button target: the partner page for members, the pricing page otherwise. */
+  href: string;
+  external: boolean;
   street: string;
   place: string;
   /** "main" = the yield-ranked list, "miami" = the Miami / Florida section. */
@@ -230,9 +233,8 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
             </p>
 
             <a
-              href={c.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={c.href}
+              {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="btn-gold pointer-events-auto mt-4 block w-full rounded-full px-5 py-3 text-center text-sm"
             >
               {labels.buy}

@@ -253,6 +253,8 @@ export const fr: Dict = {
       "Note pour le propriétaire du site : ajoutez vos clés Stripe et vos identifiants de prix dans .env pour activer le vrai paiement. En attendant, utilisez le compte de démo member@palaishorizon.com pour prévisualiser l'accès membre.",
     disclaimer:
       "Palais Horizon est un index d'annonces de tiers. L'abonnement donne accès à la collection et à une mise en relation avec chaque agence — ce n'est pas une commission d'agence et aucune transaction immobilière n'est traitée ici.",
+    lockedPartsBanner:
+      "Les biens et les investissements sont réservés aux membres. Choisissez une formule ci-dessous pour y accéder.",
     lockedBanner:
       "Le catalogue des résidences est réservé aux membres. Choisissez une formule ci-dessous pour le débloquer.",
     canceledBanner: "Paiement annulé — aucun débit n'a été effectué.",

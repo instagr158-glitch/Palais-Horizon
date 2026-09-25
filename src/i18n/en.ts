@@ -251,6 +251,8 @@ export const en = {
       "Note for the site owner: add your Stripe keys and price IDs to .env to enable real checkout. Until then, use the seeded account member@palaishorizon.com to preview member access.",
     disclaimer:
       "Palais Horizon is an index of third-party listings. Membership buys access to the collection and a direct introduction to each listing agency — it is not a brokerage fee and no property transaction is handled here.",
+    lockedPartsBanner:
+      "Properties and investments are for members only. Choose a plan below to get access.",
     lockedBanner:
       "The residences catalogue is for members. Choose a plan below to unlock it.",
     canceledBanner: "Checkout canceled — no charge was made.",

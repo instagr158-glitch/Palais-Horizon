@@ -253,6 +253,8 @@ export const de: Dict = {
       "Hinweis für den Seitenbetreiber: Tragen Sie Ihre Stripe-Schlüssel und Preis-IDs in .env ein, um die echte Kasse zu aktivieren. Bis dahin nutzen Sie das Demokonto member@palaishorizon.com für eine Vorschau des Mitgliederzugangs.",
     disclaimer:
       "Palais Horizon ist ein Verzeichnis von Drittanbieter-Inseraten. Die Mitgliedschaft verschafft Zugang zur Kollektion und eine direkte Vermittlung an jedes Maklerbüro — es ist keine Maklerprovision und hier wird kein Immobiliengeschäft abgewickelt.",
+    lockedPartsBanner:
+      "Objekte und Investments sind Mitgliedern vorbehalten. Wählen Sie unten einen Tarif, um Zugang zu erhalten.",
     lockedBanner:
       "Der Residenzen-Katalog ist Mitgliedern vorbehalten. Wählen Sie unten einen Tarif, um ihn freizuschalten.",
     canceledBanner: "Bezahlvorgang abgebrochen — es wurde nichts berechnet.",

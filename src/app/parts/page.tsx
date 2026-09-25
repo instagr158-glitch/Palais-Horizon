@@ -1,3 +1,5 @@
+import { auth } from "@/lib/auth";
+import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
 import {
   getLoftyMiamiProperties,
@@ -24,6 +26,8 @@ function fmt(template: string, vars: Record<string, string | number>) {
 
 export default async function InvestMiamiPage() {
   const dict = await getServerDict();
+  const session = await auth();
+  const isMember = hasActiveSubscription(session?.user);
   const t = dict.invest;
   const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
   const [properties, miamiProperties] = await Promise.all([
@@ -45,6 +49,8 @@ export default async function InvestMiamiPage() {
 
   const toCard = (p: LoftyProperty, group: InvestCard["group"]): InvestCard => ({
     url: p.url,
+    href: isMember ? p.url : "/pricing?locked=parts",
+    external: isMember,
     group,
     paying: p.currentYieldPct > 0,
     street: p.street,

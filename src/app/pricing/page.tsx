@@ -21,7 +21,7 @@ export default async function PricingPage({
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {sp.locked && (
         <p className="mb-6 rounded-sm border border-gold/40 bg-gold/5 px-4 py-3 text-sm text-gold">
-          {t.pricing.lockedBanner}
+          {sp.locked === "parts" ? t.pricing.lockedPartsBanner : t.pricing.lockedBanner}
         </p>
       )}
       {sp.canceled && (
