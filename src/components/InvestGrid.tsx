@@ -184,10 +184,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
             <p className="text-xs font-bold uppercase tracking-wide text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{c.place}</p>
-            <h3 className="mt-1 text-2xl font-bold leading-tight text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.85)]">
-              {c.street}
-            </h3>
-
+            
             <div className="mt-4 flex items-end justify-between gap-4">
               {c.paying ? (
                 <div>
