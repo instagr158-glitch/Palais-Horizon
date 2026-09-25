@@ -6,6 +6,8 @@ import {
   type LoftyProperty,
 } from "@/lib/lofty";
 import { InvestGrid, type InvestCard } from "@/components/InvestGrid";
+import { PartsHero } from "@/components/PartsHero";
+import { Reveal } from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
 
@@ -65,54 +67,86 @@ export default async function InvestMiamiPage() {
     ...miamiProperties.map((p) => toCard(p, "miami")),
   ];
 
+  const heroPhotos = [
+    ...cards.filter((c) => c.group === "miami").slice(1, 4),
+    ...cards.filter((c) => c.group === "main").slice(0, 2),
+  ].map((c) => c.photos[0]);
+  const minPrice = Math.min(...[...properties, ...miamiProperties].map((p) => p.sharePriceUsd));
+  const steps = [
+    { title: t.step1Title, body: t.step1Body },
+    { title: t.step2Title, body: t.step2Body },
+    { title: t.step3Title, body: t.step3Body },
+  ];
+
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-      <header className="text-center">
-        <h1 className="mx-auto max-w-xl font-sans text-[1.7rem] font-extrabold leading-[1.1] sm:max-w-3xl sm:text-5xl">
-          <span className="block text-balance text-cream">{t.titleLead}</span>
-          <span className="text-gold-gradient mt-1 block text-balance">{t.titleTrail}</span>
-        </h1>
-        <a
-          href="#biens"
-          className="btn-gold mt-8 inline-block rounded-full px-8 py-3.5 text-sm"
-        >
-          {dict.landing.heroCtaPrimary}
-        </a>
-      </header>
-
-      <div className="hr-gold my-10 sm:my-14" />
-
-      <div id="biens" className="scroll-mt-20">
-        <div className="mb-6 text-center">
-          <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
-            {t.badge}
-          </span>
-        </div>
-      <InvestGrid
-        cards={cards}
-        labels={{
-          all: t.filterAll,
-          favorites: t.filterFavorites,
-          noFavorites: t.noFavorites,
-          perShare: t.perShare,
-          yieldLabel: t.yieldLabel,
-          cashFlowing: t.cashFlowing,
-          miamiTitle: t.miamiTitle,
-          otherTitle: t.otherTitle,
-          buy: t.buy,
-          addFavorite: t.addFavorite,
-          removeFavorite: t.removeFavorite,
-        }}
+    <div>
+      <PartsHero
+        photos={heroPhotos}
+        eyebrow={t.badge}
+        lead={t.titleLead}
+        trail={t.titleTrail}
+        cta={dict.landing.heroCtaPrimary}
+        stats={[
+          { value: money(minPrice).replace(/\D00$|[.,]00\b/, ""), label: t.statShareLabel },
+          { value: String(cards.length), label: t.statPropsLabel },
+          { value: t.statWorldValue, label: t.statWorldLabel },
+        ]}
       />
-      </div>
 
-      <p className="mt-6 text-xs leading-relaxed text-dim">
-        {fmt(t.note, { date: new Date().toLocaleDateString(nf, { dateStyle: "long" }) })}
-      </p>
-      <p className="mt-2 text-xs leading-relaxed text-dim">
-        <span className="font-semibold text-gold">{t.disclaimerTitle}</span>
-        {t.disclaimer}
-      </p>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <section className="py-16 sm:py-24">
+          <Reveal>
+            <h2 className="font-display text-3xl font-semibold text-cream sm:text-5xl">
+              {dict.landing.howTitle}
+            </h2>
+          </Reveal>
+          <ol className="mt-10 grid gap-4 sm:grid-cols-3 sm:gap-6">
+            {steps.map((step, i) => (
+              <Reveal key={step.title} delayMs={i * 120}>
+                <li className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-6 sm:p-7">
+                  <span className="num pointer-events-none absolute -right-2 -top-6 font-display text-[7rem] font-semibold leading-none text-gold/10">
+                    {i + 1}
+                  </span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-sm font-semibold text-gold">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-5 font-display text-2xl font-semibold text-cream">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-dim">{step.body}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </section>
+
+        <div id="biens" className="scroll-mt-16">
+          <InvestGrid
+            cards={cards}
+            labels={{
+              all: t.filterAll,
+              favorites: t.filterFavorites,
+              noFavorites: t.noFavorites,
+              perShare: t.perShare,
+              yieldLabel: t.yieldLabel,
+              cashFlowing: t.cashFlowing,
+              miamiTitle: t.miamiTitle,
+              otherTitle: t.otherTitle,
+              buy: t.buy,
+              addFavorite: t.addFavorite,
+              removeFavorite: t.removeFavorite,
+            }}
+          />
+        </div>
+
+        <div className="mt-16 space-y-2 pb-16">
+          <p className="text-xs leading-relaxed text-dim">
+            {fmt(t.note, { date: new Date().toLocaleDateString(nf, { dateStyle: "long" }) })}
+          </p>
+          <p className="text-xs leading-relaxed text-dim">
+            <span className="font-semibold text-gold">{t.disclaimerTitle}</span>
+            {t.disclaimer}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

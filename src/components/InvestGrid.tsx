@@ -9,7 +9,7 @@ export type InvestCard = {
   place: string;
   /** "main" = the yield-ranked list, "miami" = the Miami / Florida section. */
   group: "main" | "miami";
-  /** Whether the property pays rent today (shows its yield instead of "no rent yet"). */
+  /** Whether the property pays rent today (shows its yield). */
   paying: boolean;
   isVacation: boolean;
   kindLabel: string;
@@ -65,28 +65,42 @@ function PhotoSlider({ photos, alt }: { photos: string[]; alt: string }) {
         }}
       >
         {photos.map((src, i) => (
-          <div key={src} className="relative aspect-[4/3] w-full flex-none snap-center">
+          <div key={src} className="relative aspect-[4/5] w-full flex-none snap-center overflow-hidden">
             <Image
               src={src}
               alt={i === 0 ? alt : ""}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
         ))}
       </div>
       {photos.length > 1 && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
+        <div className="pointer-events-none absolute inset-x-0 top-5 flex justify-center gap-1.5">
           {photos.map((src, i) => (
             <span
               key={src}
-              className={`h-1.5 w-1.5 rounded-full ${i === index ? "bg-white" : "bg-white/50"}`}
+              className={`h-1.5 rounded-full transition-all ${
+                i === index ? "w-4 bg-white" : "w-1.5 bg-white/50"
+              }`}
             />
           ))}
         </div>
       )}
     </>
+  );
+}
+
+function SectionTitle({ children, count }: { children: string; count: number }) {
+  return (
+    <div className="flex items-end gap-4">
+      <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">{children}</h2>
+      <span className="num mb-1.5 rounded-full border border-gold/30 px-2.5 py-0.5 text-xs text-gold">
+        {count}
+      </span>
+      <span className="mb-3 hidden h-px flex-1 bg-gradient-to-r from-gold/40 to-transparent sm:block" />
+    </div>
   );
 }
 
@@ -120,10 +134,10 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
   const mainCards = visible.filter((c) => c.group === "main");
   const miamiCards = visible.filter((c) => c.group === "miami");
   const chip = (active: boolean) =>
-    `rounded-full border px-4 py-1.5 text-sm transition-colors ${
+    `rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
       active
-        ? "border-gold bg-gold/10 text-gold"
-        : "border-ink-border text-dim hover:text-cream"
+        ? "border-gold bg-gold text-black"
+        : "border-white/15 text-cream/80 hover:border-gold/50 hover:text-cream"
     }`;
 
   const renderCard = (c: InvestCard) => {
@@ -131,86 +145,99 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
     return (
       <article
         key={c.url}
-        className="flex flex-col overflow-hidden rounded-2xl border border-ink-border bg-ink-panel"
+        className="group relative isolate overflow-hidden rounded-3xl border border-white/10 bg-ink-panel shadow-panel"
       >
         <div className="relative">
           <PhotoSlider photos={c.photos} alt={`${c.street}, ${c.place}`} />
-          <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-black/20" />
+
+          <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-1.5">
             <span
-              className={`rounded-md px-2.5 py-1 text-xs font-semibold text-white ${
-                c.isVacation ? "bg-emerald-600" : "bg-slate-600"
+              className={`rounded-full px-3 py-1 text-xs font-semibold text-white backdrop-blur-md ${
+                c.isVacation ? "bg-emerald-600/90" : "bg-black/55"
               }`}
             >
               {c.kindLabel}
             </span>
             {c.paying && (
-              <span className="rounded-md bg-gold px-2.5 py-1 text-xs font-semibold text-black">
+              <span className="rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
                 {labels.cashFlowing}
               </span>
             )}
           </div>
+
           <button
             type="button"
             onClick={() => toggle(c.url)}
             aria-pressed={isFavorite}
             aria-label={isFavorite ? labels.removeFavorite : labels.addFavorite}
-            className={`absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors ${
+            className={`absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/45 backdrop-blur-md transition-colors ${
               isFavorite ? "text-gold" : "text-white hover:text-gold"
             }`}
           >
             <HeartIcon filled={isFavorite} />
           </button>
-        </div>
 
-        <div className="flex flex-1 flex-col p-5">
-          <h2 className="font-sans text-base font-bold text-cream">{c.street}</h2>
-          <p className="text-sm text-dim">{c.place}</p>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{c.place}</p>
+            <h3 className="mt-1 font-display text-[1.65rem] font-semibold leading-tight text-cream">
+              {c.street}
+            </h3>
 
-          <p className="mt-3 text-sm">
-            <span className="num font-semibold text-cream">{c.priceText}</span>
-            <span className="text-dim">{labels.perShare}</span>
-            {c.paying && (
-              <>
-                <span className="text-dim"> · </span>
-                <span className="num font-semibold text-gold">{c.yieldText}</span>{" "}
-                <span className="lowercase text-dim">{labels.yieldLabel}</span>
-              </>
-            )}
-          </p>
+            <div className="mt-4 flex items-end justify-between gap-4">
+              {c.paying ? (
+                <div>
+                  <p className="num text-4xl leading-none text-gold-gradient">{c.yieldText}</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-wide text-cream/60">
+                    {labels.yieldLabel}
+                  </p>
+                </div>
+              ) : (
+                <span />
+              )}
+              <div className="text-right">
+                <p className="num text-xl font-semibold text-cream">{c.priceText}</p>
+                <p className="text-[11px] uppercase tracking-wide text-cream/60">
+                  {labels.perShare.replace("/", "")}
+                </p>
+              </div>
+            </div>
 
-          {c.investorsText && (
-            <p className="mt-2 flex items-center gap-2 text-sm text-dim">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gold"
-                aria-hidden
-              >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-              {c.investorsText}
+            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-cream/70">
+              {c.investorsText && (
+                <span className="inline-flex items-center gap-1.5">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-gold"
+                    aria-hidden
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  {c.investorsText}
+                </span>
+              )}
+              <span>{c.examplesText}</span>
             </p>
-          )}
 
-          <p className="mt-2 text-xs text-dim">{c.examplesText}</p>
-
-          <a
-            href={c.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold mt-5 inline-block self-start rounded-full px-5 py-2.5 text-sm"
-          >
-            {labels.buy}
-          </a>
+            <a
+              href={c.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-gold pointer-events-auto mt-4 block w-full rounded-full px-5 py-3 text-center text-sm"
+            >
+              {labels.buy}
+            </a>
+          </div>
         </div>
       </article>
     );
@@ -218,38 +245,36 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
 
   return (
     <>
-      <div className="flex justify-center gap-2">
-        <button type="button" onClick={() => setOnlyFavorites(false)} className={chip(!onlyFavorites)}>
-          {labels.all}
-        </button>
-        <button type="button" onClick={() => setOnlyFavorites(true)} className={chip(onlyFavorites)}>
-          {labels.favorites} ({favorites.size})
-        </button>
+      <div className="sticky top-16 z-30 -mx-4 border-y border-white/5 bg-ink/80 px-4 py-3 backdrop-blur-lg sm:-mx-6 sm:px-6">
+        <div className="mx-auto flex max-w-6xl gap-2">
+          <button type="button" onClick={() => setOnlyFavorites(false)} className={chip(!onlyFavorites)}>
+            {labels.all}
+          </button>
+          <button type="button" onClick={() => setOnlyFavorites(true)} className={chip(onlyFavorites)}>
+            {labels.favorites} ({favorites.size})
+          </button>
+        </div>
       </div>
 
-      {visible.length === 0 && <p className="mt-6 text-sm text-dim">{labels.noFavorites}</p>}
+      {visible.length === 0 && <p className="mt-10 text-center text-sm text-dim">{labels.noFavorites}</p>}
 
       {miamiCards.length > 0 && (
-        <section className="mt-6">
-          <h2 className="text-center font-sans text-xl font-extrabold text-cream sm:text-2xl">
-            {labels.miamiTitle}
-          </h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {miamiCards.map(renderCard)}
+        <section className="mt-12">
+          <SectionTitle count={miamiCards.length}>{labels.miamiTitle}</SectionTitle>
+          <div className="hide-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+            {miamiCards.map((c) => (
+              <div key={c.url} className="w-[84%] flex-none snap-center sm:w-[46%] lg:w-auto">
+                {renderCard(c)}
+              </div>
+            ))}
           </div>
         </section>
       )}
 
       {mainCards.length > 0 && (
-        <section className={miamiCards.length > 0 ? "mt-12" : "mt-6"}>
-          {miamiCards.length > 0 && (
-            <h2 className="mb-6 text-center font-sans text-xl font-extrabold text-cream sm:text-2xl">
-              {labels.otherTitle}
-            </h2>
-          )}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {mainCards.map(renderCard)}
-          </div>
+        <section className="mt-16">
+          {miamiCards.length > 0 && <SectionTitle count={mainCards.length}>{labels.otherTitle}</SectionTitle>}
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{mainCards.map(renderCard)}</div>
         </section>
       )}
     </>

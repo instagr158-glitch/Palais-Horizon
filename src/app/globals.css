@@ -156,3 +156,32 @@ textarea:focus {
   outline: none;
   border-color: rgba(212, 175, 55, 0.6);
 }
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 9s ease-out forwards;
+}
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-cue {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
