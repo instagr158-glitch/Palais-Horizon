@@ -68,8 +68,8 @@ export default async function InvestMiamiPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
       <h1 className="mb-8 max-w-xl text-left font-sans text-[1.7rem] font-extrabold leading-[1.1] sm:max-w-3xl sm:text-5xl">
-        <span className="block text-cream">{t.titleLead}</span>
-        <span className="mt-1 block text-gold/60">{t.titleTrail}</span>
+        <span className="block text-balance text-cream">{t.titleLead}</span>
+        <span className="mt-1 block text-balance text-gold/60">{t.titleTrail}</span>
       </h1>
       <div className="mb-8 text-center">
         <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
