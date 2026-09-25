@@ -41,7 +41,8 @@ export default async function InvestMiamiPage() {
   const dict = await getServerDict();
   const t = dict.invest;
   const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
-  const money = (n: number) => `${Math.round(n).toLocaleString(nf)}`;
+  const money = (n: number) =>
+    n.toLocaleString(nf, { style: "currency", currency: "USD", maximumFractionDigits: 0 });
   const pct = (n: number) =>
     n.toLocaleString(nf, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const signed = (n: number, digits: number) =>
