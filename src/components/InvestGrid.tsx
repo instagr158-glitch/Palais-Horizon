@@ -149,7 +149,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
       >
         <div className="relative">
           <PhotoSlider photos={c.photos} alt={`${c.street}, ${c.place}`} />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 from-20% via-black/65 via-50% to-black/15" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 from-20% via-black/75 via-55% to-black/20" />
 
           <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-1.5">
             <span
@@ -179,8 +179,8 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
           </button>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{c.place}</p>
-            <h3 className="mt-1 font-display text-[1.65rem] font-semibold leading-tight text-cream">
+            <p className="text-xs font-bold uppercase tracking-wide text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{c.place}</p>
+            <h3 className="mt-1 text-2xl font-bold leading-tight text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.85)]">
               {c.street}
             </h3>
 
@@ -188,7 +188,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
               {c.paying ? (
                 <div>
                   <p className="num text-4xl leading-none text-gold-gradient">{c.yieldText}</p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-cream/60">
+                  <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-white/85">
                     {labels.yieldLabel}
                   </p>
                 </div>
@@ -197,13 +197,13 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
               )}
               <div className="text-right">
                 <p className="num text-xl font-semibold text-cream">{c.priceText}</p>
-                <p className="text-[11px] uppercase tracking-wide text-cream/60">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-white/85">
                   {labels.perShare.replace("/", "")}
                 </p>
               </div>
             </div>
 
-            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-cream/70">
+            <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-white/90">
               {c.investorsText && (
                 <span className="inline-flex items-center gap-1.5">
                   <svg

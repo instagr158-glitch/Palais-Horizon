@@ -51,14 +51,14 @@ export function PartsHero({
       </div>
 
       <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-6xl flex-col justify-end px-5 pb-16 pt-24 sm:justify-center sm:px-8 sm:pb-24">
-        <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-widetitle text-gold">
+        <p className="flex items-center gap-3 text-xs font-bold uppercase tracking-widetitle text-gold [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
           <span className="h-px w-8 bg-gold/70" />
           {eyebrow}
         </p>
 
-        <h1 className="mt-5 max-w-3xl font-display leading-[1.02] tracking-tight">
-          <span className="block text-[2.85rem] font-semibold text-cream sm:text-7xl">{lead}</span>
-          <span className="text-gold-gradient mt-3 block text-[1.7rem] font-medium italic leading-[1.15] sm:text-4xl">
+        <h1 className="mt-5 max-w-3xl font-sans leading-[1.05] tracking-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.6)]">
+          <span className="block text-[2.6rem] font-extrabold text-white sm:text-7xl">{lead}</span>
+          <span className="text-gold-gradient mt-3 block text-[1.5rem] font-bold leading-[1.2] sm:text-4xl">
             {trail}
           </span>
         </h1>
@@ -85,7 +85,7 @@ export function PartsHero({
               className="rounded-2xl border border-white/10 bg-white/[0.06] px-3 py-3.5 backdrop-blur-md sm:px-5 sm:py-4"
             >
               <dt className="num text-lg font-semibold text-cream sm:text-3xl">{s.value}</dt>
-              <dd className="mt-0.5 text-[11px] leading-tight text-cream/70 sm:text-xs">{s.label}</dd>
+              <dd className="mt-0.5 text-[11px] font-medium leading-tight text-white/85 sm:text-xs">{s.label}</dd>
             </div>
           ))}
         </dl>
