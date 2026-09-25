@@ -5,14 +5,16 @@ import Image from "next/image";
 import { TrackedLink } from "@/components/TrackedLink";
 import type { HighlightItem } from "@/lib/listings";
 
-export function MiamiHighlightCarousel({
+export function HighlightCarousel({
   items,
   title,
   ctaLabel,
+  ctaHref,
 }: {
   items: HighlightItem[];
   title: string;
   ctaLabel: string;
+  ctaHref: string;
 }) {
   const cardRefs = useRef(new Map<string, HTMLDivElement>());
   const [visibleIds, setVisibleIds] = useState<Set<string>>(new Set());
@@ -72,7 +74,7 @@ export function MiamiHighlightCarousel({
       </div>
       <div className="mt-8 flex justify-center px-4">
         <TrackedLink
-          href="/track"
+          href={ctaHref}
           event="view_membership_click"
           location="miami_highlight_carousel"
           className="btn-gold inline-block rounded-full px-6 py-3 text-sm"

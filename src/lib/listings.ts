@@ -202,108 +202,122 @@ function countryOf(province: string): { country: string; flag: string } {
 }
 
 export type ShowcaseItem = FullListing & { country: string; flag: string };
-
-/**
- * A hand-picked set of real, currently-listed high-end Miami rentals for the
- * homepage's "Louer un bien" showcase — Brickell/Park West high-rises with
- * floor-to-ceiling windows and balconies. No price is shown for this block,
- * so titles replace the real MLS title (just the street address) with a
- * short, address-free description; each entry also pins the specific photo
- * (by index into that listing's own image list) chosen for showing the
- * window/balcony, not just images[0].
- */
-// Order matters: the homepage teaser keeps the first N visible and blurs
-// the rest (see visibleCount in page.tsx), so the last entries here are
-// deliberately the ones meant to end up blurred.
-const SHOWCASE_ITEMS: { id: string; imageIndex: number; title: string }[] = [
-  { id: "cmu9iy62d0024jl04vz03o1el", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Floor-to-Ceiling Windows" }, // 1300 S Miami Ave, Unit 1206 — Brickell
-  { id: "cmu9j01xe002mjn04fbmkoxvz", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Panoramic Bay Views" }, // 1100 Biscayne Blvd, Unit 3805 — Marquis
-  { id: "cmu9j02lh002ojn040p3mxqgv", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Ocean-View Balcony" }, // 2101 Brickell Ave, Unit 3005 — Skyline on Brickell
-  { id: "cmu9j01n4002ljn04k991n8x6", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Modern Open Kitchen" }, // 801 Brickell Key Blvd, Unit 1512
-  { id: "cmu9j02wp002pjn043rws4xq3", imageIndex: 3, title: "2-Bedroom High-Rise Apartment, Designer Interior" }, // 801 S Miami Ave, Unit 1810 — Brickell — blurred
-  { id: "cmu9izwig0026jn04sp0mvea9", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Skyline-View Suite" }, // 1400 Biscayne Blvd, Unit 602 — Omni — blurred, last
-];
-
-export async function getShowcaseListings(): Promise<ShowcaseItem[]> {
-  const ids = SHOWCASE_ITEMS.map((s) => s.id);
-  const rows = await prisma.listing.findMany({
-    where: { id: { in: ids }, status: "active" },
-  });
-  const byId = new Map(rows.map((r) => [r.id, r]));
-  return SHOWCASE_ITEMS.map(({ id, imageIndex, title }) => {
-    const row = byId.get(id);
-    if (!row) return null;
-    const images = parseJsonArray(row.images);
-    const image = images[imageIndex] ?? images[0];
-    if (!image) return null;
-    return { ...toFullListing(row), ...countryOf(row.province), images: [image], title };
-  }).filter((r): r is NonNullable<typeof r> => !!r);
-}
-
-/**
- * A hand-picked set of real, currently-listed high-end Miami condos for sale
- * for the homepage's "Acheter un bien" showcase — same Brickell/Downtown
- * high-rise style as the rental showcase above. No price is shown for this
- * block, so titles replace the real MLS title (just the street address)
- * with a short, address-free description; each entry pins the specific
- * photo (by index into that listing's own image list) chosen for showing
- * the window/balcony, not just images[0].
- */
-const SALE_SHOWCASE_ITEMS: { id: string; imageIndex: number; title: string }[] = [
-  { id: "cmu7t9ty7001tjv044zp9dk8a", imageIndex: 2, title: "2-Bedroom Condo for Sale, Floor-to-Ceiling Windows" }, // 475 Brickell Ave, Unit 5507
-  { id: "cmu7t9ur7001vjv044i4od9im", imageIndex: 2, title: "1-Bedroom Condo for Sale, Open Kitchen & Balcony" }, // 68 SE 6th St, Unit 806 — Brickell
-  { id: "cmu7t9rvc001ojv048ylkah04", imageIndex: 2, title: "1-Bedroom Condo for Sale, Skyline Balcony View" }, // 31 SE 5th St, Unit 3309 — Brickell
-  { id: "cmu7t9rft001njv04u6y2w8xz", imageIndex: 2, title: "1-Bedroom Condo for Sale, Panoramic City Views" }, // 90 SW 3rd St, Unit 2014 — blurred
-  { id: "cmu7t9tjp001sjv04gigukt2h", imageIndex: 3, title: "1-Bedroom Condo for Sale, Downtown High-Rise" }, // 151 SE 1st St, Unit 1202 — blurred, last
-];
-
-export async function getSaleShowcaseListings(): Promise<ShowcaseItem[]> {
-  const ids = SALE_SHOWCASE_ITEMS.map((s) => s.id);
-  const rows = await prisma.listing.findMany({
-    where: { id: { in: ids }, status: "active" },
-  });
-  const byId = new Map(rows.map((r) => [r.id, r]));
-  return SALE_SHOWCASE_ITEMS.map(({ id, imageIndex, title }) => {
-    const row = byId.get(id);
-    if (!row) return null;
-    const images = parseJsonArray(row.images);
-    const image = images[imageIndex] ?? images[0];
-    if (!image) return null;
-    return { ...toFullListing(row), ...countryOf(row.province), images: [image], title };
-  }).filter((r): r is NonNullable<typeof r> => !!r);
-}
-
-/**
- * A hand-picked set of real, currently-listed high-end Miami condos —
- * floor-to-ceiling windows and balconies, Brickell/Brickell Key/Park West
- * towers — shown as a plain photo carousel above the Miami showcase, with no
- * price. Each entry pins the specific photo (by index into that listing's
- * own image list) chosen for showing the window/balcony, not just images[0].
- */
-const MIAMI_HIGHLIGHT_IDS: { id: string; imageIndex: number }[] = [
-  { id: "cmu7t9uc4001ujv045evtksm1", imageIndex: 1 }, // 485 Brickell Ave, Unit 1609 — Icon Brickell
-  { id: "cmu7t9t5x001rjv048rak6e7n", imageIndex: 1 }, // 801 Brickell Key Blvd, Unit 2006
-  { id: "cmu7t9sco001pjv04vid97tck", imageIndex: 2 }, // 485 Brickell Ave, Unit 1909 — Icon Brickell
-  { id: "cmu7t9qjc001ljv041n2tqly7", imageIndex: 2 }, // 851 NE 1st Ave, Unit 3506 — Park West
-  { id: "cmu7t9wpv001zjv049087k2cu", imageIndex: 2 }, // 79 SW 12th St, Unit 2201S — Brickell
-  { id: "cmu7t9r2l001mjv04e0zg0l3r", imageIndex: 2 }, // 20 NE 11th St, Unit EXECPH03A — Park West
-];
-
 export type HighlightItem = { id: string; image: string };
+export type Market = "miami" | "bali";
 
-export async function getMiamiHighlightListings(): Promise<HighlightItem[]> {
-  const ids = MIAMI_HIGHLIGHT_IDS.map((h) => h.id);
+type HighlightEntry = { id: string; imageIndex: number };
+type ShowcaseEntry = { id: string; imageIndex: number; title: string };
+
+/**
+ * Hand-picked, real, currently-listed high-end listings per market for the
+ * landing pages (homepage = Miami, /bali = Bali): a plain photo carousel
+ * (`highlight`), a rental showcase and a sale showcase. No price is shown on
+ * any of them. Real titles are replaced by short, address-free descriptions,
+ * and each entry pins the specific photo (by index into that listing's own
+ * image list) rather than always using images[0]. Order matters: the
+ * showcases keep the first N visible and blur the rest (see visibleCount in
+ * LandingContent), so the last entries are the ones meant to end up blurred.
+ */
+const MARKET_SHOWCASES: Record<
+  Market,
+  { highlight: HighlightEntry[]; rent: ShowcaseEntry[]; sale: ShowcaseEntry[] }
+> = {
+  miami: {
+    highlight: [
+      { id: "cmu7t9uc4001ujv045evtksm1", imageIndex: 1 }, // 485 Brickell Ave, Unit 1609 — Icon Brickell
+      { id: "cmu7t9t5x001rjv048rak6e7n", imageIndex: 1 }, // 801 Brickell Key Blvd, Unit 2006
+      { id: "cmu7t9sco001pjv04vid97tck", imageIndex: 2 }, // 485 Brickell Ave, Unit 1909 — Icon Brickell
+      { id: "cmu7t9qjc001ljv041n2tqly7", imageIndex: 2 }, // 851 NE 1st Ave, Unit 3506 — Park West
+      { id: "cmu7t9wpv001zjv049087k2cu", imageIndex: 2 }, // 79 SW 12th St, Unit 2201S — Brickell
+      { id: "cmu7t9r2l001mjv04e0zg0l3r", imageIndex: 2 }, // 20 NE 11th St, Unit EXECPH03A — Park West
+    ],
+    rent: [
+      { id: "cmu9iy62d0024jl04vz03o1el", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Floor-to-Ceiling Windows" }, // 1300 S Miami Ave, Unit 1206 — Brickell
+      { id: "cmu9j01xe002mjn04fbmkoxvz", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Panoramic Bay Views" }, // 1100 Biscayne Blvd, Unit 3805 — Marquis
+      { id: "cmu9j02lh002ojn040p3mxqgv", imageIndex: 2, title: "3-Bedroom High-Rise Apartment, Ocean-View Balcony" }, // 2101 Brickell Ave, Unit 3005 — Skyline on Brickell
+      { id: "cmu9j01n4002ljn04k991n8x6", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Modern Open Kitchen" }, // 801 Brickell Key Blvd, Unit 1512
+      { id: "cmu9j02wp002pjn043rws4xq3", imageIndex: 3, title: "2-Bedroom High-Rise Apartment, Designer Interior" }, // 801 S Miami Ave, Unit 1810 — blurred
+      { id: "cmu9izwig0026jn04sp0mvea9", imageIndex: 2, title: "2-Bedroom High-Rise Apartment, Skyline-View Suite" }, // 1400 Biscayne Blvd, Unit 602 — blurred, last
+    ],
+    sale: [
+      { id: "cmu7t9ty7001tjv044zp9dk8a", imageIndex: 2, title: "2-Bedroom Condo for Sale, Floor-to-Ceiling Windows" }, // 475 Brickell Ave, Unit 5507
+      { id: "cmu7t9ur7001vjv044i4od9im", imageIndex: 2, title: "1-Bedroom Condo for Sale, Open Kitchen & Balcony" }, // 68 SE 6th St, Unit 806 — Brickell
+      { id: "cmu7t9rvc001ojv048ylkah04", imageIndex: 2, title: "1-Bedroom Condo for Sale, Skyline Balcony View" }, // 31 SE 5th St, Unit 3309 — Brickell
+      { id: "cmu7t9rft001njv04u6y2w8xz", imageIndex: 2, title: "1-Bedroom Condo for Sale, Panoramic City Views" }, // 90 SW 3rd St, Unit 2014 — blurred
+      { id: "cmu7t9tjp001sjv04gigukt2h", imageIndex: 3, title: "1-Bedroom Condo for Sale, Downtown High-Rise" }, // 151 SE 1st St, Unit 1202 — blurred, last
+    ],
+  },
+  bali: {
+    highlight: [
+      { id: "cmu7t9a93000mjv04flb6pc6g", imageIndex: 0 }, // Canggu, Echo Beach — 4bd
+      { id: "cmu7t8z9c000bjv0410icrwhu", imageIndex: 0 }, // Pererenan, Tumbak Bayuh — 5bd
+      { id: "cmu7t8su20005jv040f0grl29", imageIndex: 0 }, // Canggu, Berawa — 3bd
+      { id: "cmu7t97j4000jjv049srgknx9", imageIndex: 0 }, // Uluwatu, Bingin — 2bd
+      { id: "cmu7t91ua000djv04p7oldbsd", imageIndex: 0 }, // Uluwatu — 3bd
+      { id: "cmu7t8ybe000ajv04a3flbov2", imageIndex: 0 }, // Uluwatu — 3bd off-plan
+    ],
+    rent: [
+      { id: "cmu9jkn3f00mtjp04h4nus3ck", imageIndex: 0, title: "3-Bedroom Villa for Rent, Thatched Roof & Private Pool" }, // Canggu
+      { id: "cmu9jkoo700n7jp04qh37oean", imageIndex: 0, title: "3-Bedroom Villa for Rent, Long Private Pool" }, // Canggu
+      { id: "cmu9jkxka00pfjp042uykjnno", imageIndex: 0, title: "3-Bedroom Villa for Rent, Private Pool" }, // Jimbaran
+      { id: "cmu9jkx0t00p7jp04n9t0j3gv", imageIndex: 0, title: "3-Bedroom Villa for Monthly Rental, Tropical Garden" }, // Kerobokan
+      { id: "cmu9jdbs600k2ig042qvhz012", imageIndex: 0, title: "3-Bedroom Villa for Rent, Frangipani Garden Pool" }, // Canggu, Batu Bolong — blurred
+      { id: "cmu9jl1z400qojp04pteszi8r", imageIndex: 0, title: "Brand New 3-Bedroom Modern Villa for Rent" }, // Umalas — blurred, last
+    ],
+    sale: [
+      { id: "cmucnpwxs0001if04u4nhsmmp", imageIndex: 0, title: "Brand New 2-Bedroom Modern Villa for Sale, Leasehold" }, // Kerobokan
+      { id: "cmu7t8u2i0006jv04opg80osf", imageIndex: 0, title: "Stylish 2-Bedroom Turnkey Villa for Sale" }, // Uluwatu, Bingin
+      { id: "cmu7t98h0000kjv04e6c6kiqj", imageIndex: 0, title: "Brand New 1-Bedroom Villa for Sale, Leasehold" }, // Uluwatu, Balangan
+      { id: "cmu7t99f6000ljv04oup9ug9g", imageIndex: 0, title: "Modern 1-Bedroom Pool Villa for Sale, Leasehold" }, // Ungasan — blurred
+      { id: "cmu7t8xa60009jv04dhrqzf37", imageIndex: 0, title: "2-Bedroom Villa for Sale, Coastal Luxury" }, // Jimbaran — blurred, last
+    ],
+  },
+};
+
+export async function getMarketShowcase(market: Market): Promise<{
+  highlight: HighlightItem[];
+  rent: ShowcaseItem[];
+  sale: ShowcaseItem[];
+}> {
+  const config = MARKET_SHOWCASES[market];
+  const ids = [...config.highlight, ...config.rent, ...config.sale].map((e) => e.id);
   const rows = await prisma.listing.findMany({
     where: { id: { in: ids }, status: "active" },
   });
   const byId = new Map(rows.map((r) => [r.id, r]));
-  return MIAMI_HIGHLIGHT_IDS.map(({ id, imageIndex }) => {
+
+  const pinnedImage = (id: string, imageIndex: number) => {
     const row = byId.get(id);
     if (!row) return null;
     const images = parseJsonArray(row.images);
     const image = images[imageIndex] ?? images[0];
-    return image ? { id, image } : null;
-  }).filter((x): x is HighlightItem => !!x);
+    return image ? { row, image } : null;
+  };
+
+  const showcase = (entries: ShowcaseEntry[]): ShowcaseItem[] =>
+    entries
+      .map(({ id, imageIndex, title }) => {
+        const found = pinnedImage(id, imageIndex);
+        if (!found) return null;
+        return {
+          ...toFullListing(found.row),
+          ...countryOf(found.row.province),
+          images: [found.image],
+          title,
+        };
+      })
+      .filter((r): r is ShowcaseItem => !!r);
+
+  return {
+    highlight: config.highlight
+      .map(({ id, imageIndex }) => {
+        const found = pinnedImage(id, imageIndex);
+        return found ? { id, image: found.image } : null;
+      })
+      .filter((x): x is HighlightItem => !!x),
+    rent: showcase(config.rent),
+    sale: showcase(config.sale),
+  };
 }
 
 export async function getCatalogStats() {

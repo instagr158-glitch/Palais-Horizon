@@ -27,6 +27,7 @@ export function PropertyShowcase({
   visibleCount,
   lockBadgeLabel,
   favoriteLabel,
+  ctaHref = "/track",
 }: {
   items: ShowcaseCardData[];
   badge?: string;
@@ -47,6 +48,8 @@ export function PropertyShowcase({
   /** "Most popular"-style pill floating above a border framing the whole
    * showcase block, same treatment as a pricing page's "most chosen" plan. */
   favoriteLabel?: string;
+  /** Where the main panel and locked thumbnails send visitors. */
+  ctaHref?: string;
 }) {
   const teaser = visibleCount != null;
   const activeCount = teaser ? Math.max(1, Math.min(visibleCount!, items.length)) : items.length;
@@ -103,7 +106,7 @@ export function PropertyShowcase({
         >
           {/* main spotlight panel */}
           <TrackedLink
-            href="/track"
+            href={ctaHref}
             event="view_membership_click"
             location="showcase_main"
             className="group relative block aspect-[4/3] overflow-hidden rounded-sm border border-ink-border sm:aspect-[16/10]"
@@ -177,7 +180,7 @@ export function PropertyShowcase({
               return (
                 <TrackedLink
                   key={item.id}
-                  href="/track"
+                  href={ctaHref}
                   event="view_membership_click"
                   location="showcase_locked_thumbnail"
                   aria-label={item.title}

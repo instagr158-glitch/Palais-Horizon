@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 
 const BUDGET_MAX = 10000;
@@ -39,6 +39,14 @@ const STEP_INDEX: Record<Step, number> = {
 export function TrackWizard() {
   const { t } = useI18n();
   const router = useRouter();
+  // A landing page can preselect its own market (e.g. /bali links here with
+  // ?country=bali); it is shown first and highlighted, Miami stays the default.
+  const requested = useSearchParams().get("country");
+  const defaultDestination = DESTINATIONS.find((d) => d === requested) ?? "miami";
+  const orderedDestinations = [
+    defaultDestination,
+    ...DESTINATIONS.filter((d) => d !== defaultDestination),
+  ];
 
   const [step, setStep] = useState<Step>("type");
   const [listingType, setListingType] = useState<ListingType | null>(null);
@@ -163,7 +171,7 @@ export function TrackWizard() {
           </h1>
 
           <div className="mt-8 grid grid-cols-2 gap-3">
-            {DESTINATIONS.map((d) => (
+            {orderedDestinations.map((d) => (
               <button
                 key={d}
                 onClick={() => {
@@ -172,7 +180,7 @@ export function TrackWizard() {
                   setStep(listingType === "sale" ? "searching" : "budget");
                 }}
                 className={`rounded-xl border p-6 text-center transition-colors ${
-                  d === "miami"
+                  d === defaultDestination
                     ? "border-gold bg-gold/[0.04] shadow-gold"
                     : "border-ink-border bg-ink-panel [@media(hover:hover)]:hover:border-gold/60 [@media(hover:hover)]:hover:bg-gold/[0.04]"
                 }`}
