@@ -111,7 +111,7 @@ export async function LandingContent({ market }: { market: Market }) {
           <div className="rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
             <p className="font-display text-xl text-cream">{t.invest.bannerTitle}</p>
             <TrackedLink
-              href="/invest-miami"
+              href="/parts"
               event="invest_click"
               location="invest_banner"
               className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"
