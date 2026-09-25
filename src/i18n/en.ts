@@ -162,6 +162,8 @@ export const en = {
   },
 
   invest: {
+    titleLead: "Buy your first shares.",
+    titleTrail: "And earn your first passive income.",
     badge: "Buy shares",
     yieldLabel: "Current yield",
     sharesExample: "$100 = {a} {sa} · $500 = {b} {sb}",

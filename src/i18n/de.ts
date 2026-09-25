@@ -164,6 +164,8 @@ export const de: Dict = {
   },
 
   invest: {
+    titleLead: "Kaufen Sie Ihre ersten Anteile.",
+    titleTrail: "Und erzielen Sie Ihre ersten passiven Einnahmen.",
     badge: "Anteile kaufen",
     yieldLabel: "Aktuelle Rendite",
     sharesExample: "100 $ = {a} {sa} · 500 $ = {b} {sb}",
