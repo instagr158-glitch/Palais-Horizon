@@ -1,8 +1,10 @@
 const LOFTY_BASE = "https://www.lofty.ai";
 const REVALIDATE_SECONDS = 6 * 60 * 60;
+const USER_AGENT = "PalaisHorizon/1.0 (+https://www.palais-horizon.com)";
 // A displayed "current yield" above this is far more likely a temporary spike
 // than a lasting return, so such properties are left out.
 const MAX_PLAUSIBLE_YIELD_PCT = 12;
+const MAX_PHOTOS = 3;
 
 /**
  * Hand-picked Lofty properties (their public /property_deal/<slug> pages),
@@ -29,10 +31,13 @@ export type LoftyProperty = {
   street: string;
   city: string;
   state: string;
+  zip: string;
   kind: LoftyKind;
   sharePriceUsd: number;
   currentYieldPct: number;
-  image: string;
+  /** Number of investors already in the property, when it could be read. */
+  investors: number | null;
+  photos: string[];
 };
 
 function stripHtml(html: string): string {
@@ -58,51 +63,80 @@ function kindOf(label: string | undefined): LoftyKind {
 function addressOf(slug: string) {
   const [street, rest = ""] = slug.split("_");
   const parts = rest.split("-");
-  const state = parts[parts.length - 2] ?? "";
-  const city = parts.slice(0, -2).join(" ");
-  return { street: street.replace(/-/g, " "), city, state };
+  return {
+    street: street.replace(/-/g, " "),
+    city: parts.slice(0, -2).join(" "),
+    state: parts[parts.length - 2] ?? "",
+    zip: parts[parts.length - 1] ?? "",
+  };
 }
 
-async function readProperty(slug: string): Promise<LoftyProperty | null> {
+async function fetchText(url: string): Promise<string | null> {
   try {
-    const url = `${LOFTY_BASE}/property_deal/${slug}`;
     const res = await fetch(url, {
-      headers: { "User-Agent": "PalaisHorizon/1.0 (+https://www.palais-horizon.com)" },
+      headers: { "User-Agent": USER_AGENT },
       signal: AbortSignal.timeout(10_000),
       next: { revalidate: REVALIDATE_SECONDS },
     });
-    if (!res.ok) return null;
-    const html = await res.text();
-    const text = stripHtml(html);
-
-    const price = Number(text.match(/Share price \$([\d.]+)/)?.[1]);
-    const currentYield = Number(text.match(/Current yield ([\d.]+)%/)?.[1]);
-    if (!(price > 0) || !(currentYield > 0) || currentYield > MAX_PLAUSIBLE_YIELD_PCT) return null;
-
-    const images = [
-      ...new Set(
-        [...html.matchAll(/https:\/\/images\.lofty\.ai\/images\/[A-Z0-9]+\/[^"'\\ ]+\.webp/g)].map(
-          (m) => m[0],
-        ),
-      ),
-    ];
-    const image = images.find((u) => !u.endsWith("/thumb.webp")) ?? images[0];
-    if (!image) return null;
-
-    return {
-      url,
-      ...addressOf(slug),
-      kind: kindOf(text.match(/[A-Z]{2} \d{5} ([A-Za-z ]+?) 1D/)?.[1]),
-      sharePriceUsd: price,
-      currentYieldPct: currentYield,
-      image,
-    };
+    return res.ok ? await res.text() : null;
   } catch {
     return null;
   }
 }
 
+function escapeRegExp(text: string) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * The marketplace page embeds its property list as serialized data where each
+ * property's id is followed by its investor count. The count is only trusted
+ * when that id is one of the ids in the property's own photo URLs.
+ */
+function investorsFor(marketHtml: string | null, slug: string, folderIds: Set<string>): number | null {
+  if (!marketHtml) return null;
+  const match = marketHtml.match(
+    new RegExp(
+      `\\\\"${escapeRegExp(slug)}\\\\",[\\s\\S]{0,900}?\\\\"([0-9A-Z]{26})\\\\",(\\d{1,5}),\\\\"https://images`,
+    ),
+  );
+  return match && folderIds.has(match[1]) ? Number(match[2]) : null;
+}
+
+async function readProperty(slug: string, marketHtml: string | null): Promise<LoftyProperty | null> {
+  const url = `${LOFTY_BASE}/property_deal/${slug}`;
+  const html = await fetchText(url);
+  if (!html) return null;
+  const text = stripHtml(html);
+
+  const price = Number(text.match(/Share price \$([\d.]+)/)?.[1]);
+  const currentYield = Number(text.match(/Current yield ([\d.]+)%/)?.[1]);
+  if (!(price > 0) || !(currentYield > 0) || currentYield > MAX_PLAUSIBLE_YIELD_PCT) return null;
+
+  const images = [
+    ...new Set(
+      [...html.matchAll(/https:\/\/images\.lofty\.ai\/images\/([A-Z0-9]+)\/[^"'\\ ]+\.webp/g)].map(
+        (m) => m[0],
+      ),
+    ),
+  ];
+  const photos = images.filter((u) => !u.endsWith("/thumb.webp")).slice(0, MAX_PHOTOS);
+  if (photos.length === 0) return null;
+  const folderIds = new Set(images.map((u) => u.match(/\/images\/([A-Z0-9]+)\//)?.[1] ?? ""));
+
+  return {
+    url,
+    ...addressOf(slug),
+    kind: kindOf(text.match(/[A-Z]{2} \d{5} ([A-Za-z ]+?) 1D/)?.[1]),
+    sharePriceUsd: price,
+    currentYieldPct: currentYield,
+    investors: investorsFor(marketHtml, slug, folderIds),
+    photos,
+  };
+}
+
 export async function getLoftyProperties(): Promise<LoftyProperty[]> {
-  const all = await Promise.all(CURATED_SLUGS.map(readProperty));
+  const marketHtml = await fetchText(`${LOFTY_BASE}/marketplace`);
+  const all = await Promise.all(CURATED_SLUGS.map((slug) => readProperty(slug, marketHtml)));
   return all.filter((p): p is LoftyProperty => p !== null);
 }
