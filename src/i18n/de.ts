@@ -183,7 +183,7 @@ export const de: Dict = {
     removeFavorite: "Aus Favoriten entfernen",
     note: "Für Anleger weltweit offen. Aktuelle Renditen, gelesen am {date}, nicht garantiert. Ohne US-Steuernummer (ITIN) werden 30 % der Erträge an der Quelle einbehalten.",
     disclaimerTitle: "Wichtig: ",
-    disclaimer: "Palais Horizon ist ein Index von Drittinformationen, keine Anlageberatung. Sie können Ihr Kapital ganz oder teilweise verlieren. Quelle der Zahlen: Lofty.",
+    disclaimer: "Palais Horizon ist ein Index von Drittinformationen, keine Anlageberatung. Sie können Ihr Kapital ganz oder teilweise verlieren.",
     bannerTitle: "Neu: Anteile an Mietobjekten kaufen",
     bannerCta: "Entdecken",
   },

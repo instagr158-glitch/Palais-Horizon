@@ -181,7 +181,7 @@ export const en = {
     removeFavorite: "Remove from favorites",
     note: "Open to investors worldwide. Current yields read on {date}, not guaranteed. Without a US tax number (ITIN), 30% of income is withheld at source.",
     disclaimerTitle: "Important: ",
-    disclaimer: "Palais Horizon is an index of third-party information, not investment advice. You can lose all or part of your capital. Source of the figures: Lofty.",
+    disclaimer: "Palais Horizon is an index of third-party information, not investment advice. You can lose all or part of your capital.",
     bannerTitle: "New: buy shares of rental properties",
     bannerCta: "Discover",
   },

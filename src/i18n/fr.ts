@@ -183,7 +183,7 @@ export const fr: Dict = {
     removeFavorite: "Retirer des favoris",
     note: "Ouvert aux investisseurs du monde entier. Rendements actuels relevés le {date}, non garantis. Sans numéro fiscal américain (ITIN), 30 % des revenus sont retenus à la source.",
     disclaimerTitle: "Important : ",
-    disclaimer: "Palais Horizon est un index d'informations de tiers, pas un conseil en investissement. Vous pouvez perdre tout ou partie de votre capital. Source des chiffres : Lofty.",
+    disclaimer: "Palais Horizon est un index d'informations de tiers, pas un conseil en investissement. Vous pouvez perdre tout ou partie de votre capital.",
     bannerTitle: "Nouveau : achetez des parts de biens locatifs",
     bannerCta: "Découvrir",
   },
