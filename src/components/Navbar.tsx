@@ -32,12 +32,12 @@ export function Navbar() {
           <Logo size={34} />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-5 md:flex lg:gap-8">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`text-sm tracking-wide transition-colors ${
+              className={`whitespace-nowrap text-sm tracking-wide transition-colors ${
                 pathname.startsWith(l.href)
                   ? "text-gold"
                   : "text-dim hover:text-cream"
@@ -48,7 +48,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 whitespace-nowrap md:flex">
           <LanguageSwitcher />
           {status === "loading" ? null : session ? (
             <>
@@ -71,7 +71,7 @@ export function Navbar() {
                 href="/track"
                 event="view_membership_click"
                 location="navbar"
-                className="btn-gold rounded-full px-4 py-1.5 text-sm"
+                className="btn-gold whitespace-nowrap rounded-full px-4 py-1.5 text-sm"
               >
                 {t.nav.join}
               </TrackedLink>
