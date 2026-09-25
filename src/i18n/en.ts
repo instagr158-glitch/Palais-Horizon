@@ -177,6 +177,7 @@ export const en = {
     noRent: "No rent yet",
     miamiTitle: "Miami & Florida",
     miamiNote: "Properties in the Miami area. None pays rent yet, so no yield is shown.",
+    otherTitle: "Other US properties",
     cashFlowing: "Paying rent",
     perShare: "/share",
     investors: "{n} investors",

@@ -30,6 +30,7 @@ export type InvestGridLabels = {
   noRent: string;
   miamiTitle: string;
   miamiNote: string;
+  otherTitle: string;
   buy: string;
   addFavorite: string;
   removeFavorite: string;
@@ -232,20 +233,27 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
 
       {visible.length === 0 && <p className="mt-6 text-sm text-dim">{labels.noFavorites}</p>}
 
-      {mainCards.length > 0 && (
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {mainCards.map(renderCard)}
-        </div>
-      )}
-
       {miamiCards.length > 0 && (
-        <section className="mt-12">
+        <section className="mt-6">
           <h2 className="font-sans text-xl font-extrabold text-cream sm:text-2xl">
             {labels.miamiTitle}
           </h2>
           <p className="mt-1 text-sm text-dim">{labels.miamiNote}</p>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {miamiCards.map(renderCard)}
+          </div>
+        </section>
+      )}
+
+      {mainCards.length > 0 && (
+        <section className={miamiCards.length > 0 ? "mt-12" : "mt-6"}>
+          {miamiCards.length > 0 && (
+            <h2 className="mb-6 font-sans text-xl font-extrabold text-cream sm:text-2xl">
+              {labels.otherTitle}
+            </h2>
+          )}
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {mainCards.map(renderCard)}
           </div>
         </section>
       )}
