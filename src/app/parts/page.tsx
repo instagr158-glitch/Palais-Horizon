@@ -139,6 +139,7 @@ export default async function InvestMiamiPage() {
               miamiTitle: t.miamiTitle,
               otherTitle: t.otherTitle,
               buy: t.buy,
+              seeMore: t.seeMore,
               addFavorite: t.addFavorite,
               removeFavorite: t.removeFavorite,
             }}

@@ -180,6 +180,7 @@ export const en = {
     shareOne: "share",
     shareMany: "shares",
     buy: "Buy shares",
+    seeMore: "See more",
     airbnbBadge: "Airbnb",
     kindSingle: "House",
     kindMulti: "Multi-unit",

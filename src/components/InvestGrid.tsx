@@ -33,6 +33,7 @@ export type InvestGridLabels = {
   miamiTitle: string;
   otherTitle: string;
   buy: string;
+  seeMore: string;
   addFavorite: string;
   removeFavorite: string;
 };
@@ -97,8 +98,8 @@ function PhotoSlider({ photos, alt }: { photos: string[]; alt: string }) {
 
 function SectionTitle({ children, count }: { children: string; count: number }) {
   return (
-    <div className="flex items-end gap-4">
-      <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">{children}</h2>
+    <div className="flex items-end gap-3 sm:gap-4">
+      <h2 className="whitespace-nowrap font-display text-2xl font-semibold text-cream sm:text-4xl">{children}</h2>
       <span className="num mb-1.5 rounded-full border border-gold/30 px-2.5 py-0.5 text-xs text-gold">
         {count}
       </span>
@@ -269,6 +270,17 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
                 {renderCard(c)}
               </div>
             ))}
+            <div className="w-[84%] flex-none snap-center sm:w-[46%] lg:w-auto">
+              <a
+                href="/pricing?locked=parts"
+                className="group flex h-full min-h-[22rem] flex-col items-center justify-center gap-5 rounded-3xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6 text-center shadow-panel transition-colors hover:border-gold/60"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/50 text-2xl text-gold transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+                <span className="btn-gold rounded-full px-8 py-3 text-sm">{labels.seeMore}</span>
+              </a>
+            </div>
           </div>
         </section>
       )}

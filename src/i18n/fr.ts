@@ -182,6 +182,7 @@ export const fr: Dict = {
     shareOne: "part",
     shareMany: "parts",
     buy: "Acheter des parts",
+    seeMore: "Voir plus",
     airbnbBadge: "Airbnb",
     kindSingle: "Maison",
     kindMulti: "Multi-logements",
