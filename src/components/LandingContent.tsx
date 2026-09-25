@@ -106,6 +106,23 @@ export async function LandingContent({ market }: { market: Market }) {
         ctaHref={trackHref}
       />
 
+      {market === "miami" && (
+        <section className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+          <div className="rounded-sm border border-gold/30 bg-gold/[0.04] p-6 text-center">
+            <p className="font-display text-xl text-cream">{t.invest.bannerTitle}</p>
+            <p className="mt-2 text-sm text-dim">{t.invest.bannerBody}</p>
+            <TrackedLink
+              href="/invest-miami"
+              event="invest_click"
+              location="invest_banner"
+              className="btn-gold mt-4 inline-block rounded-full px-6 py-2.5 text-sm"
+            >
+              {t.invest.bannerCta}
+            </TrackedLink>
+          </div>
+        </section>
+      )}
+
       {saleShowcaseItems.length > 0 && (
         <PropertyShowcase
           items={saleShowcaseItems}

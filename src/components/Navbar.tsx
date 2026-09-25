@@ -20,6 +20,7 @@ export function Navbar() {
   const links = [
     { href: "/listings", label: t.nav.listings },
     { href: "/track", label: t.nav.track },
+    { href: "/invest-miami", label: t.nav.invest },
     { href: "/pricing", label: t.nav.pricing },
     { href: "/about", label: t.nav.about },
   ];
