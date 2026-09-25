@@ -178,7 +178,6 @@ export const fr: Dict = {
     kindApartment: "Appartement",
     noRent: "Pas encore de loyers",
     miamiTitle: "Miami et Floride",
-    miamiNote: "Biens de la région de Miami. Aucun ne verse encore de loyers, donc aucun rendement n'est affiché.",
     otherTitle: "Autres biens aux États-Unis",
     cashFlowing: "Loyers versés",
     perShare: "/part",

@@ -29,7 +29,6 @@ export type InvestGridLabels = {
   cashFlowing: string;
   noRent: string;
   miamiTitle: string;
-  miamiNote: string;
   otherTitle: string;
   buy: string;
   addFavorite: string;
@@ -238,7 +237,6 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
           <h2 className="font-sans text-xl font-extrabold text-cream sm:text-2xl">
             {labels.miamiTitle}
           </h2>
-          <p className="mt-1 text-sm text-dim">{labels.miamiNote}</p>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {miamiCards.map(renderCard)}
           </div>

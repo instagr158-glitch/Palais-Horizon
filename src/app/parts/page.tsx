@@ -83,7 +83,6 @@ export default async function InvestMiamiPage() {
           cashFlowing: t.cashFlowing,
           noRent: t.noRent,
           miamiTitle: t.miamiTitle,
-          miamiNote: t.miamiNote,
           otherTitle: t.otherTitle,
           buy: t.buy,
           addFavorite: t.addFavorite,

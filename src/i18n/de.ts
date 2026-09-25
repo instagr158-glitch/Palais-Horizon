@@ -178,7 +178,6 @@ export const de: Dict = {
     kindApartment: "Wohnung",
     noRent: "Noch keine Miete",
     miamiTitle: "Miami und Florida",
-    miamiNote: "Objekte im Raum Miami. Keines zahlt bisher Miete, daher wird keine Rendite angezeigt.",
     otherTitle: "Weitere US-Objekte",
     cashFlowing: "Zahlt Miete",
     perShare: "/Anteil",
