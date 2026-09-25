@@ -11,11 +11,14 @@ const MAX_PHOTOS = 3;
  * chosen because they showed a positive, plausible current yield, are tagged
  * "Cash Flowing" and carry no seller-buyback structure. Every entry is
  * re-read live (cached for a few hours): one that disappears, or stops paying
- * rent, drops out of the list on its own. Airbnb-style vacation rentals first.
+ * rent, drops out of the list on its own. Most upscale properties first.
  */
 const CURATED_SLUGS = [
+  "6601-E-Hearn-Rd_Scottsdale-AZ-85254",
+  "605-Squires-Row_San-Antonio-TX-78213",
   "222-57th-St_Pittsburgh-PA-15201",
   "2208-Murray-Ave_Atlantic-City-NJ-08401",
+  "999-Canyon-Rd_Ogden-UT-84404",
   "1415-Race-St_Cincinnati-OH-45202",
   "217-W-Stone-St_Gibsonburg-OH-43431",
   "8848-N-95th-St-K_Milwaukee-WI-53224",
