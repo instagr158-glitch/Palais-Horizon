@@ -164,7 +164,7 @@ export const en = {
   invest: {
     titleLead: "Buy your first shares",
     titleTrail: "And earn your first passive income.",
-    statShareLabel: "per share, from",
+    statShareLabel: "minimum price per share",
     statPropsLabel: "properties to explore",
     statWorldValue: "Worldwide",
     statWorldLabel: "open to investors",

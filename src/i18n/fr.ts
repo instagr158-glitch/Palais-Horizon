@@ -166,7 +166,7 @@ export const fr: Dict = {
   invest: {
     titleLead: "Achetez vos premières parts",
     titleTrail: "Et obtenez vos premiers revenus passifs.",
-    statShareLabel: "la part, dès",
+    statShareLabel: "prix minimum d'une part",
     statPropsLabel: "biens à découvrir",
     statWorldValue: "Monde entier",
     statWorldLabel: "ouvert aux investisseurs",
