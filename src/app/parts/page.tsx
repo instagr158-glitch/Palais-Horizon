@@ -81,7 +81,6 @@ export default async function InvestMiamiPage() {
           perShare: t.perShare,
           yieldLabel: t.yieldLabel,
           cashFlowing: t.cashFlowing,
-          noRent: t.noRent,
           miamiTitle: t.miamiTitle,
           otherTitle: t.otherTitle,
           buy: t.buy,

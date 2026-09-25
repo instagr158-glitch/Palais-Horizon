@@ -176,7 +176,6 @@ export const de: Dict = {
     kindCommercial: "Gewerbe",
     kindOther: "Mietobjekt",
     kindApartment: "Wohnung",
-    noRent: "Noch keine Miete",
     miamiTitle: "Miami und Florida",
     otherTitle: "Weitere US-Objekte",
     cashFlowing: "Zahlt Miete",

@@ -174,7 +174,6 @@ export const en = {
     kindCommercial: "Commercial",
     kindOther: "Rental",
     kindApartment: "Apartment",
-    noRent: "No rent yet",
     miamiTitle: "Miami & Florida",
     otherTitle: "Other US properties",
     cashFlowing: "Paying rent",

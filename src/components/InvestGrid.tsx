@@ -27,7 +27,6 @@ export type InvestGridLabels = {
   perShare: string;
   yieldLabel: string;
   cashFlowing: string;
-  noRent: string;
   miamiTitle: string;
   otherTitle: string;
   buy: string;
@@ -144,13 +143,11 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
             >
               {c.kindLabel}
             </span>
-            <span
-              className={`rounded-md px-2.5 py-1 text-xs font-semibold ${
-                c.paying ? "bg-gold text-black" : "bg-black/60 text-cream"
-              }`}
-            >
-              {c.paying ? labels.cashFlowing : labels.noRent}
-            </span>
+            {c.paying && (
+              <span className="rounded-md bg-gold px-2.5 py-1 text-xs font-semibold text-black">
+                {labels.cashFlowing}
+              </span>
+            )}
           </div>
           <button
             type="button"
