@@ -69,13 +69,20 @@ export default async function InvestMiamiPage() {
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
       <h1 className="mb-8 max-w-xl text-left font-sans text-[1.7rem] font-extrabold leading-[1.1] sm:max-w-3xl sm:text-5xl">
         <span className="block text-balance text-cream">{t.titleLead}</span>
-        <span className="mt-1 block text-balance text-gold/60">{t.titleTrail}</span>
+        <span className="text-gold-gradient mt-1 block text-balance">{t.titleTrail}</span>
       </h1>
+      <a
+        href="#biens"
+        className="btn-gold mb-10 inline-block rounded-full px-6 py-3 text-sm"
+      >
+        {dict.landing.heroCtaPrimary}
+      </a>
       <div className="mb-8 text-center">
         <span className="inline-block rounded-full border border-gold/30 bg-gold/[0.06] px-4 py-1.5 text-xs uppercase tracking-widetitle text-gold">
           {t.badge}
         </span>
       </div>
+      <div id="biens" className="scroll-mt-20">
       <InvestGrid
         cards={cards}
         labels={{
@@ -92,6 +99,7 @@ export default async function InvestMiamiPage() {
           removeFavorite: t.removeFavorite,
         }}
       />
+      </div>
 
       <p className="mt-6 text-xs leading-relaxed text-dim">
         {fmt(t.note, { date: new Date().toLocaleDateString(nf, { dateStyle: "long" }) })}
