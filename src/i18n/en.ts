@@ -164,7 +164,9 @@ export const en = {
   invest: {
     badge: "Buy shares",
     yieldLabel: "Current yield",
-    sharesExample: "$100 = {a} shares · $500 = {b} shares",
+    sharesExample: "$100 = {a} {sa} · $500 = {b} {sb}",
+    shareOne: "share",
+    shareMany: "shares",
     buy: "Buy shares",
     airbnbBadge: "Airbnb",
     kindSingle: "House",

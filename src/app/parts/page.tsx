@@ -56,6 +56,8 @@ export default async function InvestMiamiPage() {
     examplesText: fmt(t.sharesExample, {
       a: Math.floor(100 / p.sharePriceUsd),
       b: Math.floor(500 / p.sharePriceUsd),
+      sa: Math.floor(100 / p.sharePriceUsd) === 1 ? t.shareOne : t.shareMany,
+      sb: Math.floor(500 / p.sharePriceUsd) === 1 ? t.shareOne : t.shareMany,
     }),
   });
   const cards: InvestCard[] = [

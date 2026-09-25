@@ -166,7 +166,9 @@ export const fr: Dict = {
   invest: {
     badge: "Acheter des parts",
     yieldLabel: "Rendement actuel",
-    sharesExample: "100 $ = {a} parts · 500 $ = {b} parts",
+    sharesExample: "100 $ = {a} {sa} · 500 $ = {b} {sb}",
+    shareOne: "part",
+    shareMany: "parts",
     buy: "Acheter des parts",
     airbnbBadge: "Airbnb",
     kindSingle: "Maison",
