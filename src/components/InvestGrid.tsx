@@ -149,7 +149,7 @@ export function InvestGrid({ cards, labels }: { cards: InvestCard[]; labels: Inv
       >
         <div className="relative">
           <PhotoSlider photos={c.photos} alt={`${c.street}, ${c.place}`} />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/25 to-black/20" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 from-20% via-black/65 via-50% to-black/15" />
 
           <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-1.5">
             <span

@@ -68,7 +68,7 @@ export default async function InvestMiamiPage() {
   ];
 
   const heroPhotos = [
-    ...cards.filter((c) => c.group === "miami").slice(1, 4),
+    ...cards.filter((c) => c.group === "miami").slice(2, 5),
     ...cards.filter((c) => c.group === "main").slice(0, 2),
   ].map((c) => c.photos[0]);
   const minPrice = Math.min(...[...properties, ...miamiProperties].map((p) => p.sharePriceUsd));
@@ -87,7 +87,10 @@ export default async function InvestMiamiPage() {
         trail={t.titleTrail}
         cta={dict.landing.heroCtaPrimary}
         stats={[
-          { value: money(minPrice).replace(/\D00$|[.,]00\b/, ""), label: t.statShareLabel },
+          {
+            value: minPrice.toLocaleString(nf, { style: "currency", currency: "USD", maximumFractionDigits: 0 }),
+            label: t.statShareLabel,
+          },
           { value: String(cards.length), label: t.statPropsLabel },
           { value: t.statWorldValue, label: t.statWorldLabel },
         ]}

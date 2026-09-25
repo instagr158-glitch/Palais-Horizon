@@ -84,7 +84,7 @@ export function PartsHero({
               key={s.label}
               className="rounded-2xl border border-white/10 bg-white/[0.06] px-3 py-3.5 backdrop-blur-md sm:px-5 sm:py-4"
             >
-              <dt className="num text-xl font-semibold text-cream sm:text-3xl">{s.value}</dt>
+              <dt className="num text-lg font-semibold text-cream sm:text-3xl">{s.value}</dt>
               <dd className="mt-0.5 text-[11px] leading-tight text-cream/70 sm:text-xs">{s.label}</dd>
             </div>
           ))}
