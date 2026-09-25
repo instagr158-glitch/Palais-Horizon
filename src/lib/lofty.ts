@@ -37,7 +37,6 @@ const CURATED_SLUGS = [
 // even though none pays rent yet, so each one is read without a minimum yield.
 const MIAMI_SLUGS = [
   "927-Euclid-Ave-Apt-10_Miami-Beach-FL-33139",
-  "20-Sederholm-Path_Palm-Coast-FL-32164",
   "9264-Dickens-Ave_Surfside-FL-33154",
   "230-Seacrest-Ln_Delray-Beach-FL-33444",
   "1990-Parkside-Cir-S_Boca-Raton-FL-33486",
