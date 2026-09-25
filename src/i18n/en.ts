@@ -162,7 +162,7 @@ export const en = {
   },
 
   invest: {
-    titleLead: "Buy your first shares.",
+    titleLead: "Buy your first shares",
     titleTrail: "And earn your first passive income.",
     badge: "Buy shares",
     yieldLabel: "Current yield",
