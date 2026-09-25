@@ -1,17 +1,15 @@
 const LOFTY_BASE = "https://www.lofty.ai";
 const REVALIDATE_SECONDS = 6 * 60 * 60;
 const USER_AGENT = "PalaisHorizon/1.0 (+https://www.palais-horizon.com)";
-// A displayed "current yield" above this is far more likely a temporary spike
-// than a lasting return, so such properties are left out.
-const MAX_PLAUSIBLE_YIELD_PCT = 12;
+// Guards against a mis-read page, not against high yields: those are shown.
+const MAX_PLAUSIBLE_YIELD_PCT = 50;
 // Only properties yielding more than this are shown.
 const MIN_YIELD_PCT = 7;
 const MAX_PHOTOS = 3;
 
 /**
- * Hand-picked Lofty properties (their public /property_deal/<slug> pages),
- * chosen because they showed a current yield above 7% (and below 12%), are tagged
- * "Cash Flowing" and carry no seller-buyback structure. Every entry is
+ * Hand-picked Lofty properties (their public /property_deal/<slug> pages) that
+ * show a current yield above 7% and are tagged "Cash Flowing". Every entry is
  * re-read live (cached for a few hours): one that disappears, or stops paying
  * rent, drops out of the list on its own. Most attractive properties first.
  */
@@ -19,12 +17,17 @@ const CURATED_SLUGS = [
   "605-Squires-Row_San-Antonio-TX-78213",
   "2208-Murray-Ave_Atlantic-City-NJ-08401",
   "222-57th-St_Pittsburgh-PA-15201",
+  "2221-E-Chase-St_Baltimore-MD-21213",
+  "581-San-Francisco-St_Las-Cruces-NM-88001",
   "999-Canyon-Rd_Ogden-UT-84404",
   "1415-Race-St_Cincinnati-OH-45202",
   "10828-Pluton-St_Norwalk-CA-90650",
+  "4506-S-Fallwood-Ct_Columbia-MO-65203",
   "1411-Clarke-Ave-SW_Roanoke-VA-24016",
   "9901-E-Evans-Ave-Unit-4C_Aurora-CO-80247",
   "1677-Walker-Ave_Memphis-TN-38114",
+  "723-12th-St_Moline-IL-61265",
+  "39-Fleetwood-Dr_Palm-Coast-FL-32137",
   "14720-Ohio-Ave_Cleveland-OH-44128",
   "217-W-Stone-St_Gibsonburg-OH-43431",
   "8848-N-95th-St-K_Milwaukee-WI-53224",
