@@ -5,10 +5,6 @@ const nextConfig: NextConfig = {
     // Listing photos are hot-linked from source sites. Allow any https host.
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
-  async rewrites() {
-    // The home page is the buy-shares page (the URL stays "/").
-    return { beforeFiles: [{ source: "/", destination: "/parts" }] };
-  },
   async redirects() {
     // The buy-shares page used to live at /invest-miami.
     return [{ source: "/invest-miami", destination: "/parts", permanent: true }];
