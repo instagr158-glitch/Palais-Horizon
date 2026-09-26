@@ -18,9 +18,7 @@ export function Navbar() {
   const { t } = useI18n();
 
   const links = [
-    { href: "/listings", label: t.nav.listings },
-    { href: "/track", label: t.nav.track },
-    { href: "/parts", label: t.nav.invest },
+    { href: "/", label: t.paris.navLabel },
     { href: "/pricing", label: t.nav.pricing },
     { href: "/about", label: t.nav.about },
   ];
@@ -38,7 +36,7 @@ export function Navbar() {
               key={l.href}
               href={l.href}
               className={`whitespace-nowrap text-sm tracking-wide transition-colors ${
-                pathname.startsWith(l.href)
+                (l.href === "/" ? pathname === "/" : pathname.startsWith(l.href))
                   ? "text-gold"
                   : "text-dim hover:text-cream"
               }`}

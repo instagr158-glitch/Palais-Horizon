@@ -40,7 +40,7 @@ export type InvestGridLabels = {
 
 const STORAGE_KEY = "ph-invest-favorites";
 
-function HeartIcon({ filled }: { filled: boolean }) {
+export function HeartIcon({ filled }: { filled: boolean }) {
   return (
     <svg
       width="20"
@@ -57,7 +57,7 @@ function HeartIcon({ filled }: { filled: boolean }) {
   );
 }
 
-function PhotoSlider({ photos, alt }: { photos: string[]; alt: string }) {
+export function PhotoSlider({ photos, alt }: { photos: string[]; alt: string }) {
   const [index, setIndex] = useState(0);
   return (
     <>
