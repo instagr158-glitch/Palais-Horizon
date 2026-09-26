@@ -168,7 +168,7 @@ export const en = {
     titleTrail: "at the best price.",
     cta: "See the apartments",
     statFromLabel: "per month, from",
-    statRangeValue: "€800 – €5,000",
+    statRangeValue: "€800–€5,000",
     statRangeLabel: "monthly rents",
     step1Title: "Browse",
     step1Body: "Apartments to rent all over Paris, from studios to large flats.",

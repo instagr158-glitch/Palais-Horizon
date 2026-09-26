@@ -170,7 +170,7 @@ export const fr: Dict = {
     titleTrail: "au meilleur prix.",
     cta: "Voir les appartements",
     statFromLabel: "par mois, à partir de",
-    statRangeValue: "800 – 5 000 €",
+    statRangeValue: "800–5 000 €",
     statRangeLabel: "loyers mensuels",
     step1Title: "Parcourez",
     step1Body: "Des appartements à louer dans tout Paris, du studio au grand appartement.",
