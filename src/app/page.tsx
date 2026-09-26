@@ -52,7 +52,7 @@ export default async function HomePage() {
   }));
 
   const heroPhotos = [
-    ...listings.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(0, 2),
+    ...listings.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(1, 3),
     ...listings.filter((l) => l.rentEur <= STANDARD_MAX_EUR && (l.areaSqm ?? 0) >= 40).slice(0, 3),
   ].map((l) => l.photos[0]);
   const minRent = listings.length ? Math.min(...listings.map((l) => l.rentEur)) : 800;
