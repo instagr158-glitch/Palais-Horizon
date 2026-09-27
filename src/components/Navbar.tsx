@@ -19,6 +19,7 @@ export function Navbar() {
 
   const links = [
     { href: "/", label: t.paris.navLabel },
+    { href: "/bali", label: t.bali.navLabel },
     { href: "/annonces", label: t.nav.allListings },
     { href: "/pricing", label: t.nav.pricing },
     { href: "/about", label: t.nav.about },
