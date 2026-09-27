@@ -318,7 +318,7 @@ export const en = {
     emailInvalid: "Please enter a valid email address.",
     features: [
       "Every Paris apartment to rent in one place",
-      "Rents from €800 to €5,000 a month, from studios to large flats",
+      "Rents from €500 to €5,000 a month, from studios to large flats",
       "Rent, size and price per m² to spot the best price",
       "Full photos of every apartment",
       "Direct access to the listing at the agency",

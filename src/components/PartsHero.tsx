@@ -39,11 +39,15 @@ export function PartsHero({
             src={src}
             alt=""
             fill
-            priority={i === 0}
             sizes="100vw"
             className={`object-cover transition-opacity duration-[1600ms] ${
               i === index ? "animate-kenburns opacity-100" : "opacity-0"
             }`}
+            // Only the first slide needs the high-priority preload (it's the
+            // one visible at first paint); the rest are still fetched eagerly
+            // rather than lazily, so each has finished downloading well
+            // before its turn in the crossfade instead of popping in blank.
+            {...(i === 0 ? { priority: true } : { loading: "eager" as const })}
           />
         ))}
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-ink" />

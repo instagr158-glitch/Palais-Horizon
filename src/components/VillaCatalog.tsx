@@ -184,7 +184,7 @@ export function VillaCatalog({
                   <p className="text-xs font-bold uppercase tracking-wide text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
                     {c.place}
                   </p>
-                  <p className="mt-1 text-xl font-bold leading-tight text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.85)]">
+                  <p className="mt-1 line-clamp-2 text-xl font-bold leading-tight text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.85)]">
                     {c.title}
                   </p>
 

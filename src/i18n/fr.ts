@@ -320,7 +320,7 @@ export const fr: Dict = {
     emailInvalid: "Veuillez entrer une adresse email valide.",
     features: [
       "Tous les appartements à louer à Paris au même endroit",
-      "Loyers de 800 à 5 000 € par mois, du studio au grand appartement",
+      "Loyers de 500 à 5 000 € par mois, du studio au grand appartement",
       "Loyer, surface et prix au m² pour repérer le meilleur prix",
       "Photos complètes de chaque appartement",
       "Accès direct à l'annonce chez l'agence",

@@ -320,7 +320,7 @@ export const de: Dict = {
     emailInvalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     features: [
       "Alle Pariser Mietwohnungen an einem Ort",
-      "Mieten von 800 bis 5.000 € pro Monat, vom Studio bis zur großen Wohnung",
+      "Mieten von 500 bis 5.000 € pro Monat, vom Studio bis zur großen Wohnung",
       "Miete, Fläche und Preis pro m² für den besten Preis",
       "Vollständige Fotos jeder Wohnung",
       "Direkter Zugang zur Anzeige beim Makler",
