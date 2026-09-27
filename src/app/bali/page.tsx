@@ -81,7 +81,7 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
 
   const cards: VillaCard[] = villas.map((l) => ({
     id: l.id,
-    href: isMember ? l.agencyUrl : "/pricing?locked=parts",
+    href: isMember ? l.agencyUrl : "/pricing-bali?locked=bali",
     external: isMember,
     place: [l.district, l.city].filter(Boolean).join(", ") || l.province,
     title: l.title,
@@ -104,7 +104,7 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
   return (
     <VillaCatalog
       cards={selectedCards}
-      seeMoreHref="/listings?country=bali"
+      seeMoreHref={isMember ? "/listings?country=bali" : "/pricing-bali?locked=bali"}
       seeMoreLabel={t.seeMore}
       labels={{
         all: t.filterAll,

@@ -7,9 +7,11 @@ import { useI18n } from "@/components/I18nProvider";
 type Props = {
   configured: boolean;
   prices: { monthly?: string; annual?: string };
+  /** Overrides the default (Paris-oriented) feature list, e.g. for the Bali page. */
+  features?: string[];
 };
 
-export function PricingTable({ configured, prices }: Props) {
+export function PricingTable({ configured, prices, features }: Props) {
   const { t } = useI18n();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState<string | null>(null);
@@ -125,7 +127,7 @@ export function PricingTable({ configured, prices }: Props) {
             </button>
 
             <ul className="mt-5 grid gap-2 border-t border-ink-border pt-5">
-              {t.pricing.features.map((f) => (
+              {(features ?? t.pricing.features).map((f) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-silver">
                   <span className="mt-0.5 text-emerald-500">✓</span>
                   {f}

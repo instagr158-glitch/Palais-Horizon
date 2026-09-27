@@ -163,6 +163,8 @@ export const en = {
   },
 
   bali: {
+    pricingFeatures: ["Bali villas for sale, from a leasehold studio to a signature estate","Direct access to the agency's listing, one click away","Price, bedrooms, living area and land size for every villa","Leasehold or freehold status noted on every listing","Full photos of every villa","Unlimited searches and filters, favourites","Direct introduction to the agency","New villas as soon as they land","Also unlocks the rest of the catalogue: Paris, Thailand, Dubai, Miami"],
+    lockedBanner: "Villas are for members only. Choose a plan below to get access.",
     navLabel: "Bali",
     badge: "Bali properties",
     titleLead: "Find your Bali villa",

@@ -165,6 +165,8 @@ export const fr: Dict = {
   },
 
   bali: {
+    pricingFeatures: ["Achat de villas à Bali listées, du studio en leasehold à la villa signature","Accès direct à l'annonce chez l'agence, en un clic","Prix, chambres, surface habitable et terrain pour chaque villa","Statut leasehold ou freehold précisé sur chaque annonce","Photos complètes de chaque villa","Recherches et filtres illimités, favoris","Mise en relation directe avec l'agence","Nouvelles villas dès leur arrivée","Accès aussi au reste du catalogue : Paris, Thaïlande, Dubaï, Miami"],
+    lockedBanner: "Les villas sont réservées aux membres. Choisissez une formule ci-dessous pour y accéder.",
     navLabel: "Bali",
     badge: "Achat à Bali",
     titleLead: "Trouvez votre villa à Bali",

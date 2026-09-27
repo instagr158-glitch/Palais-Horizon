@@ -165,6 +165,8 @@ export const de: Dict = {
   },
 
   bali: {
+    pricingFeatures: ["Villen auf Bali zum Kauf, vom Leasehold-Studio bis zur Signature-Villa","Direkter Zugang zur Anzeige beim Makler, nur einen Klick entfernt","Preis, Schlafzimmer, Wohnfläche und Grundstücksgröße für jede Villa","Leasehold- oder Freehold-Status bei jeder Anzeige vermerkt","Vollständige Fotos jeder Villa","Unbegrenzte Suchen und Filter, Favoriten","Direkte Vermittlung an den Makler","Neue Villen, sobald sie erscheinen","Schaltet auch den restlichen Katalog frei: Paris, Thailand, Dubai, Miami"],
+    lockedBanner: "Villen sind Mitgliedern vorbehalten. Wählen Sie unten einen Tarif, um Zugang zu erhalten.",
     navLabel: "Bali",
     badge: "Kauf auf Bali",
     titleLead: "Finden Sie Ihre Villa auf Bali",
