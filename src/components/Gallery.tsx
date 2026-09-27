@@ -17,15 +17,18 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
         <button
           type="button"
           onClick={() => setZoom(true)}
-          className="relative block aspect-[16/10] w-full"
+          className="relative block aspect-[16/10] w-full bg-ink-panel2"
         >
+          {/* object-contain: the whole photo, not a cropped fill — a listing
+              photo cut off at the edges is exactly what looked like a
+              rendering bug to a member browsing on their phone. */}
           <Image
             src={images[active]}
             alt={`${title} — photo ${active + 1}`}
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 66vw"
-            className="object-cover"
+            className="object-contain"
           />
         </button>
         {images.length > 1 && (
