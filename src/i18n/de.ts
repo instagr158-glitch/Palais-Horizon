@@ -171,7 +171,7 @@ export const de: Dict = {
     titleTrail: "zum besten Preis.",
     cta: "Wohnungen ansehen",
     statFromLabel: "pro Monat, ab",
-    statRangeValue: "800–5.000 €",
+    statRangeValue: "500–5.000 €",
     statRangeLabel: "Monatsmieten",
     step1Title: "Stöbern",
     step1Body: "Wohnungen zur Miete in ganz Paris, vom Studio bis zur großen Wohnung.",
