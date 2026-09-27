@@ -12,8 +12,10 @@ export type VillaCard = {
   title: string;
   photos: string[];
   price: number;
+  /** Big, primary figure — USD on the Bali page. */
   priceText: string;
-  usdText: string | null;
+  /** Small "≈ …" figure shown underneath — EUR on the Bali page. */
+  secondaryPriceText: string | null;
   specsText: string;
   landSqm: number | null;
   landText: string | null;
@@ -192,7 +194,9 @@ export function VillaCatalog({
                   <div className="mt-4 flex items-end justify-between gap-4">
                     <div>
                       <p className="num text-3xl leading-none text-gold-gradient">{c.priceText}</p>
-                      {c.usdText && <p className="mt-1 text-[11px] font-medium text-white/70">≈ {c.usdText}</p>}
+                      {c.secondaryPriceText && (
+                        <p className="mt-1 text-[11px] font-medium text-white/70">≈ {c.secondaryPriceText}</p>
+                      )}
                     </div>
                     {c.landText && (
                       <div className="text-right">

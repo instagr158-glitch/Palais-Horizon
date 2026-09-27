@@ -73,9 +73,9 @@ async function HeroSection({ t }: { t: Dict["bali"] }) {
       trail={t.titleTrail}
       cta={t.cta}
       stats={[
-        { value: formatEur(minUsd, "—"), label: t.statFromLabel },
+        { value: minUsd != null ? formatUsd(minUsd) : "—", label: t.statFromLabel },
         {
-          value: minUsd != null && maxUsd != null ? `${formatEur(minUsd, "—")} – ${formatEur(maxUsd, "—")}` : "—",
+          value: minUsd != null && maxUsd != null ? `${formatUsd(minUsd)} – ${formatUsd(maxUsd)}` : "—",
           label: t.statRangeLabel,
         },
       ]}
@@ -94,8 +94,8 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
     title: l.title,
     photos: l.images.slice(0, 4),
     price: l.priceUsd ?? 0,
-    priceText: formatEur(l.priceUsd, "—"),
-    usdText: l.priceUsd != null ? formatUsd(l.priceUsd) : null,
+    priceText: l.priceUsd != null ? formatUsd(l.priceUsd) : "—",
+    secondaryPriceText: l.priceUsd != null ? formatEur(l.priceUsd) : null,
     specsText: [
       l.bedrooms ? (l.bedrooms === 1 ? t.bedroomOne : fmt(t.bedrooms, { n: l.bedrooms })) : null,
       l.areaSqm ? `${l.areaSqm} m²` : null,
