@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 const PREMIUM_MIN_USD = 600_000;
 const MAX_PREMIUM = 8;
 // The home page teaser shows only the cheapest villas for sale.
-const HOME_SELECTION_SIZE = 8;
+const HOME_SELECTION_SIZE = 6;
 
 export async function generateMetadata() {
   const t = await getServerDict();
