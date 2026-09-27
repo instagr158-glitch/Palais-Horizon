@@ -10,8 +10,13 @@ const ORIGIN = "https://www.superimmo.com";
 const REVALIDATE_SECONDS = 6 * 60 * 60;
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36";
 const CONCURRENCY = 4;
-const REQUEST_GAP_MS = 400;
+const REQUEST_GAP_MS = 250;
 const MAX_PHOTOS = 4;
+const REQUEST_TIMEOUT_MS = 3000;
+// Hard ceiling on the whole crawl so a slow or rate-limited run never blocks
+// the home page: whatever hasn't been fetched by then is simply left out
+// until the next 6-hour refresh, rather than stalling the page for minutes.
+const DEADLINE_MS = 6000;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -45,18 +50,17 @@ function decode(text: string): string {
   return text.replace(/&#?\w+;/g, (m) => ENTITIES[m] ?? m);
 }
 
-async function fetchText(url: string, attempt = 0): Promise<string | null> {
+async function fetchText(url: string): Promise<string | null> {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": USER_AGENT, "Accept-Language": "fr-FR,fr;q=0.9" },
       next: { revalidate: REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
-    // The site rate-limits bursts of requests — back off and retry once
-    // rather than dropping the page (and every listing on it) entirely.
-    if (res.status === 429 && attempt < 3) {
-      await sleep(1500 * (attempt + 1));
-      return fetchText(url, attempt + 1);
-    }
+    // The site rate-limits bursts of requests with a 429 that can stay in
+    // effect for a while — retrying/backing off here would block the whole
+    // home page for minutes. Fail fast instead: this source simply
+    // contributes fewer (or zero) listings until the next 6-hour refresh.
     return res.ok ? await res.text() : null;
   } catch {
     return null;
@@ -121,9 +125,10 @@ export function parseDetail(url: string, html: string): ParisListing | null {
   };
 }
 
-async function detailUrls(): Promise<string[]> {
+async function detailUrls(deadline: number): Promise<string[]> {
   const urls = new Set<string>();
   for (const d of DISTRICTS) {
+    if (Date.now() > deadline) break;
     const html = await fetchText(`${ORIGIN}${d.path}`);
     if (html) {
       for (const m of html.matchAll(/href="(\/annonces\/location-appartement-[^"]+)"/g)) {
@@ -137,9 +142,11 @@ async function detailUrls(): Promise<string[]> {
 
 /** Paris apartments to rent between MIN_RENT_EUR and MAX_RENT_EUR, cheapest first. */
 export async function getSuperimmoParisListings(): Promise<ParisListing[]> {
-  const urls = await detailUrls();
+  const deadline = Date.now() + DEADLINE_MS;
+  const urls = await detailUrls(deadline);
   const out: ParisListing[] = [];
   for (let i = 0; i < urls.length; i += CONCURRENCY) {
+    if (Date.now() > deadline) break;
     const batch = urls.slice(i, i + CONCURRENCY);
     const parsed = await Promise.all(
       batch.map(async (u) => {
