@@ -77,9 +77,9 @@ const getVillas = cache(async (): Promise<FullListing[]> => {
 // Suspense rather than blocking the whole page on the database query.
 async function HeroSection({ t }: { t: Dict["bali"] }) {
   const villas = await getVillas();
-  const withPrice = villas.filter((l) => l.priceUsd != null);
-  const minUsd = withPrice.length ? Math.min(...withPrice.map((l) => l.priceUsd!)) : null;
-  const maxUsd = withPrice.length ? Math.max(...withPrice.map((l) => l.priceUsd!)) : null;
+  const prices = [...villas.filter((l) => l.priceUsd != null).map((l) => l.priceUsd!), PINNED_VILLA.priceUsd];
+  const minUsd = Math.min(...prices);
+  const maxUsd = Math.max(...prices);
   const heroPhotos = villas
     .filter((l) => l.images[0])
     .slice(0, 5)
