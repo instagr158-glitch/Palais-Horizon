@@ -8,6 +8,7 @@ export const fr: Dict = {
   nav: {
     listings: "Résidences",
     track: "Track",
+    allListings: "Toutes les annonces",
     invest: "Acheter des parts",
     pricing: "Abonnement",
     about: "À propos",
@@ -200,6 +201,9 @@ export const fr: Dict = {
     empty: "Aucune annonce disponible pour le moment. Revenez bientôt.",
     note: "Loyers charges comprises, relevés le {date}. Annonces d'agences, susceptibles d'évoluer ou d'être déjà louées.",
     disclaimerTitle: "À savoir : ",
+    allListingsBadge: "Réservé aux membres",
+    allListingsTitle: "Toutes les annonces à Paris",
+    allListingsBody: "{n} appartements à louer, sans limite — le catalogue complet des deux agences.",
     disclaimer: "Palais Horizon est un index d'annonces de tiers. Des honoraires d'agence peuvent s'ajouter selon l'annonce.",
   },
   invest: {

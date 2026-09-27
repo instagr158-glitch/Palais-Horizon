@@ -6,6 +6,7 @@ export const en = {
   nav: {
     listings: "Residences",
     track: "Track",
+    allListings: "All listings",
     invest: "Buy shares",
     pricing: "Membership",
     about: "About",
@@ -198,6 +199,9 @@ export const en = {
     empty: "No listings available right now. Please check back soon.",
     note: "Rents include charges, collected on {date}. Agency listings can change or already be let.",
     disclaimerTitle: "Good to know: ",
+    allListingsBadge: "Members only",
+    allListingsTitle: "Every Paris listing",
+    allListingsBody: "{n} apartments to rent, uncapped — the full catalogue from both agencies.",
     disclaimer: "Palais Horizon is an index of third-party listings. Agency fees may apply depending on the listing.",
   },
   invest: {

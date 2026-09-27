@@ -8,6 +8,7 @@ export const de: Dict = {
   nav: {
     listings: "Residenzen",
     track: "Track",
+    allListings: "Alle Anzeigen",
     invest: "Anteile kaufen",
     pricing: "Mitgliedschaft",
     about: "Über uns",
@@ -200,6 +201,9 @@ export const de: Dict = {
     empty: "Derzeit keine Anzeigen verfügbar. Bitte schauen Sie bald wieder vorbei.",
     note: "Mieten inklusive Nebenkosten, erfasst am {date}. Makleranzeigen können sich ändern oder bereits vermietet sein.",
     disclaimerTitle: "Wichtig: ",
+    allListingsBadge: "Nur für Mitglieder",
+    allListingsTitle: "Alle Pariser Anzeigen",
+    allListingsBody: "{n} Mietwohnungen, unbegrenzt — der vollständige Katalog beider Makler.",
     disclaimer: "Palais Horizon ist ein Index von Drittanbieter-Anzeigen. Je nach Anzeige können Maklergebühren anfallen.",
   },
   invest: {

@@ -147,22 +147,35 @@ async function getCentury21Listings(): Promise<ParisListing[]> {
   return out;
 }
 
+async function getMergedListings(): Promise<ParisListing[]> {
+  const [century21, superimmo] = await Promise.all([
+    getCentury21Listings(),
+    getSuperimmoParisListings().catch(() => []),
+  ]);
+  return [...century21, ...superimmo];
+}
+
 /**
  * Paris apartments to rent, cheapest first: every listing from the second
  * agency (studios and small flats, its own tighter rent band) plus this
  * agency's own listings, with only a handful of high-end ones kept (best
  * price per m² first) so the catalogue stays mostly standard rents.
+ *
+ * Used by the public home page — a teaser, not the full catalogue (see
+ * getAllParisListings for that, on the members-only page).
  */
 export async function getParisListings(): Promise<ParisListing[]> {
-  const [century21, superimmo] = await Promise.all([
-    getCentury21Listings(),
-    getSuperimmoParisListings().catch(() => []),
-  ]);
-  const out = [...century21, ...superimmo];
+  const out = await getMergedListings();
   const standard = out.filter((l) => l.rentEur <= STANDARD_MAX_EUR);
   const premium = out
     .filter((l) => l.rentEur > STANDARD_MAX_EUR)
     .sort((a, b) => (a.pricePerSqm ?? Infinity) - (b.pricePerSqm ?? Infinity))
     .slice(0, MAX_PREMIUM);
   return [...standard, ...premium].sort((a, b) => a.rentEur - b.rentEur);
+}
+
+/** Every Paris listing from both agencies, uncapped — for the members-only catalogue. */
+export async function getAllParisListings(): Promise<ParisListing[]> {
+  const out = await getMergedListings();
+  return out.sort((a, b) => a.rentEur - b.rentEur);
 }
