@@ -31,6 +31,12 @@ function cheapest<T extends { price: number }>(items: T[], n: number): T[] {
   return [...items].sort((a, b) => a.price - b.price).slice(0, n);
 }
 
+// Kept off the home page by request — editorial pick, not a data issue.
+const EXCLUDED_TITLES = new Set([
+  "Charming 1-Bedroom Villa for Sale Leasehold Near Balangan Beach",
+  "2 Bedroom Villa for Leasehold Sale in Tumbak Bayuh Bali",
+]);
+
 // Memoized per request: the Hero and Catalog sections each read this from
 // their own Server Component (streamed in separate Suspense boundaries).
 const getVillas = cache(async (): Promise<FullListing[]> => {
@@ -41,8 +47,9 @@ const getVillas = cache(async (): Promise<FullListing[]> => {
     sort: "price_asc",
     perPage: 48,
   });
-  const standard = listings.filter((l) => (l.priceUsd ?? 0) < PREMIUM_MIN_USD);
-  const premium = listings.filter((l) => (l.priceUsd ?? 0) >= PREMIUM_MIN_USD).slice(0, MAX_PREMIUM);
+  const eligible = listings.filter((l) => !EXCLUDED_TITLES.has(l.title));
+  const standard = eligible.filter((l) => (l.priceUsd ?? 0) < PREMIUM_MIN_USD);
+  const premium = eligible.filter((l) => (l.priceUsd ?? 0) >= PREMIUM_MIN_USD).slice(0, MAX_PREMIUM);
   return [...standard, ...premium];
 });
 
