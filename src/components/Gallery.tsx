@@ -8,7 +8,7 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
   const [zoom, setZoom] = useState(false);
 
   if (images.length === 0) {
-    return <div className="aspect-[16/9] w-full rounded-sm bg-ink-panel2" />;
+    return <div className="aspect-[9/16] w-full rounded-sm bg-ink-panel2 sm:aspect-[16/9]" />;
   }
 
   return (
@@ -18,7 +18,10 @@ export function Gallery({ images, title }: { images: string[]; title: string }) 
             <button> below — some mobile browsers don't combine CSS
             aspect-ratio with a <button>'s own sizing reliably, which made
             the photo render zoomed into one corner instead of shown in full. */}
-        <div className="relative aspect-[16/10] w-full bg-ink-panel2">
+        {/* Portrait on mobile so the whole photo fits without scrolling past
+            it; a wider, shorter frame from tablet width up where the screen
+            has room to spare. */}
+        <div className="relative aspect-[9/16] w-full bg-ink-panel2 sm:aspect-[16/10]">
           {/* object-contain: the whole photo, not a cropped fill — a listing
               photo cut off at the edges is exactly what looked like a
               rendering bug to a member browsing on their phone. */}
