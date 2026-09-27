@@ -111,7 +111,7 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
   return (
     <VillaCatalog
       cards={selectedCards}
-      seeMoreHref={isMember ? "/listings?country=bali" : "/pricing-bali?locked=bali"}
+      seeMoreHref={isMember ? "/listings?country=bali&from=bali" : "/pricing-bali?locked=bali"}
       seeMoreLabel={t.seeMore}
       labels={{
         all: t.filterAll,
