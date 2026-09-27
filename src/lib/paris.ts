@@ -16,7 +16,7 @@ const CONCURRENCY = 10;
 const MAX_PHOTOS = 4;
 
 /** Monthly rent bounds (EUR, charges included). Most listings sit in the lower band. */
-export const MIN_RENT_EUR = 800;
+export const MIN_RENT_EUR = 500;
 export const MAX_RENT_EUR = 5000;
 /** Up to this rent a listing is "standard"; above it, "premium". */
 export const STANDARD_MAX_EUR = 2000;

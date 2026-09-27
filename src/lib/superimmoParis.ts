@@ -22,7 +22,7 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export const MIN_RENT_EUR = 600;
+export const MIN_RENT_EUR = 500;
 export const MAX_RENT_EUR = 1500;
 
 export type ParisListing = {
