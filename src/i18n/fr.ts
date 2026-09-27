@@ -196,6 +196,7 @@ export const fr: Dict = {
     premium: "Haut de gamme",
     place: "Paris {zip}",
     view: "Voir l'annonce",
+    seeMore: "Voir plus",
     addFavorite: "Ajouter aux favoris",
     removeFavorite: "Retirer des favoris",
     empty: "Aucune annonce disponible pour le moment. Revenez bientôt.",

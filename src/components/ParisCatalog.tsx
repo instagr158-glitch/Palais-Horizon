@@ -44,7 +44,18 @@ type Sort = "rent" | "sqm";
 
 const STORAGE_KEY = "ph-paris-favorites";
 
-export function ParisCatalog({ cards, labels }: { cards: ParisCard[]; labels: ParisLabels }) {
+export function ParisCatalog({
+  cards,
+  labels,
+  seeMoreHref,
+  seeMoreLabel,
+}: {
+  cards: ParisCard[];
+  labels: ParisLabels;
+  /** When set, a trailing tile links here instead of showing the whole catalogue (the home page teaser). */
+  seeMoreHref?: string;
+  seeMoreLabel?: string;
+}) {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [band, setBand] = useState<Band>("all");
@@ -225,6 +236,17 @@ export function ParisCatalog({ cards, labels }: { cards: ParisCard[]; labels: Pa
             </article>
           );
         })}
+        {seeMoreHref && (
+          <a
+            href={seeMoreHref}
+            className="group flex min-h-[22rem] flex-col items-center justify-center gap-5 rounded-3xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6 text-center shadow-panel transition-colors hover:border-gold/60"
+          >
+            <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/50 text-2xl text-gold transition-transform group-hover:translate-x-1">
+              →
+            </span>
+            <span className="btn-gold rounded-full px-8 py-3 text-sm">{seeMoreLabel}</span>
+          </a>
+        )}
       </div>
     </>
   );

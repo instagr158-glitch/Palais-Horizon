@@ -19,6 +19,15 @@ function fmt(template: string, vars: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
 }
 
+// The home page is a teaser, not the full catalogue (see /annonces, members-only,
+// for that) — a small spread across the price range, cheapest to priciest.
+const HOME_SELECTION_SIZE = 9;
+
+function pickSpread<T>(items: T[], n: number): T[] {
+  if (items.length <= n) return items;
+  return Array.from({ length: n }, (_, i) => items[Math.floor((i * items.length) / n)]);
+}
+
 export default async function HomePage() {
   const dict = await getServerDict();
   const t = dict.paris;
@@ -50,6 +59,7 @@ export default async function HomePage() {
     furnished: l.furnished,
     premium: l.rentEur > STANDARD_MAX_EUR,
   }));
+  const selectedCards = pickSpread(cards, HOME_SELECTION_SIZE);
 
   const heroPhotos = [
     ...listings.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(1, 3),
@@ -99,7 +109,9 @@ export default async function HomePage() {
 
         <div id="biens" className="scroll-mt-16">
           <ParisCatalog
-            cards={cards}
+            cards={selectedCards}
+            seeMoreHref="/pricing?locked=parts"
+            seeMoreLabel={t.seeMore}
             labels={{
               all: t.filterAll,
               under: t.filterUnder,

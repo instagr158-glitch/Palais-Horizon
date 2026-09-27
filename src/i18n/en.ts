@@ -194,6 +194,7 @@ export const en = {
     premium: "High-end",
     place: "Paris {zip}",
     view: "View listing",
+    seeMore: "See more",
     addFavorite: "Add to favourites",
     removeFavorite: "Remove from favourites",
     empty: "No listings available right now. Please check back soon.",
