@@ -13,7 +13,7 @@ import { PaywallScreen } from "@/components/PaywallScreen";
 export const dynamic = "force-dynamic";
 
 const NUMBER_LOCALES: Record<string, string> = { fr: "fr-FR", en: "en-US", de: "de-DE" };
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 20;
 
 export async function generateMetadata() {
   const t = await getServerDict();
