@@ -37,6 +37,28 @@ const EXCLUDED_TITLES = new Set([
   "2 Bedroom Villa for Leasehold Sale in Tumbak Bayuh Bali",
 ]);
 
+// Hand-picked by request — not yet in the ingested catalogue, so it's kept
+// here rather than in the database. Real, currently-listed villa (IDR
+// 1,500,000,000 ≈ $94,937 at 15,800 IDR/USD, matching the ingest pipeline's
+// own conversion rate), checked live on the agency's site.
+const PINNED_VILLA = {
+  id: "pinned-rf8368",
+  url: "https://bali-home-immo.com/realestate-property/for-sale/villa/leasehold/canggu/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368",
+  title: "Mezzanine style 1 Bedroom Villa for sale in Babakan Canggu",
+  city: "Canggu",
+  district: "Residential Side",
+  bedrooms: 1,
+  areaSqm: 38,
+  landSqm: null as number | null,
+  priceUsd: 94937,
+  images: [
+    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-667cdb4469ceb437f31e8185175a7d35.png",
+    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-d70dc6ee5ec9ef86cbc115b7277361a7.png",
+    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-f1a99eafc56218c9f9eccd3e6f8e89d0.png",
+    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-935b081673cb77490106fd0c1b67b78d.png",
+  ],
+};
+
 // Memoized per request: the Hero and Catalog sections each read this from
 // their own Server Component (streamed in separate Suspense boundaries).
 const getVillas = cache(async (): Promise<FullListing[]> => {
@@ -106,7 +128,28 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
     landText: l.landSqm ? `${l.landSqm} m²` : null,
     premium: (l.priceUsd ?? 0) >= PREMIUM_MIN_USD,
   }));
-  const selectedCards = cheapest(cards, HOME_SELECTION_SIZE);
+
+  const pinnedCard: VillaCard = {
+    id: PINNED_VILLA.id,
+    href: isMember ? PINNED_VILLA.url : "/pricing-bali?locked=bali",
+    external: isMember,
+    place: [PINNED_VILLA.district, PINNED_VILLA.city].filter(Boolean).join(", "),
+    title: PINNED_VILLA.title,
+    photos: PINNED_VILLA.images,
+    price: PINNED_VILLA.priceUsd,
+    priceText: formatUsd(PINNED_VILLA.priceUsd),
+    secondaryPriceText: formatEur(PINNED_VILLA.priceUsd),
+    specsText: [
+      PINNED_VILLA.bedrooms === 1 ? t.bedroomOne : fmt(t.bedrooms, { n: PINNED_VILLA.bedrooms }),
+      `${PINNED_VILLA.areaSqm} m²`,
+    ].join(" · "),
+    landSqm: PINNED_VILLA.landSqm,
+    landText: PINNED_VILLA.landSqm ? `${PINNED_VILLA.landSqm} m²` : null,
+    premium: PINNED_VILLA.priceUsd >= PREMIUM_MIN_USD,
+  };
+  // Reserve one slot for the hand-picked villa, fill the rest with the
+  // cheapest from the catalogue.
+  const selectedCards = [pinnedCard, ...cheapest(cards, HOME_SELECTION_SIZE - 1)];
 
   return (
     <VillaCatalog
