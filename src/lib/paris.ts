@@ -5,6 +5,8 @@
  * falls outside the rent bounds simply drops out on the next refresh.
  */
 
+import { getSuperimmoParisListings } from "./superimmoParis";
+
 const ORIGIN = "https://www.century21.fr";
 const LIST_PATH = "/annonces/location-appartement/v-paris/";
 const REVALIDATE_SECONDS = 6 * 60 * 60;
@@ -129,8 +131,7 @@ async function detailUrls(): Promise<string[]> {
   return [...urls];
 }
 
-/** Paris apartments to rent between MIN_RENT_EUR and MAX_RENT_EUR, cheapest first. */
-export async function getParisListings(): Promise<ParisListing[]> {
+async function getCentury21Listings(): Promise<ParisListing[]> {
   const urls = await detailUrls();
   const out: ParisListing[] = [];
   for (let i = 0; i < urls.length; i += CONCURRENCY) {
@@ -143,7 +144,21 @@ export async function getParisListings(): Promise<ParisListing[]> {
     );
     for (const p of parsed) if (p) out.push(p);
   }
-  // The catalogue is mostly standard rents; only a few high-end ones (best price per m² first).
+  return out;
+}
+
+/**
+ * Paris apartments to rent, cheapest first: every listing from the second
+ * agency (studios and small flats, its own tighter rent band) plus this
+ * agency's own listings, with only a handful of high-end ones kept (best
+ * price per m² first) so the catalogue stays mostly standard rents.
+ */
+export async function getParisListings(): Promise<ParisListing[]> {
+  const [century21, superimmo] = await Promise.all([
+    getCentury21Listings(),
+    getSuperimmoParisListings().catch(() => []),
+  ]);
+  const out = [...century21, ...superimmo];
   const standard = out.filter((l) => l.rentEur <= STANDARD_MAX_EUR);
   const premium = out
     .filter((l) => l.rentEur > STANDARD_MAX_EUR)
