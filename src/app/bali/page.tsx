@@ -15,7 +15,8 @@ export const dynamic = "force-dynamic";
 // teaser, like the Paris home page keeps only a handful of premium rentals.
 const PREMIUM_MIN_USD = 600_000;
 const MAX_PREMIUM = 8;
-const HOME_SELECTION_SIZE = 9;
+// The home page teaser shows only the cheapest villas for sale.
+const HOME_SELECTION_SIZE = 8;
 
 export async function generateMetadata() {
   const t = await getServerDict();
@@ -26,9 +27,8 @@ function fmt(template: string, vars: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
 }
 
-function pickSpread<T>(items: T[], n: number): T[] {
-  if (items.length <= n) return items;
-  return Array.from({ length: n }, (_, i) => items[Math.floor((i * items.length) / n)]);
+function cheapest<T extends { price: number }>(items: T[], n: number): T[] {
+  return [...items].sort((a, b) => a.price - b.price).slice(0, n);
 }
 
 // Memoized per request: the Hero and Catalog sections each read this from
@@ -99,7 +99,7 @@ async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: bool
     landText: l.landSqm ? `${l.landSqm} m²` : null,
     premium: (l.priceUsd ?? 0) >= PREMIUM_MIN_USD,
   }));
-  const selectedCards = pickSpread(cards, HOME_SELECTION_SIZE);
+  const selectedCards = cheapest(cards, HOME_SELECTION_SIZE);
 
   return (
     <VillaCatalog
