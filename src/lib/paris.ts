@@ -7,6 +7,7 @@
 
 import { cache } from "react";
 import { getSuperimmoParisListings } from "./superimmoParis";
+import { getGuyHoquetParisListings } from "./guyHoquetParis";
 
 const ORIGIN = "https://www.century21.fr";
 const LIST_PATH = "/annonces/location-appartement/v-paris/";
@@ -152,11 +153,12 @@ async function getCentury21Listings(): Promise<ParisListing[]> {
 // Component (hero + catalogue, each streamed in its own Suspense boundary),
 // and without this they'd each re-run the whole scrape independently.
 const getMergedListings = cache(async (): Promise<ParisListing[]> => {
-  const [century21, superimmo] = await Promise.all([
+  const [century21, superimmo, guyHoquet] = await Promise.all([
     getCentury21Listings(),
     getSuperimmoParisListings().catch(() => []),
+    getGuyHoquetParisListings().catch(() => []),
   ]);
-  return [...century21, ...superimmo];
+  return [...century21, ...superimmo, ...guyHoquet];
 });
 
 /**
