@@ -5,6 +5,7 @@
  * falls outside the rent bounds simply drops out on the next refresh.
  */
 
+import { cache } from "react";
 import { getSuperimmoParisListings } from "./superimmoParis";
 
 const ORIGIN = "https://www.century21.fr";
@@ -147,13 +148,16 @@ async function getCentury21Listings(): Promise<ParisListing[]> {
   return out;
 }
 
-async function getMergedListings(): Promise<ParisListing[]> {
+// Memoized per request: the home page reads this from more than one Server
+// Component (hero + catalogue, each streamed in its own Suspense boundary),
+// and without this they'd each re-run the whole scrape independently.
+const getMergedListings = cache(async (): Promise<ParisListing[]> => {
   const [century21, superimmo] = await Promise.all([
     getCentury21Listings(),
     getSuperimmoParisListings().catch(() => []),
   ]);
   return [...century21, ...superimmo];
-}
+});
 
 /**
  * Paris apartments to rent, cheapest first: every listing from the second

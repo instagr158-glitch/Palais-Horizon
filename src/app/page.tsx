@@ -1,8 +1,11 @@
+import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
+import type { Dict } from "@/i18n";
 import { getParisListings, STANDARD_MAX_EUR } from "@/lib/paris";
 import { ParisCatalog, type ParisCard } from "@/components/ParisCatalog";
+import { HeroSkeleton, CatalogSkeleton } from "@/components/ParisSkeleton";
 import { PartsHero } from "@/components/PartsHero";
 import { Reveal } from "@/components/Reveal";
 
@@ -28,16 +31,39 @@ function pickSpread<T>(items: T[], n: number): T[] {
   return Array.from({ length: n }, (_, i) => items[Math.floor((i * items.length) / n)]);
 }
 
-export default async function HomePage() {
-  const dict = await getServerDict();
-  const t = dict.paris;
-  const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
-  const session = await auth();
-  const isMember = hasActiveSubscription(session?.user);
+function money(n: number, nf: string) {
+  return n.toLocaleString(nf, { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+}
+
+// Split into its own Server Component so it can stream in behind a Suspense
+// boundary — the live scrape it awaits can take several seconds, and this
+// keeps that wait from blocking the whole page (nav, steps) from painting.
+async function HeroSection({ t, nf }: { t: Dict["paris"]; nf: string }) {
   const listings = await getParisListings();
 
-  const money = (n: number) =>
-    n.toLocaleString(nf, { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+  const heroPhotos = [
+    ...listings.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(1, 3),
+    ...listings.filter((l) => l.rentEur <= STANDARD_MAX_EUR && (l.areaSqm ?? 0) >= 40).slice(0, 3),
+  ].map((l) => l.photos[0]);
+  const minRent = listings.length ? Math.min(...listings.map((l) => l.rentEur)) : 800;
+
+  return (
+    <PartsHero
+      photos={heroPhotos}
+      eyebrow={t.badge}
+      lead={t.titleLead}
+      trail={t.titleTrail}
+      cta={t.cta}
+      stats={[
+        { value: money(minRent, nf), label: t.statFromLabel },
+        { value: t.statRangeValue, label: t.statRangeLabel },
+      ]}
+    />
+  );
+}
+
+async function CatalogSection({ t, nf, isMember }: { t: Dict["paris"]; nf: string; isMember: boolean }) {
+  const listings = await getParisListings(); // deduped: same in-flight fetch as HeroSection
 
   const cards: ParisCard[] = listings.map((l) => ({
     id: l.id,
@@ -47,7 +73,7 @@ export default async function HomePage() {
     title: l.title,
     photos: l.photos,
     rent: l.rentEur,
-    rentText: money(l.rentEur),
+    rentText: money(l.rentEur, nf),
     pricePerSqm: l.pricePerSqm,
     sqmText: l.pricePerSqm != null ? `${l.pricePerSqm.toLocaleString(nf, { maximumFractionDigits: 0 })} ${t.perSqm}` : null,
     detailText: [
@@ -61,11 +87,39 @@ export default async function HomePage() {
   }));
   const selectedCards = pickSpread(cards, HOME_SELECTION_SIZE);
 
-  const heroPhotos = [
-    ...listings.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(1, 3),
-    ...listings.filter((l) => l.rentEur <= STANDARD_MAX_EUR && (l.areaSqm ?? 0) >= 40).slice(0, 3),
-  ].map((l) => l.photos[0]);
-  const minRent = listings.length ? Math.min(...listings.map((l) => l.rentEur)) : 800;
+  return (
+    <ParisCatalog
+      cards={selectedCards}
+      seeMoreHref="/pricing?locked=parts"
+      seeMoreLabel={t.seeMore}
+      labels={{
+        all: t.filterAll,
+        under: t.filterUnder,
+        mid: t.filterMid,
+        premium: t.filterPremium,
+        favorites: t.filterFavorites,
+        noFavorites: t.noFavorites,
+        sortLabel: t.sortLabel,
+        sortRent: t.sortRent,
+        sortSqm: t.sortSqm,
+        perMonth: t.perMonth,
+        furnished: t.furnished,
+        premiumBadge: t.premium,
+        view: t.view,
+        addFavorite: t.addFavorite,
+        removeFavorite: t.removeFavorite,
+        empty: t.empty,
+      }}
+    />
+  );
+}
+
+export default async function HomePage() {
+  const dict = await getServerDict();
+  const t = dict.paris;
+  const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
+  const session = await auth();
+  const isMember = hasActiveSubscription(session?.user);
 
   const steps = [
     { title: t.step1Title, body: t.step1Body },
@@ -75,17 +129,9 @@ export default async function HomePage() {
 
   return (
     <div>
-      <PartsHero
-        photos={heroPhotos}
-        eyebrow={t.badge}
-        lead={t.titleLead}
-        trail={t.titleTrail}
-        cta={t.cta}
-        stats={[
-          { value: money(minRent), label: t.statFromLabel },
-          { value: t.statRangeValue, label: t.statRangeLabel },
-        ]}
-      />
+      <Suspense fallback={<HeroSkeleton />}>
+        <HeroSection t={t} nf={nf} />
+      </Suspense>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <section className="py-16 sm:py-24">
@@ -108,29 +154,9 @@ export default async function HomePage() {
         </section>
 
         <div id="biens" className="scroll-mt-16">
-          <ParisCatalog
-            cards={selectedCards}
-            seeMoreHref="/pricing?locked=parts"
-            seeMoreLabel={t.seeMore}
-            labels={{
-              all: t.filterAll,
-              under: t.filterUnder,
-              mid: t.filterMid,
-              premium: t.filterPremium,
-              favorites: t.filterFavorites,
-              noFavorites: t.noFavorites,
-              sortLabel: t.sortLabel,
-              sortRent: t.sortRent,
-              sortSqm: t.sortSqm,
-              perMonth: t.perMonth,
-              furnished: t.furnished,
-              premiumBadge: t.premium,
-              view: t.view,
-              addFavorite: t.addFavorite,
-              removeFavorite: t.removeFavorite,
-              empty: t.empty,
-            }}
-          />
+          <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
+            <CatalogSection t={t} nf={nf} isMember={isMember} />
+          </Suspense>
         </div>
 
         <div className="mt-16 space-y-2 pb-16">

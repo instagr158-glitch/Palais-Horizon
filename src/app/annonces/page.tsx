@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
+import type { Dict } from "@/i18n";
 import { getAllParisListings, STANDARD_MAX_EUR } from "@/lib/paris";
 import { ParisCatalog, type ParisCard } from "@/components/ParisCatalog";
+import { CatalogSkeleton } from "@/components/ParisSkeleton";
 import { PaywallScreen } from "@/components/PaywallScreen";
 
 export const dynamic = "force-dynamic";
@@ -19,14 +22,9 @@ function fmt(template: string, vars: Record<string, string | number>) {
   return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
 }
 
-export default async function AllParisListingsPage() {
-  const session = await auth();
-  if (!session) redirect("/login?callbackUrl=/annonces");
-  if (!hasActiveSubscription(session.user)) return <PaywallScreen />;
-
-  const dict = await getServerDict();
-  const t = dict.paris;
-  const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
+// Split off so the title/badge paint immediately and only this part streams
+// in behind Suspense — the live scrape it awaits can take several seconds.
+async function ListingsSection({ t, nf }: { t: Dict["paris"]; nf: string }) {
   const listings = await getAllParisListings();
 
   const money = (n: number) =>
@@ -54,9 +52,7 @@ export default async function AllParisListingsPage() {
   }));
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-      <p className="text-xs font-semibold uppercase tracking-widetitle text-gold">{t.allListingsBadge}</p>
-      <h1 className="mt-3 font-display text-3xl font-semibold text-cream sm:text-5xl">{t.allListingsTitle}</h1>
+    <>
       <p className="mt-3 max-w-2xl text-sm text-dim sm:text-base">
         {fmt(t.allListingsBody, { n: cards.length })}
       </p>
@@ -94,6 +90,27 @@ export default async function AllParisListingsPage() {
           {t.disclaimer}
         </p>
       </div>
+    </>
+  );
+}
+
+export default async function AllParisListingsPage() {
+  const session = await auth();
+  if (!session) redirect("/login?callbackUrl=/annonces");
+  if (!hasActiveSubscription(session.user)) return <PaywallScreen />;
+
+  const dict = await getServerDict();
+  const t = dict.paris;
+  const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
+
+  return (
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <p className="text-xs font-semibold uppercase tracking-widetitle text-gold">{t.allListingsBadge}</p>
+      <h1 className="mt-3 font-display text-3xl font-semibold text-cream sm:text-5xl">{t.allListingsTitle}</h1>
+
+      <Suspense fallback={<CatalogSkeleton />}>
+        <ListingsSection t={t} nf={nf} />
+      </Suspense>
     </div>
   );
 }

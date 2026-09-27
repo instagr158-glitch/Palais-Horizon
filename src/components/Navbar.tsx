@@ -35,6 +35,7 @@ export function Navbar() {
           {links.map((l) => (
             <Link
               key={l.href}
+              prefetch={false}
               href={l.href}
               className={`whitespace-nowrap text-sm tracking-wide transition-colors ${
                 (l.href === "/" ? pathname === "/" : pathname.startsWith(l.href))
@@ -51,7 +52,7 @@ export function Navbar() {
           <LanguageSwitcher />
           {status === "loading" ? null : session ? (
             <>
-              <Link href="/account" className="text-sm text-dim hover:text-cream">
+              <Link href="/account" prefetch={false} className="text-sm text-dim hover:text-cream">
                 {t.nav.account}
               </Link>
               <button
@@ -63,13 +64,14 @@ export function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login" className="text-sm text-dim hover:text-cream">
+              <Link href="/login" prefetch={false} className="text-sm text-dim hover:text-cream">
                 {t.nav.login}
               </Link>
               <TrackedLink
                 href="/track"
                 event="view_membership_click"
                 location="navbar"
+                prefetch={false}
                 className="btn-gold whitespace-nowrap rounded-full px-4 py-1.5 text-sm"
               >
                 {t.nav.join}
@@ -99,6 +101,7 @@ export function Navbar() {
             {links.map((l) => (
               <Link
                 key={l.href}
+                prefetch={false}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="text-sm text-dim hover:text-cream"
@@ -109,7 +112,7 @@ export function Navbar() {
             <div className="hr-gold my-2" />
             {session ? (
               <>
-                <Link href="/account" onClick={() => setOpen(false)} className="text-sm text-dim">
+                <Link href="/account" prefetch={false} onClick={() => setOpen(false)} className="text-sm text-dim">
                   {t.nav.account}
                 </Link>
                 <button
@@ -121,13 +124,14 @@ export function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/login" onClick={() => setOpen(false)} className="text-sm text-dim">
+                <Link href="/login" prefetch={false} onClick={() => setOpen(false)} className="text-sm text-dim">
                   {t.nav.login}
                 </Link>
                 <TrackedLink
                   href="/track"
                   event="view_membership_click"
                   location="navbar_mobile"
+                  prefetch={false}
                   onClick={() => setOpen(false)}
                   className="btn-gold rounded-full px-4 py-2 text-center text-sm"
                 >
