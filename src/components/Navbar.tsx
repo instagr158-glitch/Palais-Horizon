@@ -17,13 +17,23 @@ export function Navbar() {
   const isMember = hasActiveSubscription(session?.user);
   const { t } = useI18n();
 
-  const links = [
-    { href: "/", label: t.paris.navLabel },
-    { href: "/bali", label: t.bali.navLabel },
-    { href: "/annonces", label: t.nav.allListings },
-    { href: "/pricing", label: t.nav.pricing },
-    { href: "/about", label: t.nav.about },
-  ];
+  // The Bali pages are their own dedicated experience — no Paris apartments
+  // or "all listings" link bleeding into that menu (and "Abonnement" there
+  // points at the Bali-specific offer, not the Paris one).
+  const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
+  const links = isBaliContext
+    ? [
+        { href: "/bali", label: t.bali.navLabel },
+        { href: "/pricing-bali", label: t.nav.pricing },
+        { href: "/about", label: t.nav.about },
+      ]
+    : [
+        { href: "/", label: t.paris.navLabel },
+        { href: "/bali", label: t.bali.navLabel },
+        { href: "/annonces", label: t.nav.allListings },
+        { href: "/pricing", label: t.nav.pricing },
+        { href: "/about", label: t.nav.about },
+      ];
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink-border bg-ink/85 backdrop-blur">
