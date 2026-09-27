@@ -51,12 +51,10 @@ const PINNED_VILLA = {
   areaSqm: 38,
   landSqm: null as number | null,
   priceUsd: 94937,
-  images: [
-    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-667cdb4469ceb437f31e8185175a7d35.png",
-    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-d70dc6ee5ec9ef86cbc115b7277361a7.png",
-    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-f1a99eafc56218c9f9eccd3e6f8e89d0.png",
-    "https://bali-home-immo.com/images/properties/mezzanine-style-1-bedroom-villa-for-sale-in-babakan-canggu-rf8368-935b081673cb77490106fd0c1b67b78d.png",
-  ],
+  // The agency's own files have wide white margins baked into the image
+  // itself (not something CSS can crop out) — these are the same photos,
+  // cropped once to the real picture and hosted locally.
+  images: ["/bali/rf8368-1.jpg", "/bali/rf8368-2.jpg", "/bali/rf8368-3.jpg", "/bali/rf8368-4.jpg"],
 };
 
 // Memoized per request: the Hero and Catalog sections each read this from
