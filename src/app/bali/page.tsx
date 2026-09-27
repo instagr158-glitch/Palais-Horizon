@@ -1,4 +1,6 @@
 import { Suspense, cache } from "react";
+import { auth } from "@/lib/auth";
+import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
 import type { Dict } from "@/i18n";
 import { queryListings, formatEur, formatUsd, type FullListing } from "@/lib/listings";
@@ -74,12 +76,13 @@ async function HeroSection({ t }: { t: Dict["bali"] }) {
   );
 }
 
-async function CatalogSection({ t }: { t: Dict["bali"] }) {
+async function CatalogSection({ t, isMember }: { t: Dict["bali"]; isMember: boolean }) {
   const villas = await getVillas();
 
   const cards: VillaCard[] = villas.map((l) => ({
     id: l.id,
-    href: `/listings/${l.id}`,
+    href: isMember ? l.agencyUrl : "/pricing?locked=parts",
+    external: isMember,
     place: [l.district, l.city].filter(Boolean).join(", ") || l.province,
     title: l.title,
     photos: l.images.slice(0, 4),
@@ -127,6 +130,8 @@ export default async function BaliPage() {
   const dict = await getServerDict();
   const t = dict.bali;
   const nf = dict.code === "fr" ? "fr-FR" : dict.code === "de" ? "de-DE" : "en-US";
+  const session = await auth();
+  const isMember = hasActiveSubscription(session?.user);
 
   const steps = [
     { title: t.step1Title, body: t.step1Body },
@@ -162,7 +167,7 @@ export default async function BaliPage() {
 
         <div id="biens" className="scroll-mt-16">
           <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
-            <CatalogSection t={t} />
+            <CatalogSection t={t} isMember={isMember} />
           </Suspense>
         </div>
 

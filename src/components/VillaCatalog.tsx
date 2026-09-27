@@ -5,8 +5,9 @@ import { HeartIcon, PhotoSlider } from "@/components/InvestGrid";
 
 export type VillaCard = {
   id: string;
-  /** Always our own listing page — the membership gate lives there. */
+  /** The agency's own listing for members, our pricing page otherwise. */
   href: string;
+  external: boolean;
   place: string;
   title: string;
   photos: string[];
@@ -204,6 +205,7 @@ export function VillaCatalog({
 
                   <a
                     href={c.href}
+                    {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="btn-gold pointer-events-auto mt-4 block w-full rounded-full px-5 py-3 text-center text-sm"
                   >
                     {labels.view}
