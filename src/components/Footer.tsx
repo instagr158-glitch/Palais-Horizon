@@ -1,11 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { TrackedLink } from "@/components/TrackedLink";
 import { LogoSvg } from "@/components/Logo";
 import { BRAND } from "@/lib/copy";
-import { getServerDict } from "@/i18n/server";
+import { useI18n } from "@/components/I18nProvider";
 
-export async function Footer() {
-  const t = await getServerDict();
+export function Footer() {
+  const { t } = useI18n();
+  const pathname = usePathname();
+  // The Bali pages are their own dedicated experience — no footer links back
+  // to the generic (Paris-oriented) residences catalogue or subscription page.
+  const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
 
   return (
     <footer className="border-t border-ink-border bg-ink">
@@ -27,8 +34,12 @@ export async function Footer() {
                 {t.footer.explore}
               </p>
               <ul className="space-y-2 text-silver">
-                <li><Link href="/listings" className="hover:text-gold">{t.footer.residences}</Link></li>
-                <li><TrackedLink href="/pricing" event="view_membership_click" location="footer" className="hover:text-gold">{t.footer.membership}</TrackedLink></li>
+                {!isBaliContext && (
+                  <>
+                    <li><Link href="/listings" className="hover:text-gold">{t.footer.residences}</Link></li>
+                    <li><TrackedLink href="/pricing" event="view_membership_click" location="footer" className="hover:text-gold">{t.footer.membership}</TrackedLink></li>
+                  </>
+                )}
                 <li><Link href="/about" className="hover:text-gold">{t.footer.about}</Link></li>
               </ul>
             </div>
