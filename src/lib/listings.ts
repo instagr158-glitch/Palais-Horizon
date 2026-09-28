@@ -29,6 +29,50 @@ function parseJsonArray(value: string | null | undefined): string[] {
   }
 }
 
+/**
+ * thailand-property.com serves photos through an image proxy whose URL path
+ * is a base64-encoded {key, edits: {resize: {width}}} blob — some rows were
+ * stored (before the ingester started collapsing this itself) with the same
+ * photo twice: a tiny 96×64 thumbnail followed by the full-size version,
+ * which showed as "the same photo twice, the first one blurry". Collapse
+ * that here too so it's fixed for existing rows, not just future ingests.
+ */
+function dedupeThailandPropertyVariants(images: string[]): string[] {
+  const bestUrlByKey = new Map<string, string>();
+  const bestWidthByKey = new Map<string, number>();
+  const order: string[] = [];
+  const placeholderFor = (key: string) => `##tp-image-key##:${key}`;
+
+  for (const url of images) {
+    let info: { key: string; width: number } | null = null;
+    try {
+      const u = new URL(url);
+      if (u.hostname.endsWith("thailand-property.com")) {
+        const b64 = u.pathname.split("/").pop();
+        const json = b64 && JSON.parse(Buffer.from(decodeURIComponent(b64), "base64").toString("utf8"));
+        if (json?.key) info = { key: json.key, width: json.edits?.resize?.width ?? 0 };
+      }
+    } catch {
+      // not this pattern — treated as an ordinary, undeduplicated URL below
+    }
+
+    if (!info) {
+      order.push(url);
+      continue;
+    }
+    const placeholder = placeholderFor(info.key);
+    if (!order.includes(placeholder)) order.push(placeholder);
+    if (info.width > (bestWidthByKey.get(info.key) ?? -1)) {
+      bestWidthByKey.set(info.key, info.width);
+      bestUrlByKey.set(info.key, url);
+    }
+  }
+
+  return order.map((entry) =>
+    entry.startsWith("##tp-image-key##:") ? bestUrlByKey.get(entry.slice("##tp-image-key##:".length))! : entry,
+  );
+}
+
 /** Full shape returned to members. */
 export type FullListing = {
   id: string;
@@ -79,7 +123,7 @@ export function toFullListing(l: Listing): FullListing {
     addressText: l.addressText,
     lat: l.lat,
     lng: l.lng,
-    images: parseJsonArray(l.images),
+    images: dedupeThailandPropertyVariants(parseJsonArray(l.images)),
     amenities: parseJsonArray(l.amenities),
     furnished: l.furnished,
     featured: l.featured,
