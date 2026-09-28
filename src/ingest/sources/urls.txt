@@ -1571,3 +1571,20 @@ https://www.compass.com/homedetails/930-SW-4th-Ave-Unit-3-Miami-FL-33130/2G4UI2_
 # the real ingestion pipeline (fetch + parse + luxury filter) before being
 # added, 1 listing, replacing the homepage Miami showcase's featured item.
 https://www.compass.com/homedetails/3640-SW-25th-St-Unit-CASITA-Miami-FL-33133/1D6UD8_pid/
+
+
+# Thailand catalogue additions ($90k-$130k villas), 2026-09-28
+https://www.thailand-property.com/ads/2-bedroom-villa-for-sale-in-thap-prik-krabi_680b35f71027-cf7e-ed62-fb9a-ff4aa089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-baan-klang-muang-88-thap-tai-prachuap-khiri-khan_6fb9531c8285-7de0-fa22-47b7-e9c3b089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-or-rent-in-hua-hin-prachuap-khiri-khan_771e38126063-998f-eb92-ec0d-6221b089
+https://www.thailand-property.com/ads/1-bedroom-villa-for-sale-in-tiva-nest-samui-maret-surat-thani_d0741d08968c-0a4f-5c12-cee2-2260a089
+https://www.thailand-property.com/ads/2-bedroom-villa-for-sale-or-rent-in-salapa-village-hua-hin-prachuap-khiri-khan_b09e6f37e093-02e0-8692-2453-b6e5d089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-hin-lek-fai-prachuap-khiri-khan_8ec1bd530d2a-2501-5962-6922-45e5d089
+https://www.thailand-property.com/ads/2-bedroom-villa-for-sale-in-choeng-thale-phuket_b44e81ecea88-ba6e-8f42-05a0-713c9f89
+https://www.thailand-property.com/ads/2-bedroom-villa-for-sale-in-la-vallee-village-town-2-hin-lek-fai-prachuap-khiri-khan_776feaa3fbde-3931-5042-ad10-000d9f89
+https://www.thailand-property.com/ads/2-bedroom-villa-for-sale-in-huai-sak-chiang-rai_6812d97e00d5-1611-1092-dc84-9f1c9f89
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-modern-home-hua-hin-hin-lek-fai-prachuap-khiri-khan_8531199bbb98-95af-9ee2-10a7-47809f89
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-nice-breeze-9-hin-lek-fai-prachuap-khiri-khan_2608d8010111-f830-b482-0cf8-cc78a089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-raviporn-golden-hill-village-nong-prue-chonburi_565d7e5a2829-279e-f6f2-c37e-ba95b089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-thainiyom-village-cha-am-phetchaburi_69dfc98f2592-e051-1262-d4b8-c6e5d089
+https://www.thailand-property.com/ads/3-bedroom-villa-for-sale-in-the-palm-bangsare-bang-sare-chonburi_5a4a0baea0ad-6c8f-b8f2-7c0e-95e5d089
