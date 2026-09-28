@@ -17,12 +17,13 @@ export function Navbar() {
   const isMember = hasActiveSubscription(session?.user);
   const { t } = useI18n();
 
-  // Paris and Bali are each their own dedicated experience — neither menu
-  // links to the other's country (or to the generic, multi-country
+  // Paris, Bali and Thailand are each their own dedicated experience —
+  // no menu links out to another country (or to the generic, multi-country
   // catalogue), and "Abonnement" always points at that country's own offer.
   // Every other page (About, login, the legacy residences catalogue, …)
-  // falls back to a general menu with both entry points.
+  // falls back to a general menu with all three entry points.
   const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
+  const isThailandContext = pathname.startsWith("/thailand") || pathname.startsWith("/pricing-thailand");
   const isParisContext = pathname === "/" || pathname.startsWith("/annonces");
   const links = isBaliContext
     ? [
@@ -30,20 +31,27 @@ export function Navbar() {
         { href: "/pricing-bali", label: t.nav.pricing },
         { href: "/about", label: t.nav.about },
       ]
-    : isParisContext
+    : isThailandContext
       ? [
-          { href: "/", label: t.paris.navLabel },
-          { href: "/annonces", label: t.nav.allListings },
-          { href: "/pricing", label: t.nav.pricing },
+          { href: "/thailand", label: t.thailand.navLabel },
+          { href: "/pricing-thailand", label: t.nav.pricing },
           { href: "/about", label: t.nav.about },
         ]
-      : [
-          { href: "/", label: t.paris.navLabel },
-          { href: "/bali", label: t.bali.navLabel },
-          { href: "/annonces", label: t.nav.allListings },
-          { href: "/pricing", label: t.nav.pricing },
-          { href: "/about", label: t.nav.about },
-        ];
+      : isParisContext
+        ? [
+            { href: "/", label: t.paris.navLabel },
+            { href: "/annonces", label: t.nav.allListings },
+            { href: "/pricing", label: t.nav.pricing },
+            { href: "/about", label: t.nav.about },
+          ]
+        : [
+            { href: "/", label: t.paris.navLabel },
+            { href: "/bali", label: t.bali.navLabel },
+            { href: "/thailand", label: t.thailand.navLabel },
+            { href: "/annonces", label: t.nav.allListings },
+            { href: "/pricing", label: t.nav.pricing },
+            { href: "/about", label: t.nav.about },
+          ];
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink-border bg-ink/85 backdrop-blur">

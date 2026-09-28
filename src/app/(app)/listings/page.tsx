@@ -116,9 +116,9 @@ export default async function ListingsPage({
         </div>
       </div>
 
-      {/* Members arriving from the Bali page's own "see more" link stay in a
-          Bali-only experience — no tab back out to the other countries. */}
-      {sp.from !== "bali" && <CountryTabs active={country} />}
+      {/* Members arriving from Bali's or Thailand's own "see more" link stay
+          in that country's dedicated experience — no tab back to the others. */}
+      {sp.from !== "bali" && sp.from !== "thailand" && <CountryTabs active={country} />}
 
       <Suspense fallback={<div className="panel h-20 rounded-sm" />}>
         <Filters />

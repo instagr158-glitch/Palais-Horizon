@@ -10,12 +10,15 @@ import { useI18n } from "@/components/I18nProvider";
 export function Footer() {
   const { t } = useI18n();
   const pathname = usePathname();
-  // Paris and Bali are each their own dedicated experience — no footer link
-  // back to the generic, multi-country residences catalogue from either one
-  // (Bali also has no use for the Paris-oriented subscription link, since it
-  // has its own "Abonnement" entry point in the top nav).
+  // Paris, Bali and Thailand are each their own dedicated experience — no
+  // footer link back to the generic, multi-country residences catalogue from
+  // any of them (Bali and Thailand also have no use for the Paris-oriented
+  // subscription link, since each has its own "Abonnement" entry point in
+  // the top nav).
   const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
+  const isThailandContext = pathname.startsWith("/thailand") || pathname.startsWith("/pricing-thailand");
   const isParisContext = pathname === "/" || pathname.startsWith("/annonces");
+  const hasOwnPricing = isBaliContext || isThailandContext;
 
   return (
     <footer className="border-t border-ink-border bg-ink">
@@ -37,10 +40,10 @@ export function Footer() {
                 {t.footer.explore}
               </p>
               <ul className="space-y-2 text-silver">
-                {!isBaliContext && !isParisContext && (
+                {!isBaliContext && !isThailandContext && !isParisContext && (
                   <li><Link href="/listings" className="hover:text-gold">{t.footer.residences}</Link></li>
                 )}
-                {!isBaliContext && (
+                {!hasOwnPricing && (
                   <li><TrackedLink href="/pricing" event="view_membership_click" location="footer" className="hover:text-gold">{t.footer.membership}</TrackedLink></li>
                 )}
                 <li><Link href="/about" className="hover:text-gold">{t.footer.about}</Link></li>
