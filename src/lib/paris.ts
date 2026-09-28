@@ -11,7 +11,7 @@ import { getGuyHoquetParisListings } from "./guyHoquetParis";
 
 const ORIGIN = "https://www.century21.fr";
 const LIST_PATH = "/annonces/location-appartement/v-paris/";
-const REVALIDATE_SECONDS = 6 * 60 * 60;
+const REVALIDATE_SECONDS = 24 * 60 * 60;
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36";
 const MAX_PAGES = 6;
 const CONCURRENCY = 10;

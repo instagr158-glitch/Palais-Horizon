@@ -1,5 +1,5 @@
 const LOFTY_BASE = "https://www.lofty.ai";
-const REVALIDATE_SECONDS = 6 * 60 * 60;
+const REVALIDATE_SECONDS = 24 * 60 * 60;
 const USER_AGENT = "PalaisHorizon/1.0 (+https://www.palais-horizon.com)";
 // Guards against a mis-read page, not against high yields: those are shown.
 const MAX_PLAUSIBLE_YIELD_PCT = 50;

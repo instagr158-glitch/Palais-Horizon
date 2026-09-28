@@ -7,7 +7,7 @@
  */
 
 const ORIGIN = "https://www.superimmo.com";
-const REVALIDATE_SECONDS = 6 * 60 * 60;
+const REVALIDATE_SECONDS = 24 * 60 * 60;
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36";
 const CONCURRENCY = 4;
 const REQUEST_GAP_MS = 250;
