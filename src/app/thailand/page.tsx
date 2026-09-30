@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
 import type { Dict } from "@/i18n";
-import { queryListings, formatEur, formatUsd, type FullListing } from "@/lib/listings";
+import { queryListings, formatEur, formatUsd, priceTexts, type FullListing } from "@/lib/listings";
 import { VillaCatalog, type VillaCard } from "@/components/VillaCatalog";
 import { HeroSkeleton, CatalogSkeleton } from "@/components/ParisSkeleton";
 import { PartsHero } from "@/components/PartsHero";
@@ -136,7 +136,7 @@ const getProperties = cache(async (): Promise<FullListing[]> => {
 
 // Split into their own Server Components so they can stream in behind
 // Suspense rather than blocking the whole page on the database query.
-async function HeroSection({ t }: { t: Dict["thailand"] }) {
+async function HeroSection({ t, locale }: { t: Dict["thailand"]; locale: string }) {
   const properties = await getProperties();
   const prices = [
     ...properties.filter((l) => l.priceUsd != null).map((l) => l.priceUsd!),
@@ -148,6 +148,8 @@ async function HeroSection({ t }: { t: Dict["thailand"] }) {
     .filter((l) => l.images[0])
     .slice(0, 5)
     .map((l) => l.images[0]);
+  // French and German visitors see euros first, English visitors dollars first.
+  const primary = locale === "en" ? formatUsd : formatEur;
 
   return (
     <PartsHero
@@ -157,9 +159,9 @@ async function HeroSection({ t }: { t: Dict["thailand"] }) {
       trail={t.titleTrail}
       cta={t.cta}
       stats={[
-        { value: minUsd != null ? formatUsd(minUsd) : "—", label: t.statFromLabel },
+        { value: minUsd != null ? primary(minUsd) : "—", label: t.statFromLabel },
         {
-          value: minUsd != null && maxUsd != null ? `${formatUsd(minUsd)} – ${formatUsd(maxUsd)}` : "—",
+          value: minUsd != null && maxUsd != null ? `${primary(minUsd)} – ${primary(maxUsd)}` : "—",
           label: t.statRangeLabel,
         },
       ]}
@@ -167,7 +169,15 @@ async function HeroSection({ t }: { t: Dict["thailand"] }) {
   );
 }
 
-async function CatalogSection({ t, isMember }: { t: Dict["thailand"]; isMember: boolean }) {
+async function CatalogSection({
+  t,
+  isMember,
+  locale,
+}: {
+  t: Dict["thailand"];
+  isMember: boolean;
+  locale: string;
+}) {
   // The home page teaser shows the 6 hand-picked properties above.
   const selectedCards: VillaCard[] = PINNED_PROPERTIES.map((p) => ({
     id: p.id,
@@ -177,8 +187,7 @@ async function CatalogSection({ t, isMember }: { t: Dict["thailand"]; isMember: 
     title: p.title,
     photos: p.images,
     price: p.priceUsd,
-    priceText: formatUsd(p.priceUsd),
-    secondaryPriceText: formatEur(p.priceUsd),
+    ...priceTexts(p.priceUsd, locale),
     specsText: p.bedrooms === 1 ? t.bedroomOne : fmt(t.bedrooms, { n: p.bedrooms }),
     landSqm: null,
     landText: null,
@@ -226,7 +235,7 @@ export default async function ThailandPage() {
   return (
     <div>
       <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection t={t} />
+        <HeroSection t={t} locale={dict.code} />
       </Suspense>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -251,7 +260,7 @@ export default async function ThailandPage() {
 
         <div id="biens" className="scroll-mt-16">
           <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
-            <CatalogSection t={t} isMember={isMember} />
+            <CatalogSection t={t} isMember={isMember} locale={dict.code} />
           </Suspense>
         </div>
 

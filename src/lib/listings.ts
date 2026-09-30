@@ -398,3 +398,17 @@ export function formatUsd(amount: number | null | undefined): string {
   if (amount == null) return "";
   return `$${amount.toLocaleString("en-US")}`;
 }
+
+/**
+ * French and German visitors see the price in euros first (with the dollar
+ * figure as the small "≈" line); English visitors see dollars first.
+ */
+export function priceTexts(
+  usdAmount: number | null | undefined,
+  locale: string,
+): { priceText: string; secondaryPriceText: string | null } {
+  if (usdAmount == null) return { priceText: "—", secondaryPriceText: null };
+  return locale === "en"
+    ? { priceText: formatUsd(usdAmount), secondaryPriceText: formatEur(usdAmount) }
+    : { priceText: formatEur(usdAmount), secondaryPriceText: formatUsd(usdAmount) };
+}
