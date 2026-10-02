@@ -195,7 +195,7 @@ export async function queryListings(filters: ListingFilters) {
         ? [{ priceAmount: "asc" as const }]
         : filters.sort === "area_desc"
           ? [{ areaSqm: "desc" as const }]
-          : [{ featured: "desc" as const }, { createdAt: "desc" as const }];
+          : [{ createdAt: "desc" as const }, { id: "desc" as const }];
 
   const [rows, total] = await Promise.all([
     prisma.listing.findMany({

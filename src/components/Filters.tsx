@@ -125,7 +125,7 @@ export function Filters() {
         </select>
 
         <select
-          value={params.get("sort") ?? "price_asc"}
+          value={params.get("sort") ?? "recent"}
           onChange={(e) => update({ sort: e.target.value })}
           className="rounded-sm px-3 py-2 text-sm"
         >

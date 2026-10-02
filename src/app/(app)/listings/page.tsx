@@ -86,7 +86,7 @@ export default async function ListingsPage({
     minBedrooms: num(sp.minBedrooms),
     minPrice: num(sp.minPrice),
     maxPrice: num(sp.maxPrice),
-    sort: (sp.sort as ListingFilters["sort"]) ?? "price_asc",
+    sort: (sp.sort as ListingFilters["sort"]) ?? "recent",
     page: num(sp.page) ?? 1,
     perPage: 12,
   };
