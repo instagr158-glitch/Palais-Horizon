@@ -134,6 +134,17 @@ const getProperties = cache(async (): Promise<FullListing[]> => {
   return [...standard, ...premium];
 });
 
+// Members see the newest listings first instead of the hand-picked teaser.
+const getRecentProperties = cache(async (): Promise<FullListing[]> => {
+  const { listings } = await queryListings({
+    country: "thailand",
+    listingType: "sale",
+    sort: "recent",
+    perPage: 48,
+  });
+  return listings.filter((l) => l.propertyType !== "land");
+});
+
 // Split into their own Server Components so they can stream in behind
 // Suspense rather than blocking the whole page on the database query.
 async function HeroSection({ t, locale }: { t: Dict["thailand"]; locale: string }) {
@@ -173,13 +184,37 @@ async function CatalogSection({
   t,
   isMember,
   locale,
+  sortRecentLabel,
 }: {
   t: Dict["thailand"];
   isMember: boolean;
   locale: string;
+  sortRecentLabel: string;
 }) {
-  // The home page teaser shows the 6 hand-picked properties above.
-  const selectedCards: VillaCard[] = PINNED_PROPERTIES.map((p) => ({
+  const recent = isMember ? await getRecentProperties() : [];
+  const recentCards: VillaCard[] = recent.slice(0, HOME_SELECTION_SIZE).map((l) => ({
+    id: l.id,
+    href: l.agencyUrl,
+    external: true,
+    place: [l.district, l.city].filter(Boolean).join(", ") || l.province,
+    title: l.title,
+    photos: l.images.slice(0, 4),
+    price: l.priceUsd ?? 0,
+    createdAt: new Date(l.createdAt).getTime(),
+    ...priceTexts(l.priceUsd, locale),
+    specsText: [
+      l.bedrooms ? (l.bedrooms === 1 ? t.bedroomOne : fmt(t.bedrooms, { n: l.bedrooms })) : null,
+      l.areaSqm ? `${l.areaSqm} m²` : null,
+    ]
+      .filter(Boolean)
+      .join(" · "),
+    landSqm: l.landSqm,
+    landText: l.landSqm ? `${l.landSqm} m²` : null,
+    premium: (l.priceUsd ?? 0) >= PREMIUM_MIN_USD,
+  }));
+
+  // Visitors see the 6 hand-picked properties above; members the newest listings.
+  const pinnedCards: VillaCard[] = PINNED_PROPERTIES.map((p) => ({
     id: p.id,
     href: isMember ? p.url : "/pricing-thailand?locked=thailand",
     external: isMember,
@@ -196,7 +231,7 @@ async function CatalogSection({
 
   return (
     <VillaCatalog
-      cards={selectedCards}
+      cards={isMember ? recentCards : pinnedCards}
       seeMoreHref={isMember ? "/listings?country=thailand&from=thailand" : "/pricing-thailand?locked=thailand"}
       seeMoreLabel={t.seeMore}
       labels={{
@@ -207,6 +242,7 @@ async function CatalogSection({
         favorites: t.filterFavorites,
         noFavorites: t.noFavorites,
         sortLabel: t.sortLabel,
+        sortRecent: isMember ? sortRecentLabel : undefined,
         sortPrice: t.sortPrice,
         sortLand: t.sortLand,
         premiumBadge: t.premium,
@@ -260,7 +296,12 @@ export default async function ThailandPage() {
 
         <div id="biens" className="scroll-mt-16">
           <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
-            <CatalogSection t={t} isMember={isMember} locale={dict.code} />
+            <CatalogSection
+              t={t}
+              isMember={isMember}
+              locale={dict.code}
+              sortRecentLabel={dict.listings.sorts[0]}
+            />
           </Suspense>
         </div>
 

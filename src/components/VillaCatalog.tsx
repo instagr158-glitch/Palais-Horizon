@@ -12,6 +12,8 @@ export type VillaCard = {
   title: string;
   photos: string[];
   price: number;
+  /** Listing date (ms), used by the "most recent" sort for members. */
+  createdAt?: number;
   /** Big, primary figure — USD on the Bali page. */
   priceText: string;
   /** Small "≈ …" figure shown underneath — EUR on the Bali page. */
@@ -30,6 +32,8 @@ export type VillaLabels = {
   favorites: string;
   noFavorites: string;
   sortLabel: string;
+  /** Only passed to members, who get "most recent" as the default sort. */
+  sortRecent?: string;
   sortPrice: string;
   sortLand: string;
   premiumBadge: string;
@@ -40,7 +44,7 @@ export type VillaLabels = {
 };
 
 type Band = "all" | "under" | "mid" | "premium";
-type Sort = "price" | "land";
+type Sort = "recent" | "price" | "land";
 
 const STORAGE_KEY = "ph-bali-favorites";
 
@@ -58,7 +62,7 @@ export function VillaCatalog({
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [band, setBand] = useState<Band>("all");
-  const [sort, setSort] = useState<Sort>("price");
+  const [sort, setSort] = useState<Sort>(labels.sortRecent ? "recent" : "price");
 
   useEffect(() => {
     try {
@@ -91,7 +95,11 @@ export function VillaCatalog({
   const visible = cards
     .filter((c) => inBand(c) && (!onlyFavorites || favorites.has(c.id)))
     .sort((a, b) =>
-      sort === "land" ? (b.landSqm ?? 0) - (a.landSqm ?? 0) || a.price - b.price : a.price - b.price,
+      sort === "recent"
+        ? (b.createdAt ?? 0) - (a.createdAt ?? 0)
+        : sort === "land"
+          ? (b.landSqm ?? 0) - (a.landSqm ?? 0) || a.price - b.price
+          : a.price - b.price,
     );
 
   const chip = (active: boolean) =>
@@ -126,6 +134,7 @@ export function VillaCatalog({
             <span>{labels.sortLabel}</span>
             {(
               [
+                ...(labels.sortRecent ? ([["recent", labels.sortRecent]] as [Sort, string][]) : []),
                 ["price", labels.sortPrice],
                 ["land", labels.sortLand],
               ] as [Sort, string][]

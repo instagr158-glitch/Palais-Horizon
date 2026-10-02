@@ -73,6 +73,18 @@ const getVillas = cache(async (): Promise<FullListing[]> => {
   return [...standard, ...premium];
 });
 
+// Members see the newest listings first instead of the cheapest teaser.
+const getRecentVillas = cache(async (): Promise<FullListing[]> => {
+  const { listings } = await queryListings({
+    country: "bali",
+    propertyType: "villa",
+    listingType: "sale",
+    sort: "recent",
+    perPage: 48,
+  });
+  return listings.filter((l) => !EXCLUDED_TITLES.has(l.title));
+});
+
 // Split into their own Server Components so they can stream in behind
 // Suspense rather than blocking the whole page on the database query.
 async function HeroSection({ t, locale }: { t: Dict["bali"]; locale: string }) {
@@ -105,8 +117,18 @@ async function HeroSection({ t, locale }: { t: Dict["bali"]; locale: string }) {
   );
 }
 
-async function CatalogSection({ t, isMember, locale }: { t: Dict["bali"]; isMember: boolean; locale: string }) {
-  const villas = await getVillas();
+async function CatalogSection({
+  t,
+  isMember,
+  locale,
+  sortRecentLabel,
+}: {
+  t: Dict["bali"];
+  isMember: boolean;
+  locale: string;
+  sortRecentLabel: string;
+}) {
+  const villas = await (isMember ? getRecentVillas() : getVillas());
 
   const cards: VillaCard[] = villas.map((l) => ({
     id: l.id,
@@ -116,6 +138,7 @@ async function CatalogSection({ t, isMember, locale }: { t: Dict["bali"]; isMemb
     title: l.title,
     photos: l.images.slice(0, 4),
     price: l.priceUsd ?? 0,
+    createdAt: new Date(l.createdAt).getTime(),
     ...priceTexts(l.priceUsd, locale),
     specsText: [
       l.bedrooms ? (l.bedrooms === 1 ? t.bedroomOne : fmt(t.bedrooms, { n: l.bedrooms })) : null,
@@ -147,7 +170,10 @@ async function CatalogSection({ t, isMember, locale }: { t: Dict["bali"]; isMemb
   };
   // Reserve one slot for the hand-picked villa, fill the rest with the
   // cheapest from the catalogue.
-  const selectedCards = [pinnedCard, ...cheapest(cards, HOME_SELECTION_SIZE - 1)];
+  // Members: simply the newest listings (already ordered newest first).
+  const selectedCards = isMember
+    ? cards.slice(0, HOME_SELECTION_SIZE)
+    : [pinnedCard, ...cheapest(cards, HOME_SELECTION_SIZE - 1)];
 
   return (
     <VillaCatalog
@@ -162,6 +188,7 @@ async function CatalogSection({ t, isMember, locale }: { t: Dict["bali"]; isMemb
         favorites: t.filterFavorites,
         noFavorites: t.noFavorites,
         sortLabel: t.sortLabel,
+        sortRecent: isMember ? sortRecentLabel : undefined,
         sortPrice: t.sortPrice,
         sortLand: t.sortLand,
         premiumBadge: t.premium,
@@ -215,7 +242,12 @@ export default async function BaliPage() {
 
         <div id="biens" className="scroll-mt-16">
           <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
-            <CatalogSection t={t} isMember={isMember} locale={dict.code} />
+            <CatalogSection
+              t={t}
+              isMember={isMember}
+              locale={dict.code}
+              sortRecentLabel={dict.listings.sorts[0]}
+            />
           </Suspense>
         </div>
 
