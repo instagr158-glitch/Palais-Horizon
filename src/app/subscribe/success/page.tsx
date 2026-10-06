@@ -17,6 +17,8 @@ export async function generateMetadata() {
  * of the catalogue already matches what they said they were looking for. */
 function listingsHref(metadata: Stripe.Metadata | null | undefined): string {
   if (!metadata) return "/listings";
+  // Thailand subscribers get the expat space rather than the bare catalogue.
+  if (metadata.country === "thailand") return "/thailand/espace";
   const params = new URLSearchParams();
   if (metadata.country) params.set("country", metadata.country);
   if (metadata.listingType) params.set("listingType", metadata.listingType);

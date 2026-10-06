@@ -9,9 +9,11 @@ type Props = {
   prices: { monthly?: string; annual?: string };
   /** Overrides the default (Paris-oriented) feature list, e.g. for the Bali page. */
   features?: string[];
+  /** Country page the visitor subscribed from, so they land in its own space afterwards. */
+  country?: string;
 };
 
-export function PricingTable({ configured, prices, features }: Props) {
+export function PricingTable({ configured, prices, features, country }: Props) {
   const { t } = useI18n();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState<string | null>(null);
@@ -22,7 +24,7 @@ export function PricingTable({ configured, prices, features }: Props) {
   // post-payment success page can hand the member a pre-filtered catalogue.
   const preferences = {
     listingType: searchParams.get("listingType") ?? undefined,
-    country: searchParams.get("country") ?? undefined,
+    country: searchParams.get("country") ?? country,
     maxPrice: searchParams.get("maxPrice") ?? undefined,
   };
 
