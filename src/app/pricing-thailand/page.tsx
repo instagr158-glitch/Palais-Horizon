@@ -36,7 +36,6 @@ export default async function PricingThailandPage({
             configured={stripeConfigured}
             prices={{ monthly: PRICE_IDS.monthly, annual: PRICE_IDS.annual }}
             features={t.thailand.pricingFeatures}
-            country="thailand"
           />
         </Suspense>
       </div>

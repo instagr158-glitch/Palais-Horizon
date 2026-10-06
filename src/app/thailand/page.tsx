@@ -1,10 +1,9 @@
 import { Suspense, cache } from "react";
-import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
 import type { Dict } from "@/i18n";
-import { queryListings, priceTexts, type FullListing } from "@/lib/listings";
+import { queryListings, formatEur, formatUsd, priceTexts, type FullListing } from "@/lib/listings";
 import { VillaCatalog, type VillaCard } from "@/components/VillaCatalog";
 import { HeroSkeleton, CatalogSkeleton } from "@/components/ParisSkeleton";
 import { PartsHero } from "@/components/PartsHero";
@@ -148,12 +147,20 @@ const getRecentProperties = cache(async (): Promise<FullListing[]> => {
 
 // Split into their own Server Components so they can stream in behind
 // Suspense rather than blocking the whole page on the database query.
-async function HeroSection({ t }: { t: Dict["thailand"] }) {
+async function HeroSection({ t, locale }: { t: Dict["thailand"]; locale: string }) {
   const properties = await getProperties();
+  const prices = [
+    ...properties.filter((l) => l.priceUsd != null).map((l) => l.priceUsd!),
+    ...PINNED_PROPERTIES.map((p) => p.priceUsd),
+  ];
+  const minUsd = prices.length ? Math.min(...prices) : null;
+  const maxUsd = prices.length ? Math.max(...prices) : null;
   const heroPhotos = properties
     .filter((l) => l.images[0])
     .slice(0, 5)
     .map((l) => l.images[0]);
+  // French and German visitors see euros first, English visitors dollars first.
+  const primary = locale === "en" ? formatUsd : formatEur;
 
   return (
     <PartsHero
@@ -163,8 +170,11 @@ async function HeroSection({ t }: { t: Dict["thailand"] }) {
       trail={t.titleTrail}
       cta={t.cta}
       stats={[
-        { value: t.stat1Value, label: t.stat1Label },
-        { value: t.stat2Value, label: t.stat2Label },
+        { value: minUsd != null ? primary(minUsd) : "—", label: t.statFromLabel },
+        {
+          value: minUsd != null && maxUsd != null ? `${primary(minUsd)} – ${primary(maxUsd)}` : "—",
+          label: t.statRangeLabel,
+        },
       ]}
     />
   );
@@ -252,20 +262,23 @@ export default async function ThailandPage() {
   const session = await auth();
   const isMember = hasActiveSubscription(session?.user);
 
-  const ctaHref = isMember ? "/thailand/espace" : "/pricing-thailand";
-  const ctaLabel = isMember ? t.memberCta : t.joinCta;
+  const steps = [
+    { title: t.step1Title, body: t.step1Body },
+    { title: t.step2Title, body: t.step2Body },
+    { title: t.step3Title, body: t.step3Body },
+  ];
 
   return (
     <div>
       <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection t={t} />
+        <HeroSection t={t} locale={dict.code} />
       </Suspense>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <section id="outils" className="scroll-mt-16 py-16 sm:py-24">
+        <section className="py-16 sm:py-24">
           <ol className="grid gap-4 sm:grid-cols-3 sm:gap-6">
-            {t.pillars.map((pillar, i) => (
-              <Reveal key={pillar.title} delayMs={i * 120}>
+            {steps.map((step, i) => (
+              <Reveal key={step.title} delayMs={i * 120}>
                 <li className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-6 sm:p-7">
                   <span className="num pointer-events-none absolute -right-2 -top-6 font-display text-[7rem] font-semibold leading-none text-gold/10">
                     {i + 1}
@@ -273,46 +286,15 @@ export default async function ThailandPage() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-sm font-semibold text-gold">
                     {i + 1}
                   </span>
-                  <h3 className="mt-5 font-display text-2xl font-semibold text-cream">{pillar.title}</h3>
-                  <ul className="mt-3 grid gap-2 text-sm leading-relaxed text-dim">
-                    {pillar.items.map((item) => (
-                      <li key={item} className="flex gap-2">
-                        <span className="text-gold">✓</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="mt-5 font-display text-2xl font-semibold text-cream">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-dim">{step.body}</p>
                 </li>
               </Reveal>
             ))}
           </ol>
-
-          <div className="mt-8 flex justify-center">
-            <Link href={ctaHref} className="btn-gold rounded-full px-8 py-3 text-sm">
-              {ctaLabel}
-            </Link>
-          </div>
         </section>
 
-        <section className="pb-16 sm:pb-24">
-          <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">{t.forYouTitle}</h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {t.forYou.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-cream"
-              >
-                <span className="mt-0.5 text-emerald-500">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">{t.homesTitle}</h2>
-        <p className="mt-2 max-w-2xl text-dim">{t.homesLead}</p>
-
-        <div id="biens" className="scroll-mt-16 mt-6">
+        <div id="biens" className="scroll-mt-16">
           <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
             <CatalogSection
               t={t}

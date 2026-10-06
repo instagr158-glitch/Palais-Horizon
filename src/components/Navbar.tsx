@@ -34,7 +34,6 @@ export function Navbar() {
     : isThailandContext
       ? [
           { href: "/thailand", label: t.thailand.navLabel },
-          ...(isMember ? [{ href: "/thailand/espace", label: t.thailand.spaceLabel }] : []),
           { href: "/pricing-thailand", label: t.nav.pricing },
           { href: "/about", label: t.nav.about },
         ]
