@@ -178,7 +178,7 @@ export const de: Dict = {
     promise: ["Testen Sie Visum, Geld und Lebensstil", "Erkennen Sie die Lücken, die Sie am meisten kosten würden", "Wissen Sie, was vor der Abreise zu beheben ist"],
     howTitle: "So funktioniert's",
     step1Title: "Beantworten Sie ein paar Fragen",
-    step1Body: "Multiple Choice: Ziel, Visum, Geld, Bindungen und Umfeld.",
+    step1Body: "Multiple Choice: Ziel, Visum, Geld, Gesundheit und Bindungen.",
     step2Title: "Erhalten Sie Ihren Risikowert",
     step2Body: "Eine Zahl, die zeigt, wie viel Risiko Ihr Vorhaben heute trägt.",
     step3Title: "Sehen Sie, was zu beheben ist",

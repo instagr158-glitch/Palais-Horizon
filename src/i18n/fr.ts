@@ -178,7 +178,7 @@ export const fr: Dict = {
     promise: ["Testez votre visa, votre argent et votre mode de vie", "Repérez les failles qui vous coûteraient le plus", "Sachez quoi corriger avant de partir"],
     howTitle: "Comment ça marche",
     step1Title: "Répondez à quelques questions",
-    step1Body: "À choix multiple : votre destination, votre visa, votre argent, vos attaches et votre entourage.",
+    step1Body: "À choix multiple : votre destination, votre visa, votre argent, votre santé et vos attaches.",
     step2Title: "Obtenez votre score de risque",
     step2Body: "Un chiffre qui montre combien de risques porte votre projet aujourd'hui.",
     step3Title: "Voyez quoi corriger",

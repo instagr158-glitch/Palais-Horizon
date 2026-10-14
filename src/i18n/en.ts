@@ -176,7 +176,7 @@ export const en = {
     promise: ["Test your visa, money and lifestyle choices", "Spot the gaps that would cost you the most", "Know what to fix before you leave"],
     howTitle: "How it works",
     step1Title: "Answer a few questions",
-    step1Body: "Multiple choice: your destination, visa, money, ties and people.",
+    step1Body: "Multiple choice: your destination, visa, money, health and ties.",
     step2Title: "Get your risk score",
     step2Body: "One number showing how much risk your move carries today.",
     step3Title: "See what to fix",

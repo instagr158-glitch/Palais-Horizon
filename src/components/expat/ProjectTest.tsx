@@ -11,7 +11,7 @@ import {
 } from "@/lib/expat/test";
 
 const STORAGE_KEY = "ph-th-test";
-const FREE_RISKS = 3;
+const FREE_RISKS = 1;
 
 const labelColor: Record<Scored["label"], string> = {
   Faible: "text-emerald-400",
@@ -82,8 +82,8 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
       <div className="panel mx-auto max-w-xl rounded-sm p-8 text-center">
         <h2 className="font-display text-3xl text-cream">Prêt(e) à tester votre projet ?</h2>
         <p className="mt-3 text-silver">
-          {QUESTIONS.length} questions à choix multiple sur votre destination, votre visa, votre argent, vos attaches et
-          votre entourage. Vous obtenez un score de risque et les points à corriger en premier.
+          {QUESTIONS.length} questions rapides sur votre destination, votre visa, votre argent, votre santé et
+          vos attaches. Vous obtenez un score de risque et les points à corriger en premier.
         </p>
         <button
           onClick={() => setStarted(true)}
@@ -92,7 +92,7 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
           Commencer
           <span aria-hidden>→</span>
         </button>
-        <p className="mt-3 text-xs text-dim">Gratuit · 3 minutes · sans inscription</p>
+        <p className="mt-3 text-xs text-dim">Gratuit · 1 minute · sans inscription</p>
       </div>
     );
   }
@@ -136,11 +136,23 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
 
   const result = scoreAnswers(answers);
   const areas = areaBreakdown(answers);
+  const total = result.risks.length;
   const shown = isMember ? result.risks : result.risks.slice(0, FREE_RISKS);
-  const hidden = result.risks.length - shown.length;
+  const locked = isMember ? [] : result.risks.slice(FREE_RISKS);
+  const hidden = locked.length;
+
+  const unlockButton = (
+    <Link
+      href={pricingHref}
+      className="btn-gold flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold sm:inline-flex sm:w-auto"
+    >
+      Débloquer mon rapport complet
+      <span aria-hidden>→</span>
+    </Link>
+  );
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className={`mx-auto max-w-3xl ${hidden > 0 ? "pb-24 sm:pb-0" : ""}`}>
       <div className="panel rounded-sm p-8 text-center">
         <p className="text-xs uppercase tracking-widetitle text-dim">Votre score de risque</p>
         <p className="num mt-3 text-7xl leading-none text-gold-gradient">{result.score}</p>
@@ -166,11 +178,24 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
         </div>
       </div>
 
+      {hidden > 0 && (
+        <div className="mt-5 rounded-sm border border-gold/60 bg-gold/[0.07] p-6 text-center shadow-gold">
+          <p className="font-display text-2xl text-cream sm:text-3xl">Votre rapport complet est prêt</p>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-silver">
+            <span className="num font-semibold text-cream">{total}</span> risques identifiés dans votre projet. Vous voyez
+            le premier ci-dessous. Débloquez les <span className="num font-semibold text-cream">{hidden}</span> autres,
+            classés dans l'ordre où les corriger, avec les étapes concrètes pour chacun.
+          </p>
+          <div className="mt-5 sm:flex sm:justify-center">{unlockButton}</div>
+          <p className="mt-3 text-xs text-dim">19 € / mois · sans engagement · accès immédiat</p>
+        </div>
+      )}
+
       <h2 className="mt-10 font-display text-2xl text-cream sm:text-3xl">
-        {isMember ? "Vos risques, dans l'ordre où les corriger" : "Les risques à corriger en premier"}
+        {isMember ? "Vos risques, dans l'ordre où les corriger" : "Votre risque n° 1"}
       </h2>
 
-      {shown.length === 0 ? (
+      {total === 0 ? (
         <p className="panel mt-4 rounded-sm p-5 text-sm text-silver">
           Aucun risque majeur détecté dans vos réponses. Continuez à vérifier les conditions de votre visa avant de partir.
         </p>
@@ -199,35 +224,52 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
               </ul>
             </li>
           ))}
+
+          {locked.map((r, i) => (
+            <li key={r.question.id} className="panel relative overflow-hidden rounded-sm p-5">
+              <div className="flex items-start gap-3">
+                <span className="num flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-sm text-dim">
+                  {shown.length + i + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] uppercase tracking-wide text-dim">{AREA_LABELS[r.question.area]}</p>
+                  <h3 className="font-display text-xl text-cream">{r.content.title}</h3>
+                </div>
+                <span className="shrink-0 rounded-full border border-gold/40 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-gold">
+                  Membres
+                </span>
+              </div>
+              <div aria-hidden className="mt-4 grid gap-2">
+                <div className="h-2.5 w-full rounded-full bg-white/10" />
+                <div className="h-2.5 w-5/6 rounded-full bg-white/10" />
+                <div className="h-2.5 w-2/3 rounded-full bg-white/10" />
+              </div>
+            </li>
+          ))}
         </ol>
       )}
 
       {hidden > 0 && (
-        <div className="mt-6 rounded-sm border border-gold/40 bg-gold/5 p-6 text-center">
+        <div className="mt-6 rounded-sm border border-gold/60 bg-gold/[0.07] p-6 text-center shadow-gold">
           <p className="font-display text-2xl text-cream">
-            {hidden} autre{hidden > 1 ? "s" : ""} risque{hidden > 1 ? "s" : ""} à corriger
+            Corrigez les {hidden} autre{hidden > 1 ? "s" : ""} risque{hidden > 1 ? "s" : ""} avant de partir
           </p>
-          <p className="mx-auto mt-2 max-w-md text-sm text-silver">
-            Les membres voient la liste complète, classée dans l'ordre où la corriger, avec les étapes pour chacun.
-          </p>
-          <Link
-            href={pricingHref}
-            className="btn-gold mt-4 flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold sm:inline-flex sm:w-auto"
-          >
-            Voir mon rapport complet
-            <span aria-hidden>→</span>
-          </Link>
+          <div className="mt-4 sm:flex sm:justify-center">{unlockButton}</div>
+          <p className="mt-3 text-xs text-dim">19 € / mois · sans engagement · accès immédiat</p>
         </div>
       )}
 
-      <div className="mt-8 flex flex-wrap items-center gap-4 text-sm">
+      <div className="mt-8 text-sm">
         <button onClick={restart} className="text-dim hover:text-cream">
           Refaire le test
         </button>
-        <Link href="/thailand#biens" className="text-gold hover:underline">
-          Voir les biens à vendre →
-        </Link>
       </div>
+
+      {hidden > 0 && (
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-gold/30 bg-ink/95 p-3 backdrop-blur sm:hidden">
+          {unlockButton}
+        </div>
+      )}
 
       <p className="mt-8 text-xs leading-relaxed text-dim">
         <span className="font-semibold text-gold">À savoir : </span>

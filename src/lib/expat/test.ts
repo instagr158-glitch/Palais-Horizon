@@ -2,14 +2,13 @@
 // Informations générales et indicatives, pas un conseil juridique, fiscal ou
 // médical : les règles changent, à confirmer auprès d'un professionnel.
 
-export type Area = "place" | "visa" | "money" | "ties" | "people";
+export type Area = "place" | "visa" | "money" | "ties";
 
 export const AREA_LABELS: Record<Area, string> = {
   place: "Destination",
   visa: "Visa",
   money: "Argent",
   ties: "Attaches",
-  people: "Entourage",
 };
 
 export type Option = { label: string; risk: 0 | 1 | 2 | 3 };
@@ -25,18 +24,6 @@ export type Question = {
 
 export const QUESTIONS: Question[] = [
   {
-    id: "stage",
-    area: "place",
-    text: "Où en êtes-vous dans votre projet ?",
-    weight: 1,
-    options: [
-      { label: "Ce n'est encore qu'une idée", risk: 1 },
-      { label: "J'ai une date en tête", risk: 1 },
-      { label: "Mes billets ou mon départ sont fixés", risk: 2 },
-      { label: "Je suis déjà en Thaïlande", risk: 0 },
-    ],
-  },
-  {
     id: "city",
     area: "place",
     text: "Savez-vous dans quelle ville vous voulez vivre ?",
@@ -46,17 +33,6 @@ export const QUESTIONS: Question[] = [
       { label: "Oui, mais je n'y suis jamais allé(e)", risk: 2 },
       { label: "Oui, j'y ai séjourné moins d'un mois", risk: 1 },
       { label: "Oui, j'y ai séjourné plus d'un mois", risk: 0 },
-    ],
-  },
-  {
-    id: "abroad",
-    area: "place",
-    text: "Avez-vous déjà vécu au moins 3 mois dans un pays étranger ?",
-    weight: 1,
-    options: [
-      { label: "Non, jamais", risk: 2 },
-      { label: "Seulement en voyage", risk: 1 },
-      { label: "Oui", risk: 0 },
     ],
   },
   {
@@ -96,18 +72,6 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
-    id: "savings",
-    area: "money",
-    text: "Quelle épargne pouvez-vous y consacrer (hors billet d'avion) ?",
-    weight: 2,
-    options: [
-      { label: "Moins de 5 000 €", risk: 3 },
-      { label: "5 000 à 15 000 €", risk: 2 },
-      { label: "15 000 à 40 000 €", risk: 1 },
-      { label: "Plus de 40 000 €", risk: 0 },
-    ],
-  },
-  {
     id: "health",
     area: "money",
     text: "Avez-vous une couverture santé valable en Thaïlande ?",
@@ -142,41 +106,11 @@ export const QUESTIONS: Question[] = [
       { label: "Un plan clair, en cours d'exécution", risk: 0 },
     ],
   },
-  {
-    id: "household",
-    area: "people",
-    text: "Partez-vous seul(e), en couple ou en famille ?",
-    weight: 1,
-    options: [
-      { label: "En couple ou en famille, mais tout le monde n'est pas convaincu", risk: 3 },
-      { label: "Seul(e)", risk: 1 },
-      { label: "En couple ou en famille, tout le monde est d'accord", risk: 0 },
-    ],
-  },
-  {
-    id: "network",
-    area: "people",
-    text: "Connaissez-vous des personnes sur place ?",
-    weight: 1,
-    options: [
-      { label: "Personne", risk: 2 },
-      { label: "Quelques contacts en ligne", risk: 1 },
-      { label: "Quelqu'un qui vit déjà là-bas", risk: 0 },
-    ],
-  },
 ];
 
 export type RiskContent = { title: string; why: string; fix: string[] };
 
 export const RISKS: Record<string, RiskContent> = {
-  stage: {
-    title: "Un départ décidé avant que le plan soit prêt",
-    why: "Plus la date de départ est proche, moins vous avez de marge pour corriger les points ci-dessous sans payer cher.",
-    fix: [
-      "Fixez la date de départ seulement après avoir réglé le visa et la santé.",
-      "Prévoyez un premier séjour d'essai de 4 à 8 semaines avant de vous engager.",
-    ],
-  },
   city: {
     title: "Une ville choisie sans l'avoir testée",
     why: "Le coût de la vie, le climat, les services de santé et l'ambiance changent énormément entre Bangkok, Chiang Mai, Phuket ou Hua Hin.",
@@ -184,14 +118,6 @@ export const RISKS: Record<string, RiskContent> = {
       "Comparez 2 ou 3 villes sur le coût, la santé, la communauté et l'accès à l'aéroport.",
       "Louez d'abord quelques semaines, sans signer de bail long.",
       "Évitez de payer une longue période d'avance avant d'avoir vu le logement.",
-    ],
-  },
-  abroad: {
-    title: "Une première vie à l'étranger sans filet",
-    why: "Le choc culturel, la barrière de la langue et l'isolement fatiguent plus que prévu, surtout après les premiers mois.",
-    fix: [
-      "Prévoyez un budget retour (billet, délai) au cas où l'expérience ne vous convient pas.",
-      "Apprenez les bases du thaï et rejoignez des groupes d'expatriés avant de partir.",
     ],
   },
   visa: {
@@ -221,14 +147,6 @@ export const RISKS: Record<string, RiskContent> = {
       "Chiffrez votre budget mensuel réel, puis ajoutez 20 % de marge.",
     ],
   },
-  savings: {
-    title: "Une épargne trop juste",
-    why: "Caution, premier loyer, assurance, imprévus médicaux et retour éventuel pèsent lourd dans les premiers mois.",
-    fix: [
-      "Prévoyez environ 6 mois de dépenses plus 2 à 3 mois de loyer pour la caution et l'installation.",
-      "Gardez une réserve séparée pour l'imprévu et le billet retour.",
-    ],
-  },
   health: {
     title: "Aucune couverture santé adaptée",
     why: "Les hôpitaux privés sont d'excellente qualité mais coûteux, et votre carte vitale ne fonctionne pas sur place. Certains visas exigent une assurance.",
@@ -254,22 +172,6 @@ export const RISKS: Record<string, RiskContent> = {
       "Décidez du sort de votre logement (conserver, louer, rendre) et prévenez le bailleur à temps.",
       "Gardez un compte et une carte bancaires utilisables à l'étranger.",
       "Désignez un contact de confiance en France pour le courrier et les urgences.",
-    ],
-  },
-  household: {
-    title: "Un projet qui n'est pas partagé par tous",
-    why: "Quand un conjoint ou la famille n'est pas convaincu, les tensions apparaissent vite à l'étranger, loin des repères.",
-    fix: [
-      "Parlez ouvertement des peurs et des conditions de chacun avant de fixer une date.",
-      "Proposez un séjour d'essai commun avant toute décision définitive.",
-    ],
-  },
-  network: {
-    title: "Personne pour vous aider sur place",
-    why: "Sans contact local, les démarches (banque, logement, médecin) sont plus longues et les arnaques plus faciles.",
-    fix: [
-      "Rejoignez des groupes d'expatriés francophones de votre ville cible avant de partir.",
-      "Repérez à l'avance un interlocuteur de confiance pour le logement et l'administratif.",
     ],
   },
 };
