@@ -13,6 +13,7 @@ export function PartsHero({
   lead,
   trail,
   cta,
+  ctaHref = "#biens",
   stats,
 }: {
   photos: string[];
@@ -20,6 +21,7 @@ export function PartsHero({
   lead: string;
   trail: string;
   cta: string;
+  ctaHref?: string;
   stats: PartsHeroStat[];
 }) {
   const [index, setIndex] = useState(0);
@@ -69,7 +71,7 @@ export function PartsHero({
 
         <div className="mt-9 flex items-center gap-5">
           <a
-            href="#biens"
+            href={ctaHref}
             className="btn-gold inline-block rounded-full px-8 py-3.5 text-sm shadow-gold"
           >
             {cta}

@@ -17,8 +17,9 @@ export function Footer() {
   // the top nav).
   const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
   const isThailandContext = pathname.startsWith("/thailand") || pathname.startsWith("/pricing-thailand");
-  const isParisContext = pathname === "/" || pathname.startsWith("/annonces");
-  const hasOwnPricing = isBaliContext || isThailandContext;
+  const isFunnelContext = pathname === "/" || pathname.startsWith("/test") || pathname.startsWith("/pricing-expat");
+  const isParisContext = pathname.startsWith("/paris") || pathname.startsWith("/annonces");
+  const hasOwnPricing = isBaliContext || isThailandContext || isFunnelContext;
 
   return (
     <footer className="border-t border-ink-border bg-ink">
@@ -40,7 +41,7 @@ export function Footer() {
                 {t.footer.explore}
               </p>
               <ul className="space-y-2 text-silver">
-                {!isBaliContext && !isThailandContext && !isParisContext && (
+                {!isBaliContext && !isThailandContext && !isParisContext && !isFunnelContext && (
                   <li><Link href="/listings" className="hover:text-gold">{t.footer.residences}</Link></li>
                 )}
                 {!hasOwnPricing && (

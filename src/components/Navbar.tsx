@@ -24,7 +24,8 @@ export function Navbar() {
   // falls back to a general menu with all three entry points.
   const isBaliContext = pathname.startsWith("/bali") || pathname.startsWith("/pricing-bali");
   const isThailandContext = pathname.startsWith("/thailand") || pathname.startsWith("/pricing-thailand");
-  const isParisContext = pathname === "/" || pathname.startsWith("/annonces");
+  const isFunnelContext = pathname === "/" || pathname.startsWith("/test") || pathname.startsWith("/pricing-expat");
+  const isParisContext = pathname.startsWith("/paris") || pathname.startsWith("/annonces");
   const links = isBaliContext
     ? [
         { href: "/bali", label: t.bali.navLabel },
@@ -37,15 +38,24 @@ export function Navbar() {
           { href: "/pricing-thailand", label: t.nav.pricing },
           { href: "/about", label: t.nav.about },
         ]
+      : isFunnelContext
+        ? [
+            { href: "/", label: t.funnel.navLabel },
+            { href: "/paris", label: t.paris.navLabel },
+            { href: "/bali", label: t.bali.navLabel },
+            { href: "/thailand", label: t.thailand.navLabel },
+            { href: "/pricing-expat", label: t.nav.pricing },
+            { href: "/about", label: t.nav.about },
+          ]
       : isParisContext
         ? [
-            { href: "/", label: t.paris.navLabel },
+            { href: "/paris", label: t.paris.navLabel },
             { href: "/annonces", label: t.nav.allListings },
             { href: "/pricing", label: t.nav.pricing },
             { href: "/about", label: t.nav.about },
           ]
         : [
-            { href: "/", label: t.paris.navLabel },
+            { href: "/paris", label: t.paris.navLabel },
             { href: "/bali", label: t.bali.navLabel },
             { href: "/thailand", label: t.thailand.navLabel },
             { href: "/annonces", label: t.nav.allListings },

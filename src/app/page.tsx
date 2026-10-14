@@ -1,126 +1,47 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { getServerDict } from "@/i18n/server";
 import type { Dict } from "@/i18n";
-import { getParisListings, STANDARD_MAX_EUR } from "@/lib/paris";
-import { ParisCatalog, type ParisCard } from "@/components/ParisCatalog";
-import { HeroSkeleton, CatalogSkeleton } from "@/components/ParisSkeleton";
+import { queryListings } from "@/lib/listings";
+import { HeroSkeleton } from "@/components/ParisSkeleton";
 import { PartsHero } from "@/components/PartsHero";
 import { Reveal } from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
 
-const NUMBER_LOCALES: Record<string, string> = { fr: "fr-FR", en: "en-US", de: "de-DE" };
-
-export async function generateMetadata() {
-  const t = await getServerDict();
-  return { title: t.paris.badge };
-}
-
-function fmt(template: string, vars: Record<string, string | number>) {
-  return template.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
-}
-
-// The home page is a teaser, not the full catalogue (see /annonces, members-only,
-// for that) — a small spread across the price range, cheapest to priciest.
-const HOME_SELECTION_SIZE = 9;
-
-function pickSpread<T>(items: T[], n: number): T[] {
-  if (items.length <= n) return items;
-  return Array.from({ length: n }, (_, i) => items[Math.floor((i * items.length) / n)]);
-}
-
-function money(n: number, nf: string) {
-  return n.toLocaleString(nf, { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
-}
-
-// Split into its own Server Component so it can stream in behind a Suspense
-// boundary — the live scrape it awaits can take several seconds, and this
-// keeps that wait from blocking the whole page (nav, steps) from painting.
-async function HeroSection({ t, nf }: { t: Dict["paris"]; nf: string }) {
-  const listings = await getParisListings();
-
-  // Guy Hoquet's photos carry a visible agency watermark — fine on a small
-  // catalogue card, too noticeable blown up as the full-bleed hero backdrop.
-  const heroEligible = listings.filter((l) => !l.url.includes("guy-hoquet.com"));
-  const heroPhotos = [
-    ...heroEligible.filter((l) => l.rentEur > STANDARD_MAX_EUR).slice(1, 3),
-    ...heroEligible.filter((l) => l.rentEur <= STANDARD_MAX_EUR && (l.areaSqm ?? 0) >= 40).slice(0, 3),
-  ].map((l) => l.photos[0]);
-  const minRent = listings.length ? Math.min(...listings.map((l) => l.rentEur)) : 800;
+async function HeroSection({ t }: { t: Dict["funnel"] }) {
+  const { listings } = await queryListings({
+    country: "thailand",
+    listingType: "sale",
+    sort: "recent",
+    perPage: 12,
+  });
+  const photos = listings
+    .filter((l) => l.propertyType !== "land" && l.images[0])
+    .slice(0, 5)
+    .map((l) => l.images[0]);
 
   return (
     <PartsHero
-      photos={heroPhotos}
+      photos={photos}
       eyebrow={t.badge}
       lead={t.titleLead}
       trail={t.titleTrail}
       cta={t.cta}
+      ctaHref="/test"
       stats={[
-        { value: money(minRent, nf), label: t.statFromLabel },
-        { value: t.statRangeValue, label: t.statRangeLabel },
+        { value: t.stat1Value, label: t.stat1Label },
+        { value: t.stat2Value, label: t.stat2Label },
       ]}
-    />
-  );
-}
-
-async function CatalogSection({ t, nf, isMember }: { t: Dict["paris"]; nf: string; isMember: boolean }) {
-  const listings = await getParisListings(); // deduped: same in-flight fetch as HeroSection
-
-  const cards: ParisCard[] = listings.map((l) => ({
-    id: l.id,
-    href: isMember ? l.url : "/pricing?locked=parts",
-    external: isMember,
-    place: fmt(t.place, { zip: l.zip }),
-    title: l.title,
-    photos: l.photos,
-    rent: l.rentEur,
-    rentText: money(l.rentEur, nf),
-    pricePerSqm: l.pricePerSqm,
-    sqmText: l.pricePerSqm != null ? `${l.pricePerSqm.toLocaleString(nf, { maximumFractionDigits: 0 })} ${t.perSqm}` : null,
-    detailText: [
-      l.areaSqm ? `${l.areaSqm} m²` : null,
-      l.rooms ? (l.rooms === 1 ? t.roomsOne : fmt(t.rooms, { n: l.rooms })) : null,
-    ]
-      .filter(Boolean)
-      .join(" · "),
-    furnished: l.furnished,
-    premium: l.rentEur > STANDARD_MAX_EUR,
-  }));
-  const selectedCards = pickSpread(cards, HOME_SELECTION_SIZE);
-
-  return (
-    <ParisCatalog
-      cards={selectedCards}
-      seeMoreHref="/pricing?locked=parts"
-      seeMoreLabel={t.seeMore}
-      labels={{
-        all: t.filterAll,
-        under: t.filterUnder,
-        mid: t.filterMid,
-        premium: t.filterPremium,
-        favorites: t.filterFavorites,
-        noFavorites: t.noFavorites,
-        sortLabel: t.sortLabel,
-        sortRent: t.sortRent,
-        sortSqm: t.sortSqm,
-        perMonth: t.perMonth,
-        furnished: t.furnished,
-        premiumBadge: t.premium,
-        view: t.view,
-        addFavorite: t.addFavorite,
-        removeFavorite: t.removeFavorite,
-        empty: t.empty,
-      }}
     />
   );
 }
 
 export default async function HomePage() {
   const dict = await getServerDict();
-  const t = dict.paris;
-  const nf = NUMBER_LOCALES[dict.code] ?? "en-US";
+  const t = dict.funnel;
   const session = await auth();
   const isMember = hasActiveSubscription(session?.user);
 
@@ -133,11 +54,21 @@ export default async function HomePage() {
   return (
     <div>
       <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection t={t} nf={nf} />
+        <HeroSection t={t} />
       </Suspense>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <ul className="mx-auto grid max-w-3xl gap-3 pt-14 sm:pt-20">
+          {t.promise.map((item) => (
+            <li key={item} className="flex items-start gap-3 text-lg text-cream">
+              <span className="mt-0.5 text-gold">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
         <section className="py-16 sm:py-24">
+          <h2 className="mb-8 text-center font-display text-3xl font-semibold text-cream sm:text-5xl">{t.howTitle}</h2>
           <ol className="grid gap-4 sm:grid-cols-3 sm:gap-6">
             {steps.map((step, i) => (
               <Reveal key={step.title} delayMs={i * 120}>
@@ -154,23 +85,33 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </ol>
+          <div className="mt-8 flex justify-center">
+            <Link href="/test" className="btn-gold rounded-full px-8 py-3 text-sm">
+              {t.cta}
+            </Link>
+          </div>
         </section>
 
-        <div id="biens" className="scroll-mt-16">
-          <Suspense fallback={<CatalogSkeleton count={HOME_SELECTION_SIZE} />}>
-            <CatalogSection t={t} nf={nf} isMember={isMember} />
-          </Suspense>
-        </div>
-
-        <div className="mt-16 space-y-2 pb-16">
-          <p className="text-xs leading-relaxed text-dim">
-            {fmt(t.note, { date: new Date().toLocaleDateString(nf, { dateStyle: "long" }) })}
-          </p>
-          <p className="text-xs leading-relaxed text-dim">
-            <span className="font-semibold text-gold">{t.disclaimerTitle}</span>
-            {t.disclaimer}
-          </p>
-        </div>
+        <section className="pb-16 sm:pb-24">
+          <div className="rounded-3xl border border-gold/30 bg-gradient-to-br from-gold/10 to-transparent p-6 sm:p-10">
+            <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">{t.offerTitle}</h2>
+            <p className="mt-2 max-w-2xl text-silver">{t.offerLead}</p>
+            <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+              {t.offerFeatures.map((f) => (
+                <li key={f} className="flex items-start gap-2.5 text-sm text-cream">
+                  <span className="mt-0.5 text-emerald-500">✓</span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={isMember ? "/test" : "/pricing-expat"}
+              className="btn-gold mt-6 inline-block rounded-full px-8 py-3 text-sm"
+            >
+              {isMember ? t.reportCta : t.offerCta}
+            </Link>
+          </div>
+        </section>
       </div>
     </div>
   );
