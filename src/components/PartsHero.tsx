@@ -58,7 +58,7 @@ export function PartsHero({
             {...(i === 0 ? { priority: true } : { loading: "eager" as const })}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-ink" />
+        <div className={`absolute inset-0 bg-gradient-to-b from-black/75 to-ink ${bullets?.length ? "via-black/70" : "via-black/45"}`} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_15%_15%,rgba(212,175,55,0.22),transparent_55%)]" />
       </div>
 
@@ -75,12 +75,12 @@ export function PartsHero({
           </span>
         </h1>
 
-        {subtitle && <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">{subtitle}</p>}
+        {subtitle && <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90 [text-shadow:0_1px_10px_rgba(0,0,0,0.85)]">{subtitle}</p>}
 
         {bullets && bullets.length > 0 && (
           <ul className="mt-7 grid max-w-xl gap-4">
             {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-4 text-base leading-snug text-white sm:text-lg">
+              <li key={b} className="flex items-start gap-4 text-base leading-snug text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.85)] sm:text-lg">
                 <span
                   aria-hidden
                   className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold text-sm font-bold text-black"
