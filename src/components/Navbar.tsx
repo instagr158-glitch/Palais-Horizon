@@ -41,9 +41,6 @@ export function Navbar() {
       : isFunnelContext
         ? [
             { href: "/", label: t.funnel.navLabel },
-            { href: "/paris", label: t.paris.navLabel },
-            { href: "/bali", label: t.bali.navLabel },
-            { href: "/thailand", label: t.thailand.navLabel },
             { href: "/pricing-expat", label: t.nav.pricing },
             { href: "/about", label: t.nav.about },
           ]
