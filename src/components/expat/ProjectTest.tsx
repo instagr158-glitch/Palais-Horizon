@@ -178,19 +178,6 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
         </div>
       </div>
 
-      {hidden > 0 && (
-        <div className="mt-5 rounded-sm border border-gold/60 bg-gold/[0.07] p-6 text-center shadow-gold">
-          <p className="font-display text-2xl text-cream sm:text-3xl">Votre rapport complet est prêt</p>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-silver">
-            <span className="num font-semibold text-cream">{total}</span> risques identifiés dans votre projet. Vous voyez
-            le premier ci-dessous. Débloquez les <span className="num font-semibold text-cream">{hidden}</span> autres,
-            classés dans l'ordre où les corriger, avec les étapes concrètes pour chacun.
-          </p>
-          <div className="mt-5 sm:flex sm:justify-center">{unlockButton}</div>
-          <p className="mt-3 text-xs text-dim">19 € / mois · sans engagement · accès immédiat</p>
-        </div>
-      )}
-
       <h2 className="mt-10 font-display text-2xl text-cream sm:text-3xl">
         {isMember ? "Vos risques, dans l'ordre où les corriger" : "Votre risque n° 1"}
       </h2>
