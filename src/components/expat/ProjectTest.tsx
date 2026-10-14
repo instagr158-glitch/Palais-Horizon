@@ -85,8 +85,12 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
           {QUESTIONS.length} questions à choix multiple sur votre destination, votre visa, votre argent, vos attaches et
           votre entourage. Vous obtenez un score de risque et les points à corriger en premier.
         </p>
-        <button onClick={() => setStarted(true)} className="btn-gold mt-6 rounded-full px-8 py-3 text-sm">
+        <button
+          onClick={() => setStarted(true)}
+          className="btn-gold mt-6 flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold"
+        >
           Commencer
+          <span aria-hidden>→</span>
         </button>
         <p className="mt-3 text-xs text-dim">Gratuit · 3 minutes · sans inscription</p>
       </div>
@@ -206,8 +210,12 @@ export function ProjectTest({ isMember, pricingHref }: { isMember: boolean; pric
           <p className="mx-auto mt-2 max-w-md text-sm text-silver">
             Les membres voient la liste complète, classée dans l'ordre où la corriger, avec les étapes pour chacun.
           </p>
-          <Link href={pricingHref} className="btn-gold mt-4 inline-block rounded-full px-8 py-3 text-sm">
+          <Link
+            href={pricingHref}
+            className="btn-gold mt-4 flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold sm:inline-flex sm:w-auto"
+          >
             Voir mon rapport complet
+            <span aria-hidden>→</span>
           </Link>
         </div>
       )}

@@ -165,8 +165,9 @@ export const en = {
   funnel: {
     navLabel: "My plan",
     badge: "Before you go",
-    titleLead: "Is your move to Thailand solid?",
-    titleTrail: "Find out what to fix before you leave.",
+    titleLead: "Is your move to Thailand",
+    titleTrail: "as safe as you think it is?",
+    subtitle: "Check that your plan really holds up, and see what needs fixing before you go.",
     cta: "Test my plan",
     stat1Value: "3 min",
     stat1Label: "to answer",

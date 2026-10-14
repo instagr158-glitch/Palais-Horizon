@@ -167,8 +167,9 @@ export const de: Dict = {
   funnel: {
     navLabel: "Mein Vorhaben",
     badge: "Vor der Abreise",
-    titleLead: "Ist Ihr Umzug nach Thailand solide?",
-    titleTrail: "Finden Sie heraus, was Sie vor der Abreise beheben sollten.",
+    titleLead: "Ist Ihr Umzug nach Thailand",
+    titleTrail: "so sicher, wie Sie denken?",
+    subtitle: "Prüfen Sie, ob Ihr Plan wirklich trägt, und sehen Sie, was vor der Abreise zu beheben ist.",
     cta: "Mein Vorhaben testen",
     stat1Value: "3 Min.",
     stat1Label: "zum Beantworten",

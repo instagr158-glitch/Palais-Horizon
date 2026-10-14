@@ -167,8 +167,9 @@ export const fr: Dict = {
   funnel: {
     navLabel: "Mon projet",
     badge: "Avant de partir",
-    titleLead: "Votre projet en Thaïlande est-il solide ?",
-    titleTrail: "Découvrez ce qu'il faut corriger avant de partir.",
+    titleLead: "Votre projet en Thaïlande est-il",
+    titleTrail: "aussi solide que vous le pensez ?",
+    subtitle: "Vérifiez que votre plan tient vraiment la route, et voyez ce qu'il faut corriger avant de partir.",
     cta: "Tester mon projet",
     stat1Value: "3 min",
     stat1Label: "pour répondre",

@@ -12,16 +12,21 @@ import { Reveal } from "@/components/Reveal";
 export const dynamic = "force-dynamic";
 
 async function HeroSection({ t }: { t: Dict["funnel"] }) {
-  const { listings } = await queryListings({
+  // The hero only needs background photos: if the database is unreachable the
+  // test funnel (the actual point of this page) must still render.
+  const photos = await queryListings({
     country: "thailand",
     listingType: "sale",
     sort: "recent",
     perPage: 12,
-  });
-  const photos = listings
-    .filter((l) => l.propertyType !== "land" && l.images[0])
-    .slice(0, 5)
-    .map((l) => l.images[0]);
+  })
+    .then(({ listings }) =>
+      listings
+        .filter((l) => l.propertyType !== "land" && l.images[0])
+        .slice(0, 5)
+        .map((l) => l.images[0]),
+    )
+    .catch(() => [] as string[]);
 
   return (
     <PartsHero
@@ -31,10 +36,9 @@ async function HeroSection({ t }: { t: Dict["funnel"] }) {
       trail={t.titleTrail}
       cta={t.cta}
       ctaHref="/test"
-      stats={[
-        { value: t.stat1Value, label: t.stat1Label },
-        { value: t.stat2Value, label: t.stat2Label },
-      ]}
+      subtitle={t.subtitle}
+      bullets={t.promise}
+      stats={[]}
     />
   );
 }
@@ -58,15 +62,6 @@ export default async function HomePage() {
       </Suspense>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <ul className="mx-auto grid max-w-3xl gap-3 pt-14 sm:pt-20">
-          {t.promise.map((item) => (
-            <li key={item} className="flex items-start gap-3 text-lg text-cream">
-              <span className="mt-0.5 text-gold">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
         <section className="py-16 sm:py-24">
           <h2 className="mb-8 text-center font-display text-3xl font-semibold text-cream sm:text-5xl">{t.howTitle}</h2>
           <ol className="grid gap-4 sm:grid-cols-3 sm:gap-6">
@@ -85,9 +80,13 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </ol>
-          <div className="mt-8 flex justify-center">
-            <Link href="/test" className="btn-gold rounded-full px-8 py-3 text-sm">
+          <div className="mt-8 sm:flex sm:justify-center">
+            <Link
+              href="/test"
+              className="btn-gold flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold sm:inline-flex sm:w-auto"
+            >
               {t.cta}
+              <span aria-hidden>→</span>
             </Link>
           </div>
         </section>
@@ -106,9 +105,10 @@ export default async function HomePage() {
             </ul>
             <Link
               href={isMember ? "/test" : "/pricing-expat"}
-              className="btn-gold mt-6 inline-block rounded-full px-8 py-3 text-sm"
+              className="btn-gold mt-6 flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold sm:inline-flex sm:w-auto"
             >
               {isMember ? t.reportCta : t.offerCta}
+              <span aria-hidden>→</span>
             </Link>
           </div>
         </section>

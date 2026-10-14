@@ -14,6 +14,8 @@ export function PartsHero({
   trail,
   cta,
   ctaHref = "#biens",
+  subtitle,
+  bullets,
   stats,
 }: {
   photos: string[];
@@ -22,6 +24,10 @@ export function PartsHero({
   trail: string;
   cta: string;
   ctaHref?: string;
+  /** Short paragraph under the headline. */
+  subtitle?: string;
+  /** Benefits listed just above the button, which then spans the full width on mobile. */
+  bullets?: string[];
   stats: PartsHeroStat[];
 }) {
   const [index, setIndex] = useState(0);
@@ -69,22 +75,44 @@ export function PartsHero({
           </span>
         </h1>
 
-        <div className="mt-9 flex items-center gap-5">
+        {subtitle && <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">{subtitle}</p>}
+
+        {bullets && bullets.length > 0 && (
+          <ul className="mt-7 grid max-w-xl gap-4">
+            {bullets.map((b) => (
+              <li key={b} className="flex items-start gap-4 text-base leading-snug text-white sm:text-lg">
+                <span
+                  aria-hidden
+                  className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold text-sm font-bold text-black"
+                >
+                  ✓
+                </span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {bullets && bullets.length > 0 ? (
           <a
             href={ctaHref}
-            className="btn-gold inline-block rounded-full px-8 py-3.5 text-sm shadow-gold"
+            className="btn-gold mt-8 flex w-full items-center justify-center gap-3 rounded-2xl px-8 py-4 text-base font-bold shadow-gold sm:inline-flex sm:w-auto"
           >
             {cta}
+            <span aria-hidden>→</span>
           </a>
-          <span
-            aria-hidden
-            className="animate-scroll-cue hidden text-2xl text-gold sm:inline-block"
-          >
-            ↓
-          </span>
-        </div>
+        ) : (
+          <div className="mt-9 flex items-center gap-5">
+            <a href={ctaHref} className="btn-gold inline-block rounded-full px-8 py-3.5 text-sm shadow-gold">
+              {cta}
+            </a>
+            <span aria-hidden className="animate-scroll-cue hidden text-2xl text-gold sm:inline-block">
+              ↓
+            </span>
+          </div>
+        )}
 
-        <dl className="mt-12 grid max-w-md grid-cols-2 gap-2.5 sm:gap-4">
+        <dl className={`${stats.length ? "mt-12" : "hidden"} grid max-w-md grid-cols-2 gap-2.5 sm:gap-4`}>
           {stats.map((s) => (
             <div
               key={s.label}
